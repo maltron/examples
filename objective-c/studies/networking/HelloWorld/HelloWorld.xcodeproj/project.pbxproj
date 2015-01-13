@@ -88,6 +88,7 @@
 		22D743771A63307E00FF5CF5 /* HelloWorld */ = {
 			isa = PBXGroup;
 			children = (
+				22D744131A65673B00FF5CF5 /* model */,
 				22D743B31A63327600FF5CF5 /* util */,
 				22D743A41A63322600FF5CF5 /* viewcontroller */,
 				22D743781A63307E00FF5CF5 /* Supporting Files */,
@@ -154,6 +155,13 @@
 				22D743B11A63327100FF5CF5 /* AutoLayout.m */,
 			);
 			name = util;
+			sourceTree = "<group>";
+		};
+		22D744131A65673B00FF5CF5 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -431,6 +439,7 @@
 				22D7439A1A63307E00FF5CF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		22D7439B1A63307E00FF5CF5 /* Build configuration list for PBXNativeTarget "HelloWorldTests" */ = {
 			isa = XCConfigurationList;
@@ -439,6 +448,7 @@
 				22D7439D1A63307E00FF5CF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

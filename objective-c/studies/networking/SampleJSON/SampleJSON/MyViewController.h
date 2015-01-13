@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  MyViewController.h
 //  HelloWorld
 //
 //  Created by Mauricio Leal on 1/11/15.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder<UIApplicationDelegate>
-@property (nonatomic, strong) UIWindow *window;
+@interface MyViewController : UIViewController
 
 @end
