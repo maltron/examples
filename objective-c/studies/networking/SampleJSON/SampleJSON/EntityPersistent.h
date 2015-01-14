@@ -9,6 +9,6 @@
 @protocol EntityPersistent <NSObject>
 
 -(NSFetchedResultsController *)fetchedResultsController;
--(void)configureCell:(UITableViewCell *)celll atIndexPath:(NSIndexPath *)indexPath;
+-(void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 @end

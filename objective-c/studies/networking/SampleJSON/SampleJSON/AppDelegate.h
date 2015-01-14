@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "Person.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -18,6 +19,10 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 +(AppDelegate *)instance;
+-(NSEntityDescription *)entityPerson;
+-(Person *)newPerson;
+
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ListPersistViewController.h"
+#import "EntityPersistent.h"
 
-@interface MyViewController : UIViewController
+@interface MyViewController : ListPersistViewController<EntityPersistent>
 
 @end

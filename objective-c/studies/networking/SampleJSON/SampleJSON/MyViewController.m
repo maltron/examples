@@ -9,16 +9,16 @@
 #import "MyViewController.h"
 #import "AutoLayout.h"
 #import "Person.h"
+#import "AppDelegate.h"
 
 @interface MyViewController() <UITableViewDataSource>
-@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIBarButtonItem *buttonRequest, *buttonRight;
-@property (nonatomic, strong) NSMutableArray *persons;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation MyViewController
-@synthesize persons = _persons;
+@synthesize fetchedResultsController = _fetchedResultsController;
 
 -(void)viewDidLoad {
     [super viewDidLoad];
@@ -28,19 +28,42 @@
     [self.navigationItem setLeftBarButtonItem:_buttonRequest];
     [self.navigationItem setRightBarButtonItem:_buttonRight];
     [self.navigationItem setTitle:@"Persons"];
-    
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    [self.tableView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.tableView setDataSource:self];
-    [self.view addSubview:self.tableView];
-    [AutoLayout fill:self.tableView inside:self.view];
-    
-    _persons = [[NSMutableArray alloc] init];
 }
 
 -(void)actionRequest:(id)sender {
-    NSLog(@"[MyViewController actionLeft]");
+    NSLog(@"[MyViewController actionLeft] START");
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://localhost:8080/samplejson/rest/resource"]];
     
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:
+                                  ^(NSData *data, NSURLResponse *r, NSError *error) {
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)r;
+        NSDate *start = [NSDate date];
+        if(!error && [response statusCode] == 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"[MyViewController actionLeft] RESPONSE START: %@", start);
+                [self handleFetch:data];
+                NSLog(@"[MyViewController actionLeft] RESPONSE START: %f", [start timeIntervalSinceNow]);
+            });
+            
+        } else if(error) {
+            NSLog(@"### [MyViewController actionLeft] Error:%@", error);
+        }
+        
+        
+    }]; [task resume];
+    
+    NSLog(@"[MyViewController actionLeft] END");
+}
+
+-(void)handleFetch:(NSData *)data {
+    NSLog(@"[MyViewController handleFetch] START");
+    AppDelegate *delegate = [AppDelegate instance];
+    Person *newPerson = [delegate newPerson];
+    [newPerson parseJSON:data];
+    [delegate saveContext];
+    NSLog(@"[MyViewController handleFetch] END");
 }
 
 -(void)actionRight:(id)sender {
@@ -48,18 +71,40 @@
     
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.persons count];
+// ENTITY PERSON ENTITY PERSON ENTITY PERSON ENTITY PERSON ENTITY PERSON ENTITY PERSON
+//   ENTITY PERSON ENTITY PERSON ENTITY PERSON ENTITY PERSON ENTITY PERSON ENTITY PERSON
+
+-(NSFetchedResultsController *)fetchedResultsController {
+    if(_fetchedResultsController) return _fetchedResultsController;
+    
+    AppDelegate *delegate = [AppDelegate instance];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[delegate entityPerson]];
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSSortDescriptor *sortFirstName = [NSSortDescriptor sortDescriptorWithKey:@"firstName"
+                                                                        ascending:YES];
+//    NSSortDescriptor *sortLastName = [NSSortDescriptor sortDescriptorWithKey:@"lastName"
+//                                                                   ascending:YES];
+    [fetchRequest setSortDescriptors:@[sortFirstName]];
+    
+    NSFetchedResultsController *tempController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[delegate managedObjectContext] sectionNameKeyPath:nil cacheName:@"CACHE_PERSON"];
+    [tempController setDelegate:self];
+    self.fetchedResultsController = tempController;
+    
+    NSError *error = nil;
+    if(![self.fetchedResultsController performFetch:&error]) {
+        NSLog(@"### [MyViewController fetchedResultsController] Error:%@", error);
+        abort();
+    }
+    
+    return _fetchedResultsController;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if(!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    
-    Person *person = (Person *)self.persons[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", [person firstName], [person lastName]];
-    
-    return cell;
+-(void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    Person *person = (Person *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",
+                           [person firstName], [person lastName]];
 }
 
 @end

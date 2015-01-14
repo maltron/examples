@@ -15,6 +15,6 @@
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
 
-+(Person *)parseJSON:(NSData *)data;
+-(void)parseJSON:(NSData *)data;
 
 @end

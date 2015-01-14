@@ -55,6 +55,15 @@
     return [[UIApplication sharedApplication] delegate];
 }
 
+-(NSEntityDescription *)entityPerson {
+    return [NSEntityDescription entityForName:@"Person" inManagedObjectContext:[self managedObjectContext]];
+}
+
+-(Person *)newPerson {
+    return (Person *)[[NSManagedObject alloc] initWithEntity:[self entityPerson] insertIntoManagedObjectContext:[self managedObjectContext]];
+}
+
+
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;

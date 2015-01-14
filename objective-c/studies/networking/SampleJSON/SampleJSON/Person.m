@@ -14,11 +14,11 @@
 @dynamic firstName;
 @dynamic lastName;
 
-+(Person *)parseJSON:(NSData *)data {
-    Person *person = [[Person alloc] init];
-    
+-(void)parseJSON:(NSData *)data {
     NSError *error = nil;
-    id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    id json = [NSJSONSerialization JSONObjectWithData:data
+                                              options:NSJSONReadingMutableContainers
+                                                error:&error];
     if(error) {
         NSLog(@"### [Person parseJSON] Error:%@", error);
     } else {
@@ -28,13 +28,10 @@
         } else if([json isKindOfClass:[NSDictionary class]]) {
             NSLog(@"[Parse parseJSON] JSON is Dictionary");
             NSDictionary *dictionary = (NSDictionary *)json;
-            [person setFirstName:[dictionary objectForKey:@"FirstName"]];
-            [person setLastName:[dictionary objectForKey:@"LastName"]];
-            
+            [self setFirstName:[dictionary objectForKey:@"FirstName"]];
+            [self setLastName:[dictionary objectForKey:@"LastName"]];
         }
     }
-    
-    return person;
 }
 
 @end
