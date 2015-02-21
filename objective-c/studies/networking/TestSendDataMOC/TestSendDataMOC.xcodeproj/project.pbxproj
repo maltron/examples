@@ -1,0 +1,495 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		22AD92351A9233BA004E2384 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD92341A9233BA004E2384 /* main.m */; };
+		22AD92381A9233BA004E2384 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD92371A9233BA004E2384 /* AppDelegate.m */; };
+		22AD92521A9233BA004E2384 /* TestSendDataMOCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD92511A9233BA004E2384 /* TestSendDataMOCTests.m */; };
+		22AD92691A92349C004E2384 /* AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD925F1A92349C004E2384 /* AutoLayout.m */; };
+		22AD926A1A92349C004E2384 /* EntityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD92611A92349C004E2384 /* EntityDetailViewController.m */; };
+		22AD926B1A92349C004E2384 /* ListPersistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD92641A92349C004E2384 /* ListPersistViewController.m */; };
+		22AD926C1A92349C004E2384 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD92661A92349C004E2384 /* MyViewController.m */; };
+		22AD926D1A92349C004E2384 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD92681A92349C004E2384 /* TextFieldCell.m */; };
+		22AD92711A9234E5004E2384 /* DatabaseModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 22AD926F1A9234E5004E2384 /* DatabaseModel.xcdatamodeld */; };
+		22AD92741A923549004E2384 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD92731A923549004E2384 /* Person.m */; };
+		22AD927B1A928A72004E2384 /* PersonCRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD927A1A928A72004E2384 /* PersonCRUD.m */; };
+		22AD92C31A9507FF004E2384 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD92C21A9507FF004E2384 /* PersonViewController.m */; };
+		22AD92C61A951315004E2384 /* PersonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD92C51A951315004E2384 /* PersonDetailViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22AD924C1A9233BA004E2384 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22AD92271A9233BA004E2384 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22AD922E1A9233BA004E2384;
+			remoteInfo = TestSendDataMOC;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		22AD922F1A9233BA004E2384 /* TestSendDataMOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSendDataMOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		22AD92331A9233BA004E2384 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22AD92341A9233BA004E2384 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		22AD92361A9233BA004E2384 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		22AD92371A9233BA004E2384 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		22AD924B1A9233BA004E2384 /* TestSendDataMOCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestSendDataMOCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22AD92501A9233BA004E2384 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22AD92511A9233BA004E2384 /* TestSendDataMOCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestSendDataMOCTests.m; sourceTree = "<group>"; };
+		22AD925E1A92349C004E2384 /* AutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLayout.h; sourceTree = "<group>"; };
+		22AD925F1A92349C004E2384 /* AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLayout.m; sourceTree = "<group>"; };
+		22AD92601A92349C004E2384 /* EntityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityDetailViewController.h; sourceTree = "<group>"; };
+		22AD92611A92349C004E2384 /* EntityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityDetailViewController.m; sourceTree = "<group>"; };
+		22AD92621A92349C004E2384 /* EntityPersistent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityPersistent.h; sourceTree = "<group>"; };
+		22AD92631A92349C004E2384 /* ListPersistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListPersistViewController.h; sourceTree = "<group>"; };
+		22AD92641A92349C004E2384 /* ListPersistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListPersistViewController.m; sourceTree = "<group>"; };
+		22AD92651A92349C004E2384 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
+		22AD92661A92349C004E2384 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
+		22AD92671A92349C004E2384 /* TextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCell.h; sourceTree = "<group>"; };
+		22AD92681A92349C004E2384 /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
+		22AD92701A9234E5004E2384 /* DatabaseModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DatabaseModel.xcdatamodel; sourceTree = "<group>"; };
+		22AD92721A923549004E2384 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		22AD92731A923549004E2384 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		22AD92791A928A72004E2384 /* PersonCRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCRUD.h; sourceTree = "<group>"; };
+		22AD927A1A928A72004E2384 /* PersonCRUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCRUD.m; sourceTree = "<group>"; };
+		22AD92C11A9507FF004E2384 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
+		22AD92C21A9507FF004E2384 /* PersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonViewController.m; sourceTree = "<group>"; };
+		22AD92C41A951315004E2384 /* PersonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonDetailViewController.h; sourceTree = "<group>"; };
+		22AD92C51A951315004E2384 /* PersonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonDetailViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		22AD922C1A9233BA004E2384 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22AD92481A9233BA004E2384 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		22AD92261A9233BA004E2384 = {
+			isa = PBXGroup;
+			children = (
+				22AD92311A9233BA004E2384 /* TestSendDataMOC */,
+				22AD924E1A9233BA004E2384 /* TestSendDataMOCTests */,
+				22AD92301A9233BA004E2384 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		22AD92301A9233BA004E2384 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22AD922F1A9233BA004E2384 /* TestSendDataMOC.app */,
+				22AD924B1A9233BA004E2384 /* TestSendDataMOCTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		22AD92311A9233BA004E2384 /* TestSendDataMOC */ = {
+			isa = PBXGroup;
+			children = (
+				22AD926E1A9234CF004E2384 /* model */,
+				22AD925C1A923485004E2384 /* viewcontroller */,
+				22AD925B1A923481004E2384 /* util */,
+				22AD92361A9233BA004E2384 /* AppDelegate.h */,
+				22AD92371A9233BA004E2384 /* AppDelegate.m */,
+				22AD92321A9233BA004E2384 /* Supporting Files */,
+			);
+			path = TestSendDataMOC;
+			sourceTree = "<group>";
+		};
+		22AD92321A9233BA004E2384 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				22AD92331A9233BA004E2384 /* Info.plist */,
+				22AD92341A9233BA004E2384 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		22AD924E1A9233BA004E2384 /* TestSendDataMOCTests */ = {
+			isa = PBXGroup;
+			children = (
+				22AD92511A9233BA004E2384 /* TestSendDataMOCTests.m */,
+				22AD924F1A9233BA004E2384 /* Supporting Files */,
+			);
+			path = TestSendDataMOCTests;
+			sourceTree = "<group>";
+		};
+		22AD924F1A9233BA004E2384 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				22AD92501A9233BA004E2384 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		22AD925B1A923481004E2384 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				22AD925E1A92349C004E2384 /* AutoLayout.h */,
+				22AD925F1A92349C004E2384 /* AutoLayout.m */,
+			);
+			name = util;
+			sourceTree = "<group>";
+		};
+		22AD925C1A923485004E2384 /* viewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				22AD92651A92349C004E2384 /* MyViewController.h */,
+				22AD92661A92349C004E2384 /* MyViewController.m */,
+				22AD925D1A92348A004E2384 /* common */,
+				22AD92C11A9507FF004E2384 /* PersonViewController.h */,
+				22AD92C21A9507FF004E2384 /* PersonViewController.m */,
+				22AD92C41A951315004E2384 /* PersonDetailViewController.h */,
+				22AD92C51A951315004E2384 /* PersonDetailViewController.m */,
+			);
+			name = viewcontroller;
+			sourceTree = "<group>";
+		};
+		22AD925D1A92348A004E2384 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				22AD92601A92349C004E2384 /* EntityDetailViewController.h */,
+				22AD92611A92349C004E2384 /* EntityDetailViewController.m */,
+				22AD92621A92349C004E2384 /* EntityPersistent.h */,
+				22AD92631A92349C004E2384 /* ListPersistViewController.h */,
+				22AD92641A92349C004E2384 /* ListPersistViewController.m */,
+				22AD92671A92349C004E2384 /* TextFieldCell.h */,
+				22AD92681A92349C004E2384 /* TextFieldCell.m */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		22AD926E1A9234CF004E2384 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				22AD926F1A9234E5004E2384 /* DatabaseModel.xcdatamodeld */,
+				22AD92721A923549004E2384 /* Person.h */,
+				22AD92731A923549004E2384 /* Person.m */,
+				22AD92791A928A72004E2384 /* PersonCRUD.h */,
+				22AD927A1A928A72004E2384 /* PersonCRUD.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		22AD922E1A9233BA004E2384 /* TestSendDataMOC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22AD92551A9233BA004E2384 /* Build configuration list for PBXNativeTarget "TestSendDataMOC" */;
+			buildPhases = (
+				22AD922B1A9233BA004E2384 /* Sources */,
+				22AD922C1A9233BA004E2384 /* Frameworks */,
+				22AD922D1A9233BA004E2384 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestSendDataMOC;
+			productName = TestSendDataMOC;
+			productReference = 22AD922F1A9233BA004E2384 /* TestSendDataMOC.app */;
+			productType = "com.apple.product-type.application";
+		};
+		22AD924A1A9233BA004E2384 /* TestSendDataMOCTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22AD92581A9233BA004E2384 /* Build configuration list for PBXNativeTarget "TestSendDataMOCTests" */;
+			buildPhases = (
+				22AD92471A9233BA004E2384 /* Sources */,
+				22AD92481A9233BA004E2384 /* Frameworks */,
+				22AD92491A9233BA004E2384 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22AD924D1A9233BA004E2384 /* PBXTargetDependency */,
+			);
+			name = TestSendDataMOCTests;
+			productName = TestSendDataMOCTests;
+			productReference = 22AD924B1A9233BA004E2384 /* TestSendDataMOCTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		22AD92271A9233BA004E2384 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Mauricio \"Maltron\" Leal";
+				TargetAttributes = {
+					22AD922E1A9233BA004E2384 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					22AD924A1A9233BA004E2384 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 22AD922E1A9233BA004E2384;
+					};
+				};
+			};
+			buildConfigurationList = 22AD922A1A9233BA004E2384 /* Build configuration list for PBXProject "TestSendDataMOC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 22AD92261A9233BA004E2384;
+			productRefGroup = 22AD92301A9233BA004E2384 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				22AD922E1A9233BA004E2384 /* TestSendDataMOC */,
+				22AD924A1A9233BA004E2384 /* TestSendDataMOCTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		22AD922D1A9233BA004E2384 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22AD92491A9233BA004E2384 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		22AD922B1A9233BA004E2384 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22AD92C61A951315004E2384 /* PersonDetailViewController.m in Sources */,
+				22AD92C31A9507FF004E2384 /* PersonViewController.m in Sources */,
+				22AD92711A9234E5004E2384 /* DatabaseModel.xcdatamodeld in Sources */,
+				22AD926D1A92349C004E2384 /* TextFieldCell.m in Sources */,
+				22AD927B1A928A72004E2384 /* PersonCRUD.m in Sources */,
+				22AD926C1A92349C004E2384 /* MyViewController.m in Sources */,
+				22AD92691A92349C004E2384 /* AutoLayout.m in Sources */,
+				22AD92381A9233BA004E2384 /* AppDelegate.m in Sources */,
+				22AD926A1A92349C004E2384 /* EntityDetailViewController.m in Sources */,
+				22AD92741A923549004E2384 /* Person.m in Sources */,
+				22AD92351A9233BA004E2384 /* main.m in Sources */,
+				22AD926B1A92349C004E2384 /* ListPersistViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22AD92471A9233BA004E2384 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22AD92521A9233BA004E2384 /* TestSendDataMOCTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		22AD924D1A9233BA004E2384 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22AD922E1A9233BA004E2384 /* TestSendDataMOC */;
+			targetProxy = 22AD924C1A9233BA004E2384 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		22AD92531A9233BA004E2384 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		22AD92541A9233BA004E2384 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		22AD92561A9233BA004E2384 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = TestSendDataMOC/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		22AD92571A9233BA004E2384 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = TestSendDataMOC/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		22AD92591A9233BA004E2384 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TestSendDataMOCTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestSendDataMOC.app/TestSendDataMOC";
+			};
+			name = Debug;
+		};
+		22AD925A1A9233BA004E2384 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TestSendDataMOCTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestSendDataMOC.app/TestSendDataMOC";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		22AD922A1A9233BA004E2384 /* Build configuration list for PBXProject "TestSendDataMOC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22AD92531A9233BA004E2384 /* Debug */,
+				22AD92541A9233BA004E2384 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22AD92551A9233BA004E2384 /* Build configuration list for PBXNativeTarget "TestSendDataMOC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22AD92561A9233BA004E2384 /* Debug */,
+				22AD92571A9233BA004E2384 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		22AD92581A9233BA004E2384 /* Build configuration list for PBXNativeTarget "TestSendDataMOCTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22AD92591A9233BA004E2384 /* Debug */,
+				22AD925A1A9233BA004E2384 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		22AD926F1A9234E5004E2384 /* DatabaseModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				22AD92701A9234E5004E2384 /* DatabaseModel.xcdatamodel */,
+			);
+			currentVersion = 22AD92701A9234E5004E2384 /* DatabaseModel.xcdatamodel */;
+			path = DatabaseModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 22AD92271A9233BA004E2384 /* Project object */;
+}

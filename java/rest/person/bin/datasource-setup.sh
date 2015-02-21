@@ -1,0 +1,1 @@
+jboss-cli.sh -c --commands="/subsystem=datasources/data-source=PersonDS:add(driver-name=MySQL, jndi-name=java:/jboss/datasources/DATABASE_PERSON,connection-url=jdbc:mysql://localhost:3306/DATABASE_PERSON, user-name=mauricio, password=maltron),:reload"

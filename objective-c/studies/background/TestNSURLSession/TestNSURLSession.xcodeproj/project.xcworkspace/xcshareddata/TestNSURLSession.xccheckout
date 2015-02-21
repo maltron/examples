@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3215EAF5-054B-4E62-8523-A8BE36E4645A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TestNSURLSession</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>189BDA0D2C43A05A9E629E7617B58DC56923FF5A</key>
+		<string>https://github.com/maltron/examples.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>objective-c/studies/background/TestNSURLSession/TestNSURLSession.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>189BDA0D2C43A05A9E629E7617B58DC56923FF5A</key>
+		<string>../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/maltron/examples.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>189BDA0D2C43A05A9E629E7617B58DC56923FF5A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>189BDA0D2C43A05A9E629E7617B58DC56923FF5A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>examples</string>
+		</dict>
+	</array>
+</dict>
+</plist>

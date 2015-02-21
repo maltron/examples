@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>61C40472-C623-485B-B0E6-E46E3B4AD6DA</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Pods</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>189BDA0D2C43A05A9E629E7617B58DC56923FF5A</key>
+		<string>https://github.com/maltron/examples.git</string>
+		<key>4B5AD85EBCA97B9C16DA7D339C1DABCD9C30F521</key>
+		<string>https://github.com/objcio/issue-10-core-data-network-application.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Pods.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>189BDA0D2C43A05A9E629E7617B58DC56923FF5A</key>
+		<string>../../..</string>
+		<key>4B5AD85EBCA97B9C16DA7D339C1DABCD9C30F521</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/objcio/issue-10-core-data-network-application.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4B5AD85EBCA97B9C16DA7D339C1DABCD9C30F521</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>189BDA0D2C43A05A9E629E7617B58DC56923FF5A</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4B5AD85EBCA97B9C16DA7D339C1DABCD9C30F521</string>
+			<key>IDESourceControlWCCName</key>
+			<string>issue-10-core-data-network-application</string>
+		</dict>
+	</array>
+</dict>
+</plist>
