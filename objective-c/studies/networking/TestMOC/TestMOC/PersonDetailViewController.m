@@ -60,8 +60,10 @@
     // First, check if the name does exist on the Server
     NSString *firstName = [self.textFirstName text];
     NSString *lastName = [self.textLastName text];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.service findFirstName:firstName andLastName:lastName
               completionHandler:^(NSData *data, NSHTTPURLResponse *response, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if(error) { // Networking Problems
             [delegate alertAsyncNetworkProblem];
@@ -93,17 +95,7 @@
             [delegate alertAsyncServerProblem];
             
         }
-        
     }];
-    
-//    
-//    NSManagedObjectContext *context = [delegate mainContext];
-//    
-//    Person *newPerson = [self hasPerson] ? [self personSelected] : [Person newPerson:context];
-//    [newPerson setFirstName:[self.textFirstName text]];
-//    [newPerson setLastName:[self.textLastName text]];
-//    [delegate saveContext];
-//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)alertAsyncDuplicateFound:(NSString *)firstName andLastName:(NSString *)lastName {
@@ -122,8 +114,10 @@
     [person setFirstName:firstName];
     [person setLastName:lastName];
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.service save:person isInsert:![self hasPerson]
      completionHandler:^(NSData *data, NSHTTPURLResponse *response, NSError *error) {
+         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
          if(error) { // Network Problem
              [delegate alertAsyncNetworkProblem];

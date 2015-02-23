@@ -11,11 +11,11 @@
 #import "Person.h"
 
 @interface PersonService : NetworkService
-@property (nonatomic, strong) NSManagedObjectContext *personContext;
+@property (readonly, nonatomic, strong) NSManagedObjectContext *personContext;
 
 -(void)fetchAll:(void(^)(NSData *data, NSHTTPURLResponse *response, NSError *error))completionHandler ;
 -(void)findFirstName:(NSString *)firstName andLastName:(NSString *)lastName completionHandler:(void(^)(NSData *data, NSHTTPURLResponse *response, NSError *error))completionHandler;
 -(void)save:(Person *)person isInsert:(BOOL)isInsert completionHandler:(void(^)(NSData *data, NSHTTPURLResponse *respose, NSError *error))completionHandler;
--(void)delete:(Person *)person context:(NSManagedObjectContext *)context completionHandler:(void(^)(NSData *data, NSHTTPURLResponse *respose, NSError *error))completionHandler;
+-(void)delete:(NSManagedObjectID *)ID completionHandler:(void(^)(NSData *data, NSHTTPURLResponse *respose, NSError *error))completionHandler;
 
 @end

@@ -72,18 +72,17 @@
 }
 
 -(void)deleteAllLocal {
-    NSManagedObjectContext *context = [[AppDelegate instance] mainContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:[Person entity:context]];
+    [fetchRequest setEntity:[Person entity:[self personContext]]];
     
-    NSArray *result = [context executeFetchRequest:fetchRequest error:nil];
-    for(Person *person in result) [context deleteObject:person];
+    NSArray *result = [self.personContext executeFetchRequest:fetchRequest error:nil];
+    for(Person *person in result) [self.personContext deleteObject:person];
     
-    NSError *error = nil;
-    if([context hasChanges] && ![context save:&error]) {
-        NSLog(@"### [PersonService deleteAllLocal] ERROR:%@, %@", error, [error userInfo]);
-        abort();
-    }
+//    NSError *error = nil;
+//    if([self.personContext hasChanges] && ![self.personContext save:&error]) {
+//        NSLog(@"### [PersonService deleteAllLocal] ERROR:%@, %@", error, [error userInfo]);
+//        abort();
+//    }
 }
 
 -(void)findFirstName:(NSString *)firstName andLastName:(NSString *)lastName completionHandler:(void(^)(NSData *data, NSHTTPURLResponse *response, NSError *error))completionHandler {
@@ -146,8 +145,15 @@
     [task resume];
 }
 
--(void)delete:(Person *)person context:(NSManagedObjectContext *)context completionHandler:(void(^)(NSData *data, NSHTTPURLResponse *respose, NSError *error))completionHandler {
+-(void)delete:(NSManagedObjectID *)ID completionHandler:(void(^)(NSData *data, NSHTTPURLResponse *respose, NSError *error))completionHandler {
     AppDelegate *delegate = [AppDelegate instance];
+    
+    NSError *error = nil;
+    Person *person = (Person *)[self.personContext existingObjectWithID:ID error:&error];
+    if(error) {
+        NSLog(@"### [PeronService delete] ERROR:%@, %@", error, [error userInfo]);
+        abort();
+    }
     
     NSURL *url = [delegate urlDelete:[person iD]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
@@ -161,11 +167,11 @@
         // SUCCESS SUCCESS SUCCESS SUCCESS SUCCESS SUCCESS SUCCESS
         if([self isSuccessfull:response]) {
             NSLog(@">>> [PersonService delete] SUCCESS");
-            [context deleteObject:person];
+            [self.personContext deleteObject:person];
             
             error = nil; // Recycling Error instance ?????
             // This operation should trigger mergeAll: method call
-            if([context hasChanges] && ![context save:&error]) {
+            if([self.personContext hasChanges] && ![self.personContext save:&error]) {
                 NSLog(@"### [PersonService save] ERROR:%@, %@", error, [error userInfo]);
                 abort();
             }

@@ -77,30 +77,17 @@
     
     if(editingStyle == UITableViewCellEditingStyleDelete) {
         NSLog(@">>> [PersonVC commitEditingStyle] UITableViewCellEditingStyleDelete");
-        [self.service delete:[self.fetchedResultsController objectAtIndexPath:indexPath]
-           context:[self.fetchedResultsController managedObjectContext] 
+        Person *person = (Person *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        [self.service delete:[person objectID]
            completionHandler:^(NSData *data, NSHTTPURLResponse *response, NSError *error) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             
             if([self.service isSuccessfull:response]) {
                 
             }
             
         }];
-        
-        
-//        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-//        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-//        
-//        NSError *error = nil;
-//        if(![context save:&error]) {
-//            // Replace this implementation with code to handle the error
-//            // apropriately. abort() causes the application to generate
-//            // a crash log and terminate. You should not use this function
-//            // in a shipping application, altough it may be useful
-//            // during development.
-//            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//            abort();
-//        }
     }
 }
 
