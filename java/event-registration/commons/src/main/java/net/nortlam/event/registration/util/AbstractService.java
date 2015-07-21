@@ -27,9 +27,66 @@ import net.nortlam.event.registration.exception.NotFoundException;
 
 public abstract class AbstractService<T> {
     
+    private Class<T> className;
+    
+    public AbstractService(Class<T> className) {
+        this.className = className;
+    }
+            
+    
+    public T create(T t) throws IllegalArgumentException, BiggerException,
+                        MissingInformationException, AlreadyExistsException, 
+                                                InternalServerErrorException {
+        validation(t, true);
+        
+        getEntityManager().persist(t);
+        return t;
+    }
+    
+    public T read(Object ID) throws NotFoundException, 
+                                                 InternalServerErrorException {
+        try {
+            T found = getEntityManager().find(className, ID);
+            if(found == null) throw new NotFoundException();
+            
+            return found;
+        } catch(IllegalArgumentException ex) {
+            LOG.log(Level.SEVERE, "### read() ILLEGAL ARGUMENT EXCEPTION:{0}",
+                    ex.getMessage());
+            throw new InternalServerErrorException(ex);
+        }
+    }
+    
+    public T update(T t) throws IllegalArgumentException, BiggerException,
+                        MissingInformationException, AlreadyExistsException, 
+                                                InternalServerErrorException {
+        validation(t, false);
+        
+        return getEntityManager().merge(t);
+    }
+    
+    public void delete(Object ID) 
+                        throws NotFoundException, InternalServerErrorException {
+        try {
+            T found = getEntityManager().find(className, ID);
+            getEntityManager().remove(found);
+            
+        } catch(IllegalArgumentException ex) {
+            LOG.log(Level.SEVERE, "### read() ILLEGAL ARGUMENT EXCEPTION:{0}",
+                    ex.getMessage());
+            throw new InternalServerErrorException(ex);
+        } catch(TransactionRequiredException ex) {
+            LOG.log(Level.SEVERE, "### read() TRANSACTION REQUIRED EXCEPTION:{0}",
+                    ex.getMessage());
+            throw new InternalServerErrorException(ex);
+        }
+    }
+    
     public abstract void validation(T t, boolean isNew) throws IllegalArgumentException,
             BiggerException, MissingInformationException, AlreadyExistsException, 
                                                     InternalServerErrorException;
+    
+    public abstract EntityManager getEntityManager();
     
     private static final Logger LOG = Logger.getLogger(AbstractService.class.getName());
 
@@ -52,7 +109,7 @@ public abstract class AbstractService<T> {
             return em.createQuery(query).getSingleResult();
         } catch(NoResultException ex) { 
             // NoResultException - if there is no result
-            LOG.log(Level.WARNING, "### findByEmail() NO RESULT EXCEPTION:{0}", ex.getMessage());
+            LOG.log(Level.WARNING, "### findByProperty() NO RESULT EXCEPTION:{0}", ex.getMessage());
             throw new NotFoundException(ex);
         } catch(NonUniqueResultException | IllegalStateException | 
                 QueryTimeoutException | TransactionRequiredException | 
@@ -63,11 +120,11 @@ public abstract class AbstractService<T> {
             // TransactionRequiredException - if a lock mode has been set and there is no transaction
             // PessimisticLockException - if pessimistic locking fails and the transaction is rolled back
             // LockTimeoutException - if pessimistic locking fails and only the statement is rolled back
-            LOG.log(Level.WARNING, "### findByEmail() EXCEPTION:{0}", ex.getMessage());
+            LOG.log(Level.WARNING, "### findByEmfindByPropertyail() EXCEPTION:{0}", ex.getMessage());
             throw new InternalServerErrorException(ex);
         } catch(PersistenceException ex) {
             // PersistenceException - if the query execution exceeds the query timeout value set and the transaction is rolled back            
-            LOG.log(Level.WARNING, "### findByEmail() PERSISTENCE EXCEPTION:{0}", ex.getMessage());
+            LOG.log(Level.WARNING, "### findByProperty() PERSISTENCE EXCEPTION:{0}", ex.getMessage());
             throw new InternalServerErrorException(ex);
         } 
         

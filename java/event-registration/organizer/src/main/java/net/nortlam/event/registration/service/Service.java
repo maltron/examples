@@ -1,20 +1,9 @@
 package net.nortlam.event.registration.service;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.LockTimeoutException;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
-import javax.persistence.PessimisticLockException;
-import javax.persistence.QueryTimeoutException;
-import javax.persistence.TransactionRequiredException;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
@@ -32,6 +21,10 @@ public class Service extends AbstractService<Organizer> {
     @PersistenceContext
     private EntityManager em;
 
+    public Service() {
+        super(Organizer.class);
+    }
+
     @Override
     public void validation(Organizer organizer, boolean isNew) 
             throws IllegalArgumentException, BiggerException, 
@@ -46,6 +39,19 @@ public class Service extends AbstractService<Organizer> {
             throw new BiggerException(String.format(
                     "Email is bigger than %d characters", Organizer.LENGTH_EMAIL));
         
+        // EMAIL CHECK
+        try {
+            Organizer found = findByEmail(organizer);
+            if(isNew) throw new AlreadyExistsException(
+                String.format("Email %s already exists", organizer.getEmail()));
+            else if(found.getID() != organizer.getID())
+                throw new AlreadyExistsException(
+                String.format("Email %s already exists", organizer.getEmail()));
+            
+        } catch(NotFoundException ex) {
+            // NOTHING TO DO
+        }
+        
         if(organizer.getFirstName() == null)
             throw new MissingInformationException("First Name is Missing");
         
@@ -59,6 +65,21 @@ public class Service extends AbstractService<Organizer> {
         if(organizer.getLastName().length() > Organizer.LENGTH_LASTNAME)
             throw new BiggerException(String.format(
                     "Last Name is bigger than %d characters", Organizer.LENGTH_LASTNAME));
+
+        // FIRST NAME AND LAST NAME CHECK
+        try {
+            Organizer found = findByFirstLastName(organizer);
+            if(isNew) throw new AlreadyExistsException(
+                String.format("First and Lastname (%s %s) already exists", organizer.getFirstName(),
+                        organizer.getLastName()));
+            else if(found.getID() != organizer.getID())
+                throw new AlreadyExistsException(
+                String.format("First and Lastname (%s %s) already exists", organizer.getFirstName(),
+                        organizer.getLastName()));
+            
+        } catch(NotFoundException ex) {
+            // NOTHING TO DO
+        }
         
         if(organizer.getPassword() == null)
             throw new MissingInformationException("Password is Missing");
@@ -67,17 +88,22 @@ public class Service extends AbstractService<Organizer> {
             throw new BiggerException(String.format(
                     "Password is bigger than %d characters", Organizer.LENGTH_EMAIL));
     }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return em;
+    }
     
     // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     //  FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
-    public Organizer findByEmail(String email) throws NotFoundException, 
+    public Organizer findByEmail(Organizer organizer) throws NotFoundException, 
                                                     InternalServerErrorException {
-        return findByProperty(em, Organizer.class, "email", email);
+        return findByProperty(em, Organizer.class, "email", organizer.getEmail());
     }
     
-    public Organizer findByFirstLastName(String firstName, String lastName)
+    public Organizer findByFirstLastName(Organizer organizer)
                         throws NotFoundException, InternalServerErrorException {
-        return findByProperty(em, Organizer.class, "firstName", firstName,
-                                                            "lastName", lastName);
+        return findByProperty(em, Organizer.class, "firstName", organizer.getFirstName(),
+                                           "lastName", organizer.getLastName());
     }
 }
