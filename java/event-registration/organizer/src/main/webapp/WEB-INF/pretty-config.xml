@@ -1,0 +1,34 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+    <!-- HOME -->
+    <url-mapping id="HOME">
+        <pattern value="/" />
+        <view-id value="faces/listevents.xhtml" />
+    </url-mapping>
+
+    <!-- Event Detail -->
+    <url-mapping id="event_detail">
+        <pattern value="/#{eventID}" />
+        <view-id value="/faces/event.xhtml" />
+    </url-mapping>
+    
+    <!-- Event Registration -->
+    <url-mapping id="event_registration">
+        <pattern value="/#{eventID}/register" />
+        <view-id value="/faces/event_registration.xhtml" />
+    </url-mapping>
+    
+    <url-mapping id="not_found">
+        <pattern value="/error/notfound"/>
+        <view-id value="/faces/error/not_found.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="internal_server">
+        <pattern value="/error/internalserver"/>
+        <view-id value="/faces/error/internal_server.xhtml"/>
+    </url-mapping>
+
+</pretty-config>
