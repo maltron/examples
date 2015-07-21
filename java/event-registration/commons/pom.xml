@@ -6,7 +6,7 @@
     <version>2.0</version>
     <packaging>jar</packaging>
     
-    <name>Event Registration: Commons</name>
+    <name>Event Registration2: Commons</name>
     
     <dependencies>
         <dependency>
