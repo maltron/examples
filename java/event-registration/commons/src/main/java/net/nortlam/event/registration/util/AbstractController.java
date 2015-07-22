@@ -26,7 +26,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-//import net.nortlam.porcupine.common.Porcupine;
 
 /**
  * A easy way to create JSF Beans
