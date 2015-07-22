@@ -18,8 +18,11 @@ public class EventRegistrationCommonController extends AbstractController {
     public static final String PARAMETER_EVENT_SERVICE_HOST = "service-event";
     public static final String DEFAULT_EVENT_SERVICE_HOST = "http://localhost:8080/event";
     
-    public static final String PARAMETER_USER_SERVICE_HOST = "service-user";
-    public static final String DEFAULT_USER_SERVICE_HOST = "http://localhost:8080/user";
+    public static final String PARAMETER_ATTENDEE_SERVICE_HOST = "service-attendee";
+    public static final String DEFAULT_ATTENDEE_SERVICE_HOST = "http://localhost:8080/attendee";
+    
+    public static final String PARAMETER_ORGANIZER_SERVICE_HOST = "service-organizer";
+    public static final String DEFAULT_ORGANIZER_SERVICE_HOST = "http://localhost:8080/organizer";
     
     public void redirectNotFoundError() {
         redirect(ERROR_NOT_FOUND);
@@ -29,9 +32,14 @@ public class EventRegistrationCommonController extends AbstractController {
         redirect(ERROR_INTERNAL_SERVER);
     }
     
-    protected String hostUserService() {
-        String value = getExternal().getInitParameter(PARAMETER_USER_SERVICE_HOST);
-        return value != null ? value : DEFAULT_USER_SERVICE_HOST;
+    protected String hostAttendeeService() {
+        String value = getExternal().getInitParameter(PARAMETER_ATTENDEE_SERVICE_HOST);
+        return value != null ? value : DEFAULT_ATTENDEE_SERVICE_HOST;
+    }
+    
+    protected String hostOrganizerService() {
+        String value = getExternal().getInitParameter(PARAMETER_ORGANIZER_SERVICE_HOST);
+        return value != null ? value : DEFAULT_ORGANIZER_SERVICE_HOST;
     }
     
     protected String hostEventService() {
