@@ -12,5 +12,26 @@
         <pattern value="/error/internalserver"/>
         <view-id value="/faces/error/internal_server.xhtml"/>
     </url-mapping>
+    
+    <!-- Organizer -->
+    <url-mapping id="organizer_new">
+        <pattern value="/new"/>
+        <view-id value="/faces/organizer/organizer.xhtml"/>
+    </url-mapping>
+    
+    <url-mapping id="organizer_edit">
+        <pattern value="/#{organizerID}"/>
+        <view-id value="/faces/organizer/organizer.xhtml"/>
+    </url-mapping>
+    
+    <url-mapping id="organizer_create_event">
+        <pattern value="/event/#{organizerID}/new"/>
+        <view-id value="/faces/organizer/event.xhtml"/>
+    </url-mapping>
+    
+    <url-mapping id="organizer_edit_event">
+        <pattern value="/event/#{eventID}"/>
+        <view-id value="/faces/organizer/event.xhtml"/>
+    </url-mapping>
 
 </pretty-config>

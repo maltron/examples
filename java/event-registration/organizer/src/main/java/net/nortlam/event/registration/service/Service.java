@@ -1,10 +1,15 @@
 package net.nortlam.event.registration.service;
 
+import java.net.URI;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 
+import net.nortlam.event.registration.entity.Event;
 import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
@@ -105,5 +110,103 @@ public class Service extends AbstractService<Organizer> {
                         throws NotFoundException, InternalServerErrorException {
         return findByProperty(em, Organizer.class, "firstName", organizer.getFirstName(),
                                            "lastName", organizer.getLastName());
+    }
+    
+    // REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST 
+    //  REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST
+    public Event requestEvent(String host, long ID) throws NotFoundException,
+                                                 InternalServerErrorException {
+        URI uri = UriBuilder.fromUri(host).path("/api/{ID}").build(ID);
+        return request(uri, Event.class);
+    }
+
+//    public Response create(Event event) throws IllegalArgumentException, 
+//            BiggerException, MissingInformationException, AlreadyExistsException, 
+//                                                InternalServerErrorException {
+    
+    public Event requestCreateEvent(String host, Event event) 
+                            throws AlreadyExistsException, IllegalArgumentException,
+                                MissingInformationException, NotFoundException, 
+                                                    InternalServerErrorException {
+        URI uri = UriBuilder.fromUri(host).path("/api").build();
+        Event inserted = null;
+        
+        Response response = null;
+        try {
+            response = post(uri, event);
+            if(response.getStatus() == Response.Status.CREATED.getStatusCode())
+                inserted = response.readEntity(Event.class);
+            else if(response.getStatus() == Response.Status.NOT_FOUND.getStatusCode())
+                throw new NotFoundException();
+            else if(response.getStatus() == Response.Status.CONFLICT.getStatusCode())
+                throw new AlreadyExistsException();
+            else if(response.getStatus() == Response.Status.EXPECTATION_FAILED.getStatusCode())
+                throw new IllegalArgumentException();
+            else if(response.getStatus() == Response.Status.BAD_REQUEST.getStatusCode())
+                throw new MissingInformationException();
+            
+            else {
+                Response.StatusType info = response.getStatusInfo();
+                LOG.log(Level.SEVERE, "### requestCreateEvent() PROBLEM:{0} {1}",
+                        new Object[] {response.getStatus(),
+                            info != null ? info.getReasonPhrase() : "<NO REASON GIVEN>"});
+                throw new InternalServerErrorException();
+            }
+        } finally {
+            if(response != null) response.close();
+        }
+        
+        return inserted;
+    }
+    
+    public Event requestUpdateEvent(String host, Event event)
+                        throws NotFoundException, InternalServerErrorException {
+        URI uri = UriBuilder.fromUri(host).path("/api").build();
+        Event updated = null;
+        
+        Response response = null;
+        try {
+            response = put(uri, event);
+            if(response.getStatus() == Response.Status.ACCEPTED.getStatusCode())
+                updated = response.readEntity(Event.class);
+            else if(response.getStatus() == Response.Status.NOT_FOUND.getStatusCode())
+                throw new NotFoundException();
+            else {
+                Response.StatusType info = response.getStatusInfo();
+                LOG.log(Level.SEVERE, "### requestUpdateEvent() PROBLEM:{0} {1}",
+                        new Object[] {response.getStatus(),
+                            info != null ? info.getReasonPhrase() : "<NO REASON GIVEN>"});
+            }
+        
+        } finally {
+            if(response != null) response.close();
+        }
+        
+        return updated;
+    }
+    
+    public boolean requestDeleteEvent(String host, Event event) 
+                        throws NotFoundException, InternalServerErrorException {
+        URI uri = UriBuilder.fromUri(host).path("/api/{ID}").build(event.getID());
+        
+        boolean success = false;
+        Response response = null;
+        try {
+            response = delete(uri, event);
+            if(response.getStatus() == Response.Status.OK.getStatusCode())
+                success = true;
+            else if(response.getStatus() == Response.Status.NOT_FOUND.getStatusCode())
+                throw new NotFoundException();
+            else {
+                Response.StatusType info = response.getStatusInfo();
+                LOG.log(Level.SEVERE, "### requestDeleteEvent() PROBLEM:{0} {1}",
+                        new Object[] {response.getStatus(),
+                            info != null ? info.getReasonPhrase() : "<NO REASON GIVEN>"});
+            }
+        } finally {
+            if(response != null) response.close();
+        }
+        
+        return success;
     }
 }

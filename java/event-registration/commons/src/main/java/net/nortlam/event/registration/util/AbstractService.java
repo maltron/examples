@@ -133,7 +133,7 @@ public abstract class AbstractService<T> {
     // REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST 
     //   REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST 
     
-    private <T> T request(URI uri, Class<T> className) 
+    protected <T> T request(URI uri, Class<T> className) 
                         throws NotFoundException, InternalServerErrorException {
         T found = null;
         Response response = null;
