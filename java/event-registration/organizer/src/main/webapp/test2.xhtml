@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>test2</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form id="formtickets">
+            <p:row>
+                <p:column colspan="3">
+                    <p:panel id="panelTickets" header="Tickets">
+                        <p:panelGrid>
+                            <p:row>
+                                <p:column colspan="5">
+                                    <p:dataTable id="tableTickets" var="t" value="#{event.event.tickets}"
+                                                 editable="false" style="width: 100%">
+                                        <p:column headerText="Name">
+                                            <p:outputLabel value="#{t.name}"/>
+                                        </p:column>
+
+                                        <p:column headerText="Quantity">
+                                            <p:outputLabel value="#{t.quantity}"/>
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:commandButton id="buttonRemove" value="Remove"
+                                                             ajax="true" actionListener="#{event.removeTicket(t)}"
+                                                             update="tableTickets"/>
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+
+                            <p:row>
+                                <p:column><p:outputLabel id="labelTicketName" value="Name" for="inputTicketName"/></p:column>
+                                <p:column><p:inputText id="inputTicketName" value="#{event.ticketName}"/></p:column>
+                                <p:column><p:outputLabel id="labelTicketQuantity" value="Quantity" for="sliderTicketQuantity"/></p:column>
+                                <p:column><p:spinner id="sliderTicketQuantity" min="1" stepFactor="1" value="#{event.ticketQuantity}"/></p:column>
+                                <p:column><p:commandButton id="buttonAddTicket" value="Add" actionListener="#{event.addTicket}" 
+                                                           update="tableTickets inputTicketName sliderTicketQuantity"/></p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:column>
+            </p:row>
+        </h:form>
+    </h:body>
+</html>

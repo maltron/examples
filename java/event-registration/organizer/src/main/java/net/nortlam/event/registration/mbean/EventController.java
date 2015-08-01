@@ -87,6 +87,10 @@ public class EventController extends EventRegistrationCommonController
         ticketName = ""; ticketQuantity = 1;
     }
     
+    public void removeTicket(Ticket ticket) {
+        event.getTickets().remove(ticket);
+    }
+    
     public void save(ActionEvent e) {
         try {
             String hostname = hostEventService();
