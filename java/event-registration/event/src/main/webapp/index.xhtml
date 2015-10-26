@@ -13,22 +13,22 @@
         <h:form id="formlistevents">
             <table style="width: 100%"><tr>
             <td align="left"><p:commandButton id="buttonCreateEvent" value="Create Event"
-                                              actionListener="#{listEvents.goCreateEvent}"/></td>
+                                              actionListener="#{event.goCreateEvent}"/></td>
             <td align="right"><p:commandButton id="buttonManageEvent" value="Manage Event"
                                                disabled="#{empty listEvents.eventSelected}"
-                                               actionListener="#{listEvents.goManageEvent}"/></td>
+                                               actionListener="#{event.goManageEvent}"/></td>
             </tr></table>
             
             <p:separator/>
             <p:focus id="focus" context="panel"/>
             <p:growl id="messages" showSummary="true"/>
-            <p:panel id="panel" header="Upcoming Events: Today is #{listEvents.today()}">
+            <p:panel id="panel" header="Upcoming Events: Today is #{event.today()}">
                 <h:panelGrid columns="1" cellpadding="5">
                     <p:dataTable id="tableFutureEvents" var="e" 
-                                 value="#{listEvents.events}" style="border: none"
+                                 value="#{event.listFutureEvents}" style="border: none"
                                  selectionMode="single" selection="#{listEvents.eventSelected}"
                                  rowKey="#{e.designation}-#{e.edition}">
-                        <p:ajax id="ajaxevent" event="rowDblselect" listener="#{listEvents.onRowSelect}"/>
+                        <p:ajax id="ajaxevent" event="rowDblselect" listener="#{event.onRowSelect}"/>
                         <p:ajax id="ajaxselect" event="rowSelect"
                                             update=":formlistevents:buttonManageEvent"/>
                         <p:ajax id="ajaxunselect" event="rowUnselect"

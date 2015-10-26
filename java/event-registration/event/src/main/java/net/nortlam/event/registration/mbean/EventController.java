@@ -2,6 +2,7 @@ package net.nortlam.event.registration.mbean;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,8 @@ import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
 import net.nortlam.event.registration.service.Service;
 import net.nortlam.event.registration.util.EventRegistrationCommonController;
+
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -90,6 +93,26 @@ public class EventController extends EventRegistrationCommonController
         
         return null;
     }
+    
+    public void onRowSelect(SelectEvent event) {
+        
+    }
+    
+    // GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO 
+    //  GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO 
+    
+    public String today() {
+        return DATE_FORMAT.format(new Date());
+    }
+    
+    public void goCreateEvent(ActionEvent event) {
+        redirect(hostOrganizerService(), "/new");
+    }
+    
+    public void goManageEvent(ActionEvent event) {
+        redirect(hostOrganizerService(), "/manage");
+    }
+    
     
     
     // ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT 
