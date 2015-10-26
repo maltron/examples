@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <h:form id="form_event">
+            <p:growl id="messages" showDetail="true"/>
+            <p:layout style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px">
+                <p:layoutUnit position="north" resizable="false" closable="false" collapsible="false">
+                    Hyper Island Info Session - São Paulo<br/>
+                    Tuesday, June 30, 2015 from 7:30pm to 10:30pm (BRT)
+                    São Paulo, Brazil
+
+                </p:layoutUnit>
+
+                <!-- CENTER -->
+                <p:layoutUnit position="center" resizable="false" closable="false" collapsible="false">
+                    Hyper Island Info Session - São Paulo
+
+                    <p:panel id="basic" header="Basic" footer="Movie Details" style="margin-bottom:20px">
+                        <p:panelGrid columns="4">
+                            <h:outputText value="TYPE"/>
+                            <h:outputText value="END"/>
+                            <h:outputText value=""/>
+                            <h:outputText value="QUANTITY"/>
+
+                            <h:outputText value="General Adminission"/>
+                            <h:outputText value="2d 20h 28m"/>
+                            <h:outputText value="Free"/>
+                            <p:selectCheckboxMenu label="1"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Register"/>
+                    </p:panel>
+
+                    <p:panel id="event_details" header="Event Details">
+
+                    </p:panel>
+                </p:layoutUnit>
+
+                <!-- WEST -->
+                <p:layoutUnit position="west" size="200" resizable="false" closable="false" collapsible="false">
+
+                </p:layoutUnit>
+            </p:layout>
+        </h:form>
+    </h:body>
+</html>

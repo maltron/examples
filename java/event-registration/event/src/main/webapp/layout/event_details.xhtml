@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>
+        <f:viewParam name="username" value="#{username}"/>
+    </f:metadata>
+
+    <f:view contentType="text/html; charset=UTF-8">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Hyper Island Event</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <h:form id="form_event_details">
+                <p:growl id="messages" showSummary="true" showDetail="true"/>
+
+                <p:layout  style="margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px">
+
+                    <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                        <b>Hyper Island Info Session - São Paulo</b><br/>
+                        Tuesday, June 30, 2015 from 7:30pm to 10:30pm (BRT)<br/>
+                        São Paulo, Brazil<br/>
+
+                    </p:layoutUnit>
+
+                    <!-- WHEN & WHERE -->
+                    <p:layoutUnit position="east" size="300" resizable="false" closable="false" collapsible="false">
+                        <p:panel id="when_where" header="When &amp; Where" style="margin-bottom:20px">
+                            <!--                        <p:gmap center="41.381542, 2.122893" zoom="15" type="ROADMAP" style="width:100%;height:260px" />-->
+                            <h:panelGrid columns="1" cellpadding="10" style="width: 100%">
+                                <b><p:outputLabel value="House of Learning"/></b>
+                                <p:outputLabel value="Rua Doutor Virgílio de Carvalho Pinto, 69"/>
+                                <p:outputLabel value="São Paulo, SP"/>
+                                <p:outputLabel value="Brazil"/>
+                                <p:outputLabel value="Tuesday, June 30, 2015 from 07:30pm to 10:30pm (BRT)"/>
+                            </h:panelGrid>
+                        </p:panel>
+
+                        <p:panel id="organizer" header="Organizer" style="margin-bottom:20px">
+                            <h:panelGrid columns="1">
+                                <b><p:outputLabel value="Hyper Island"/></b><br/>
+                                <p:outputLabel value="Hyper Island deisngs learning experiences that challenge companies and individuals to grow and stay competitive in a increasingly digitized world. Our range of immersive programs and courses seeks to equip you with the necessary knowledge and skills to lead and change and begin a journey of lifelong learning."/>
+                                <p:spacer/>
+                                <p:commandButton value="Contact the Organizer"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:layoutUnit>
+
+                    <!-- TICKET INFORMATION -->
+                    <p:layoutUnit position="center">
+                        <p:panel id="ticket_information" header="Ticket Information" style="margin-bottom:20px">
+                            <h:panelGrid columns="4" cellpadding="10" style="width: 100%">
+                                <p:outputLabel value="TYPE"/>
+                                <p:outputLabel value="END"/>
+                                <p:outputLabel value=""/>
+                                <p:outputLabel value="QUANTITY"/>
+
+                                <p:outputLabel value="General Adminission"/>
+                                <p:outputLabel value="2d 20h 28m"/>
+                                <p:outputLabel value="Free"/>
+                                <p:selectCheckboxMenu label="1"/>
+                            </h:panelGrid>
+                            <p:spacer/>
+                            <p:commandButton value="Register"/>
+                            <br/>
+                        </p:panel>
+
+                        <p:panel id="event_details" header="Event Details" style="margin-bottom:20px">
+                            <h:panelGrid columns="1" cellpadding="10">
+                                <p:outputLabel value="Venha encontrar com a nossa comunidade de alumi e conversar sobre a experi&Ecirc;a de estudar na Hyper Island !"/>
+                                <p:outputLabel value="Caio Andrade, Rafael Ochoa, Bruno Affonseca, Fernando Weno e Gustavo Pereira, alunos dos cursos de Interactive Art Director, MA"/>
+                                <p:outputLabel value="Digital Media Management, Digital Data Strategist irão falar como foi o período que estiveram na Hyper Island, seus projetos e aprendizados"/>
+                                <br/>
+                                <p:outputLabel value="7:30 pm - Início"/>
+                                <p:outputLabel value="8:00 pm - Conversa com alumni"/>
+                                <p:outputLabel value="10:30 pm - Encerramento"/>
+                                <p:outputLabel value="D&uacute;vidas contatar Renata Minicucci (renata.minicucci@hyperisland.com)"/><br/><br/>
+                            </h:panelGrid>                        
+                        </p:panel>
+
+                    </p:layoutUnit>
+
+                </p:layout>
+
+            </h:form>
+        </h:body>
+
+    </f:view>
+</html>
+

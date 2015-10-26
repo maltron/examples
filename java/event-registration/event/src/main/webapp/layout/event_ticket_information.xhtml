@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>event_ticket_information</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:panel id="ticket_information" header="Ticket Information" style="margin-bottom:20px">
+                <h:panelGrid columns="4" cellpadding="10" style="width: 100%">
+                    <p:dataTable var="ticket" value="#{event.event.tickets}">
+                        <!-- Ticket: Name -->
+                        <p:column headerText="NAME">
+                            <p:outputLabel value="#{ticket.name}"/>
+                        </p:column>
+                        <!-- Ticket: Ends -->
+                        <p:column headerText="ENDS">
+                            <p:outputLabel value="2d 20h 28m"/>
+                        </p:column>
+                        <!-- Ticket: Price -->
+                        <p:column headerText="PRICE">
+                            <p:outputLabel value="FREE"/>
+                        </p:column>
+                        <!-- Ticket: Quantity -->
+                        <p:column headerText="QUANTITY">
+                            <p:selectCheckboxMenu label="1"/>
+                        </p:column>
+                    </p:dataTable>
+
+                </h:panelGrid>
+                <p:spacer/>
+                <p:commandButton id="buttonRegister" value="Register" 
+                                 actionListener="#{event.goRegistration}"/>
+                <br/>
+            </p:panel>
+        </ui:composition>
+    </h:body>
+</html>

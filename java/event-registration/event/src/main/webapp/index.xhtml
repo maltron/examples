@@ -1,14 +1,82 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Event Registration: List: Events</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+        <h:form id="formlistevents">
+            <table style="width: 100%"><tr>
+            <td align="left"><p:commandButton id="buttonCreateEvent" value="Create Event"
+                                              actionListener="#{listEvents.goCreateEvent}"/></td>
+            <td align="right"><p:commandButton id="buttonManageEvent" value="Manage Event"
+                                               disabled="#{empty listEvents.eventSelected}"
+                                               actionListener="#{listEvents.goManageEvent}"/></td>
+            </tr></table>
+            
+            <p:separator/>
+            <p:focus id="focus" context="panel"/>
+            <p:growl id="messages" showSummary="true"/>
+            <p:panel id="panel" header="Upcoming Events: Today is #{listEvents.today()}">
+                <h:panelGrid columns="1" cellpadding="5">
+                    <p:dataTable id="tableFutureEvents" var="e" 
+                                 value="#{listEvents.events}" style="border: none"
+                                 selectionMode="single" selection="#{listEvents.eventSelected}"
+                                 rowKey="#{e.designation}-#{e.edition}">
+                        <p:ajax id="ajaxevent" event="rowDblselect" listener="#{listEvents.onRowSelect}"/>
+                        <p:ajax id="ajaxselect" event="rowSelect"
+                                            update=":formlistevents:buttonManageEvent"/>
+                        <p:ajax id="ajaxunselect" event="rowUnselect"
+                                            update=":formlistevents:buttonManageEvent"/>
+                        
+                        <!-- Designation -->
+                        <p:column id="columnDesignation" width="20" sortBy="#{e.designation}">
+                            <f:facet name="header">
+                                <p:outputLabel value="Designation" style="float:left"/>
+                            </f:facet>
+                            <p:outputLabel value="#{e.designation}" style="float:left"/>
+                        </p:column>
+                        
+                        <!-- Edition -->
+                        <p:column id="columnEdition" width="10" sortBy="#{e.edition}">
+                            <f:facet name="header">
+                                <p:outputLabel value="Edition" style="float:right"/>
+                            </f:facet>
+                            <p:outputLabel value="#{e.edition}" style="float:right"/>
+                        </p:column>
+                        
+                        <!-- Title -->
+                        <p:column id="columnTitle" width="170" sortBy="#{e.title}">
+                            <f:facet name="header">
+                                <p:outputLabel value="Title" style="float:left"/>
+                            </f:facet>
+                            <p:outputLabel value="#{e.title}" style="float:left"/>
+                        </p:column>
+                        
+                        <!-- Starts -->
+                        <p:column id="columnStarts" width="25" sortBy="#{e.starts}">
+                            <f:facet name="header">
+                                <p:outputLabel value="Starts" style="float:center"/>
+                            </f:facet>
+                            <p:outputLabel value="#{listEvents.formatDate(e.starts)}" style="float:center"/>
+                        </p:column>
+                        
+                        <!-- Ends -->
+                        <p:column id="columnEnds" width="25" sortBy="#{e.ends}">
+                            <f:facet name="header">
+                                <p:outputLabel value="Ends" style="float:center"/>
+                            </f:facet>
+                            <p:outputLabel value="#{listEvents.formatDate(e.ends)}" style="float:center"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
     </h:body>
 </html>
-

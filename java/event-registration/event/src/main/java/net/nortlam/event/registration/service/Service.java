@@ -1,8 +1,20 @@
 package net.nortlam.event.registration.service;
 
+import java.util.Collection;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.LockTimeoutException;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.PessimisticLockException;
+import javax.persistence.QueryTimeoutException;
+import javax.persistence.TransactionRequiredException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import net.nortlam.event.registration.entity.Event;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
@@ -41,7 +53,6 @@ public class Service extends AbstractService<Event> {
             throw new BiggerException(String.format(
                                     "Designation is bigger than %d characters",
                                                     Event.LENGTH_DESIGNATION));
-        
         try {
             Event found = findByDesignationEdition(event);
             String messageError = String.format(
@@ -124,12 +135,35 @@ public class Service extends AbstractService<Event> {
             throw new MissingInformationException("Ticket's is Missing");
     }
     
+    // LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
+    //  LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
+    public Collection<Event> listFutureEvents() throws NoResultException,
+                            NonUniqueResultException, QueryTimeoutException,
+                            TransactionRequiredException, PessimisticLockException,
+                            LockTimeoutException, PersistenceException {
+        
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Event> query = builder.createQuery(Event.class);
+        Root<Event> root = query.from(Event.class);
+        
+        query.select(root).where(builder.greaterThan(
+                root.<Date>get(Event.COLUMN_EVENT_STARTS), new Date()))
+                .orderBy(builder.asc(root.get(Event.COLUMN_EVENT_STARTS)));
+
+        return getEntityManager().createQuery(query).getResultList();
+    }
+    
+    
     // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     //  FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     public Event findByDesignationEdition(Event event) throws NotFoundException,
                                                     InternalServerErrorException {
         return findByProperty(em, Event.class, "designation", 
                         event.getDesignation(), "edition", event.getEdition());
+    }
+    
+    public Event findByID(long ID) throws NotFoundException, InternalServerErrorException {
+        return findByProperty(em, Event.class, "ID", ID);
     }
     
 
