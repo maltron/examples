@@ -2,7 +2,6 @@ package net.nortlam.event.registration.util;
 
 import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
-import javax.faces.event.ActionEvent;
 
 public class EventRegistrationCommonController extends AbstractController {
     
