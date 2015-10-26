@@ -2,6 +2,7 @@ package net.nortlam.event.registration.util;
 
 import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
+import javax.faces.event.ActionEvent;
 
 public class EventRegistrationCommonController extends AbstractController {
     
@@ -9,6 +10,9 @@ public class EventRegistrationCommonController extends AbstractController {
     
     private static final String ERROR_NOT_FOUND = "error/notfound";
     private static final String ERROR_INTERNAL_SERVER = "error/internalserver";
+    
+    public static final SimpleDateFormat DATE_FORMAT = 
+                                new SimpleDateFormat("EEEE,   MMM d, yyyy 'at' HH:mm (z)");
     
     public static final SimpleDateFormat DATE_FORMAT_STARTS = 
                         new SimpleDateFormat("EEEE, MMM d, yyyy 'from' h:mma");
@@ -46,4 +50,5 @@ public class EventRegistrationCommonController extends AbstractController {
         String value = getExternal().getInitParameter(PARAMETER_EVENT_SERVICE_HOST);
         return value != null ? value : DEFAULT_EVENT_SERVICE_HOST;
     }
+    
 }
