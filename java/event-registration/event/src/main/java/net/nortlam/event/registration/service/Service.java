@@ -1,5 +1,6 @@
 package net.nortlam.event.registration.service;
 
+import java.net.URI;
 import java.util.Collection;
 import java.util.Date;
 import javax.ejb.Stateless;
@@ -15,7 +16,9 @@ import javax.persistence.TransactionRequiredException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.ws.rs.core.UriBuilder;
 import net.nortlam.event.registration.entity.Event;
+import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
@@ -166,6 +169,14 @@ public class Service extends AbstractService<Event> {
         return findByProperty(em, Event.class, "ID", ID);
     }
     
+    // REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST 
+    //  REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST 
+    
+    public Organizer requestOrganizerByID(String host, long ID) 
+                        throws NotFoundException, InternalServerErrorException {
+        URI uri = UriBuilder.fromUri(host).path("/api/{ID}").build(ID);
+        return request(uri, Organizer.class);
+    }
 
     @Override
     public EntityManager getEntityManager() {

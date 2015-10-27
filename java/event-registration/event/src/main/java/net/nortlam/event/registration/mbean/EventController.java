@@ -18,6 +18,7 @@ import javax.persistence.PessimisticLockException;
 import javax.persistence.QueryTimeoutException;
 import javax.persistence.TransactionRequiredException;
 import net.nortlam.event.registration.entity.Event;
+import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.entity.Ticket;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
@@ -42,9 +43,12 @@ public class EventController extends EventRegistrationCommonController
     @EJB
     private Service service;
     
-    private Event event = null;
+    private Event event;
     private String eventID;
     private boolean isNew;
+    
+    // Used basic for a list of Events
+    private Event eventSelected;
 
     public EventController() {
     }
@@ -78,6 +82,20 @@ public class EventController extends EventRegistrationCommonController
         return event;
     }
     
+    public Organizer getOrganizer() {
+        try {
+            if(event.getOrganizer() > 0)
+                return service.requestOrganizerByID(hostOrganizerService(), 
+                                                        event.getOrganizer());
+        } catch(NotFoundException ex) {
+            redirectNotFoundError();
+        } catch(InternalServerErrorException ex) {
+            redirectInternalServerError();
+        }
+        
+        return null;
+    }
+    
     // LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
     //  LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
     public Collection<Event> listFutureEvents() {
@@ -92,6 +110,14 @@ public class EventController extends EventRegistrationCommonController
         }
         
         return null;
+    }
+    
+    public void setEventSelected(Event eventSelected) {
+        this.eventSelected = eventSelected;
+    }
+    
+    public Event getEventSelected() {
+        return eventSelected;
     }
     
     public void onRowSelect(SelectEvent event) {

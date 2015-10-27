@@ -22,7 +22,7 @@
 
                     <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                         <b>#{event.event.title}</b><br/>
-                        #{event.eventDate}<br/>
+                        #{format.formatDate(event.event.starts, event.event.ends)}<br/>
                         #{event.event.city}, #{event.event.country}<br/>
 
                     </p:layoutUnit>
@@ -36,7 +36,7 @@
                                 <p:outputLabel value="#{event.event.address}"/>
                                 <p:outputLabel value="#{event.event.city}, #{eventPresentation.event.region}"/>
                                 <p:outputLabel value="#{event.event.country}"/>
-                                <p:outputLabel value="#{event.eventDate}"/>
+                                <p:outputLabel value="#{format.formatDate(event.event.starts, event.event.ends)}"/>
                             </h:panelGrid>
                         </p:panel>
 

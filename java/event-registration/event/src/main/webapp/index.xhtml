@@ -15,18 +15,18 @@
             <td align="left"><p:commandButton id="buttonCreateEvent" value="Create Event"
                                               actionListener="#{event.goCreateEvent}"/></td>
             <td align="right"><p:commandButton id="buttonManageEvent" value="Manage Event"
-                                               disabled="#{empty listEvents.eventSelected}"
+                                               disabled="#{empty event.eventSelected}"
                                                actionListener="#{event.goManageEvent}"/></td>
             </tr></table>
             
             <p:separator/>
             <p:focus id="focus" context="panel"/>
             <p:growl id="messages" showSummary="true"/>
-            <p:panel id="panel" header="Upcoming Events: Today is #{event.today()}">
+            <p:panel id="panel" header="Upcoming Events from Today is #{format.today()}">
                 <h:panelGrid columns="1" cellpadding="5">
                     <p:dataTable id="tableFutureEvents" var="e" 
-                                 value="#{event.listFutureEvents}" style="border: none"
-                                 selectionMode="single" selection="#{listEvents.eventSelected}"
+                                 value="#{event.listFutureEvents()}" style="border: none"
+                                 selectionMode="single" selection="#{event.eventSelected}"
                                  rowKey="#{e.designation}-#{e.edition}">
                         <p:ajax id="ajaxevent" event="rowDblselect" listener="#{event.onRowSelect}"/>
                         <p:ajax id="ajaxselect" event="rowSelect"
@@ -63,7 +63,7 @@
                             <f:facet name="header">
                                 <p:outputLabel value="Starts" style="float:center"/>
                             </f:facet>
-                            <p:outputLabel value="#{listEvents.formatDate(e.starts)}" style="float:center"/>
+                            <p:outputLabel value="#{format.formatDate(e.starts)}" style="float:center"/>
                         </p:column>
                         
                         <!-- Ends -->
@@ -71,7 +71,7 @@
                             <f:facet name="header">
                                 <p:outputLabel value="Ends" style="float:center"/>
                             </f:facet>
-                            <p:outputLabel value="#{listEvents.formatDate(e.ends)}" style="float:center"/>
+                            <p:outputLabel value="#{format.formatDate(e.ends)}" style="float:center"/>
                         </p:column>
                         
                     </p:dataTable>
