@@ -10,12 +10,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletException;
-import net.nortlam.event.registration.entity.RoleType;
-import net.nortlam.event.registration.entity.User;
-import net.nortlam.event.registration.exception.InternalServerErrorException;
-import net.nortlam.event.registration.exception.NotFoundException;
-import net.nortlam.event.registration.service.UserService;
-import net.nortlam.event.registration.util.EventRegistrationCommonController;
+
+//import net.nortlam.event.registration.entity.RoleType;
+//import net.nortlam.event.registration.entity.User;
+//import net.nortlam.event.registration.exception.InternalServerErrorException;
+//import net.nortlam.event.registration.exception.NotFoundException;
+//import net.nortlam.event.registration.service.UserService;
+//import net.nortlam.event.registration.util.EventRegistrationCommonController;
 
 @ManagedBean(name = "login")
 @ViewScoped
