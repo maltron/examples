@@ -17,6 +17,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.PessimisticLockException;
 import javax.persistence.QueryTimeoutException;
 import javax.persistence.TransactionRequiredException;
+
 import net.nortlam.event.registration.entity.Event;
 import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.entity.Ticket;
@@ -27,6 +28,9 @@ import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
 import net.nortlam.event.registration.service.Service;
 import net.nortlam.event.registration.util.EventRegistrationCommonController;
+
+import static net.nortlam.event.registration.util.Extraction.extractDesignation;
+import static net.nortlam.event.registration.util.Extraction.extractEdition;
 
 import org.primefaces.event.SelectEvent;
 
@@ -96,6 +100,29 @@ public class EventController extends EventRegistrationCommonController
         return null;
     }
     
+    public void setDesignationEdition(String designationEdition) {
+        String designation = extractDesignation(designationEdition);
+        int edition = extractEdition(designationEdition);
+        
+        if(designation == null || edition == 0) {
+            LOG.log(Level.WARNING, "### setDesignationEdition() Arguments *NOT* valid:"+
+                    " Designation:{0} Edition:{1}", new Object[] {designation, edition});
+            redirectNotFoundError();
+            return;
+        }
+        
+        try {
+            event = service.findByDesignationEdition(designation, edition);
+        } catch(NotFoundException ex) {
+            redirectNotFoundError();
+        } catch(InternalServerErrorException ex) {
+            redirectInternalServerError();
+        }
+    }
+    
+    public String getDesignationEdition() { return null; } // NOT USED
+    
+    
     // LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
     //  LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
     public Collection<Event> listFutureEvents() {
@@ -121,15 +148,13 @@ public class EventController extends EventRegistrationCommonController
     }
     
     public void onRowSelect(SelectEvent event) {
-        
+        String eventSelected = String.format("%s%d", 
+                getEventSelected().getDesignation(),getEventSelected().getEdition());
+        redirect(hostEventService(), eventSelected);
     }
     
     // GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO 
     //  GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO 
-    
-    public String today() {
-        return DATE_FORMAT.format(new Date());
-    }
     
     public void goCreateEvent(ActionEvent event) {
         redirect(hostOrganizerService(), "/new");
@@ -138,8 +163,6 @@ public class EventController extends EventRegistrationCommonController
     public void goManageEvent(ActionEvent event) {
         redirect(hostOrganizerService(), "/manage");
     }
-    
-    
     
     // ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT 
     //  ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT 

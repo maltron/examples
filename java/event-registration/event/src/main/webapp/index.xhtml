@@ -22,7 +22,7 @@
             <p:separator/>
             <p:focus id="focus" context="panel"/>
             <p:growl id="messages" showSummary="true"/>
-            <p:panel id="panel" header="Upcoming Events from Today is #{format.today()}">
+            <p:panel id="panel" header="Upcoming Events from Today [#{format.today()}]">
                 <h:panelGrid columns="1" cellpadding="5">
                     <p:dataTable id="tableFutureEvents" var="e" 
                                  value="#{event.listFutureEvents()}" style="border: none"

@@ -6,35 +6,19 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+/**
+ *
+ * @author Mauricio "Maltron" Leal <maltron@gmail.com> */
 public class Encrypt {
 
     private static final Logger LOG = Logger.getLogger(Encrypt.class.getName());
     
     public static final String REGEX_EMAIL_VALUE = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     
-    private static final Pattern REGEX_DESIGNATION = Pattern.compile("[A-Za-z]+");
-    private static final Pattern REGEX_EDITION = Pattern.compile("\\d+");
-    
     public static final String DEFAULT_ENCRYPT_ALGORITHM = "SHA-256";
     public static final String DEFAULT_ENCODING = "UTF-8";
 
-    public static String extractDesignation(String value) {
-        if(value == null) return null;
-        
-        Matcher matcher = REGEX_DESIGNATION.matcher(value);
-        return matcher.find() ? matcher.group() : null;
-    }
-    
-    public static int extractEdition(String value) {
-        if(value == null) return 0;
-        
-        Matcher matcher = REGEX_EDITION.matcher(value);
-        return matcher.find() ? Integer.parseInt(matcher.group()) : 0;
-    }
-    
     public static String encrypt(String password) {
         return encrypt(DEFAULT_ENCRYPT_ALGORITHM, DEFAULT_ENCODING, password);
     }

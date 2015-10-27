@@ -159,6 +159,13 @@ public class Service extends AbstractService<Event> {
     
     // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     //  FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
+    
+    public Event findByDesignationEdition(String designation, int edition)
+                        throws NotFoundException, InternalServerErrorException {
+        return findByProperty(em, Event.class, "designation", designation,
+                                    "edition", edition);
+    }
+    
     public Event findByDesignationEdition(Event event) throws NotFoundException,
                                                     InternalServerErrorException {
         return findByProperty(em, Event.class, "designation", 

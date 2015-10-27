@@ -13,9 +13,15 @@
         <view-id value="/faces/error/internal_server.xhtml"/>
     </url-mapping>
     
+    <!-- Event Finding -->
     <url-mapping id="event_details">
-        <pattern value="/#{eventID}"/>
+        <pattern value="/event/#{eventID}"/>
         <view-id value="/faces/event.xhtml"/>
+    </url-mapping>
+    
+    <url-mapping id="event_details_designation_edition">
+        <pattern value="/#{designationEdition}"/>
+        <view-id value="/faces/eventDesignationEdition.xhtml"/>
     </url-mapping>
 
 </pretty-config>
