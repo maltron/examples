@@ -92,6 +92,7 @@ public class EventController extends EventRegistrationCommonController
     }
     
     public void save(ActionEvent e) {
+        LOG.log(Level.INFO, ">>> EventController.save(): {0}", hostEventService());
         try {
             String hostname = hostEventService();
             if(isNew) event = service.requestCreateEvent(hostname, event);
@@ -107,9 +108,9 @@ public class EventController extends EventRegistrationCommonController
                                     event.getDesignation(), event.getEdition());
             error("Already Exists", message);
         } catch(IllegalArgumentException ex) {
-            error("Illegal Argument");
+            error("Illegal Argument", ex.getMessage());
         } catch(MissingInformationException ex) {
-            error("Missing Information");
+            error("Missing Information", ex.getMessage());
         } catch(NotFoundException ex) {
             redirectNotFoundError();
         } catch(InternalServerErrorException ex) {

@@ -122,7 +122,7 @@ public class LoginController extends EventRegistrationCommonController
         requestedURI = getOriginalURL();
     }
 
-    private String getDefaultPage(User user) {
-        return String.format(DEFAULT_PAGE, user.getID());
+    private String getDefaultPage(Organizer organizer) {
+        return String.format(DEFAULT_PAGE, organizer.getID());
     }
 }

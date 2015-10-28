@@ -3,6 +3,8 @@ package net.nortlam.event.registration.service;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.LockTimeoutException;
@@ -28,6 +30,8 @@ import net.nortlam.event.registration.util.AbstractService;
 
 @Stateless
 public class Service extends AbstractService<Event> {
+
+    private static final Logger LOG = Logger.getLogger(Service.class.getName());
     
     @PersistenceContext
     private EntityManager em;
@@ -41,26 +45,39 @@ public class Service extends AbstractService<Event> {
             throws IllegalArgumentException, BiggerException, 
                         MissingInformationException, AlreadyExistsException, 
                                                 InternalServerErrorException {
-        if(event == null)
+        if(event == null) {
+            LOG.log(Level.WARNING, "### validation() Event argument is Missing");
             throw new IllegalArgumentException("Event argument is Missing");
+        }
         
         // ID
         // edition (it cannot be zero)
-        if(event.getEdition() <= 0)
+        if(event.getEdition() <= 0) {
+            LOG.log(Level.WARNING, "### validation() Event's Edition cannot be Zero (or negative)");
             throw new IllegalArgumentException(
                                 "Event's Edition cannot be Zero (or negative)");
+        }
+        
         // designation
-        if(event.getDesignation() == null)
+        if(event.getDesignation() == null) {
+            LOG.log(Level.WARNING, "### validation() Designation is Missing");
             throw new MissingInformationException("Designation is Missing");
-        if(event.getDesignation().length() > Event.LENGTH_DESIGNATION)
+        }
+        
+        if(event.getDesignation().length() > Event.LENGTH_DESIGNATION) {
+            LOG.log(Level.WARNING, "### validation() Designation is bigger "+
+                            "than {0} characters", Event.LENGTH_DESIGNATION);
             throw new BiggerException(String.format(
                                     "Designation is bigger than %d characters",
                                                     Event.LENGTH_DESIGNATION));
+        }
+        
         try {
             Event found = findByDesignationEdition(event);
             String messageError = String.format(
                     "Event's Designation (%s) and Edition (%d) already exists",
                     event.getDesignation(), event.getEdition());
+            
             if(isNew) throw new AlreadyExistsException(messageError);
             else if(found.getID() != event.getID())
                 throw new AlreadyExistsException(messageError);
@@ -70,12 +87,18 @@ public class Service extends AbstractService<Event> {
         }
         
         // title
-        if(event.getTitle() == null)
+        if(event.getTitle() == null) {
+            LOG.log(Level.WARNING, "### validation() Title is Missing");
             throw new MissingInformationException("Title is Missing");
-        if(event.getTitle().length() > Event.LENGTH_TITLE)
+        }
+        
+        if(event.getTitle().length() > Event.LENGTH_TITLE) {
+            LOG.log(Level.WARNING, "### validation() Title is bigger than "+
+                    "{0} characters", Event.LENGTH_TITLE);
             throw new BiggerException(String.format(
                                     "Title is bigger than %d characters",
                                                     Event.LENGTH_TITLE));
+        }
         // location
         if(event.getLocation() != null && 
                             event.getLocation().length() > Event.LENGTH_LOCATION)
@@ -120,7 +143,7 @@ public class Service extends AbstractService<Event> {
             throw new MissingInformationException("Event's End date is Missing");
         
         // ends must be bigger than starts
-        if(event.getEnds().after(event.getStarts()))
+        if(!event.getEnds().after(event.getStarts()))
             throw new IllegalArgumentException(
                                 "Event's date ends is after Event's date starts");
         // description
@@ -181,7 +204,7 @@ public class Service extends AbstractService<Event> {
     
     public Organizer requestOrganizerByID(String host, long ID) 
                         throws NotFoundException, InternalServerErrorException {
-        URI uri = UriBuilder.fromUri(host).path("/api/{ID}").build(ID);
+        URI uri = UriBuilder.fromUri(host).path("/api/v1/{ID}").build(ID);
         return request(uri, Organizer.class);
     }
 

@@ -2,7 +2,6 @@ package net.nortlam.event.registration.mbean;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -148,8 +147,8 @@ public class EventController extends EventRegistrationCommonController
     }
     
     public void onRowSelect(SelectEvent event) {
-        String eventSelected = String.format("%s%d", 
-                getEventSelected().getDesignation(),getEventSelected().getEdition());
+        String eventSelected = String.format("/event/%d", 
+                getEventSelected().getID());
         redirect(hostEventService(), eventSelected);
     }
     

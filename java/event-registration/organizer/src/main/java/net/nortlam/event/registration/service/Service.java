@@ -134,7 +134,8 @@ public class Service extends AbstractService<Organizer> {
                             throws AlreadyExistsException, IllegalArgumentException,
                                 MissingInformationException, NotFoundException, 
                                                     InternalServerErrorException {
-        URI uri = UriBuilder.fromUri(host).path("/api").build();
+        URI uri = UriBuilder.fromUri(host).path("/api/v1").build();
+        LOG.log(Level.INFO, ">>> requestCreateEvent() URI:{0}", uri);
         Event inserted = null;
         
         Response response = null;

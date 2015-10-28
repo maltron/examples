@@ -1,5 +1,7 @@
 package net.nortlam.event.registration.rest;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -23,6 +25,8 @@ import net.nortlam.event.registration.service.Service;
 @Produces(MediaType.APPLICATION_JSON)
 public class Resource {
     
+    private static final Logger LOG = Logger.getLogger(Resource.class.getName());
+    
     @EJB
     private Service service;
     
@@ -39,6 +43,7 @@ public class Resource {
     public Response create(Event event) throws IllegalArgumentException, 
             BiggerException, MissingInformationException, AlreadyExistsException, 
                                                 InternalServerErrorException {
+        LOG.log(Level.INFO, ">>> create() Event:{0}", event);
         Event inserted = service.create(event);
         return Response.ok(inserted).status(Response.Status.CREATED).build();
     }
