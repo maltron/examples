@@ -104,6 +104,12 @@ public class Service extends AbstractService<Organizer> {
     public Organizer findByEmail(Organizer organizer) throws NotFoundException, 
                                                     InternalServerErrorException {
         return findByProperty(em, Organizer.class, "email", organizer.getEmail());
+    
+    }
+    
+    public Organizer findByEmail(String email) throws NotFoundException, 
+                                                    InternalServerErrorException {
+        return findByProperty(em, Organizer.class, "email", email);
     }
     
     public Organizer findByFirstLastName(Organizer organizer)

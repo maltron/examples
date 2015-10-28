@@ -10,13 +10,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletException;
+import net.nortlam.event.registration.entity.Organizer;
+import net.nortlam.event.registration.exception.InternalServerErrorException;
+import net.nortlam.event.registration.exception.NotFoundException;
+import net.nortlam.event.registration.service.Service;
 
-//import net.nortlam.event.registration.entity.RoleType;
-//import net.nortlam.event.registration.entity.User;
-//import net.nortlam.event.registration.exception.InternalServerErrorException;
-//import net.nortlam.event.registration.exception.NotFoundException;
-//import net.nortlam.event.registration.service.UserService;
-//import net.nortlam.event.registration.util.EventRegistrationCommonController;
+import net.nortlam.event.registration.util.EventRegistrationCommonController;
 
 @ManagedBean(name = "login")
 @ViewScoped
@@ -26,7 +25,7 @@ public class LoginController extends EventRegistrationCommonController
     private static final Logger LOG = Logger.getLogger(LoginController.class.getName());
 
     @EJB
-    private UserService service;
+    private Service service;
 
     public static final String DEFAULT_PAGE = "organizer/events/%d";
 
@@ -59,21 +58,15 @@ public class LoginController extends EventRegistrationCommonController
 
             // SUCCESS SUCCESS SUCCESS SUCCESS SUCCESS SUCCESS 
             try {
-                User user = service.findByEmail(getEmail());
-                // Is user a Organizer ?
-                if(UserService.getRole(user, RoleType.ORGANIZER) == null) {
-                    error(String.format("%s %s is not a Organizer", 
-                            user.getFirstName(), user.getLastName()));
-                    return;
-                }
+                Organizer organizer = service.findByEmail(getEmail());
                 
-                // Access the original URL, if any
-                if (requestedURI != null && !requestedURI.equals("/user/login")) {
-                    getExternal().redirect(requestedURI);
-                    return;
-                }
-
-                redirect(getDefaultPage(user));
+//                // Access the original URL, if any
+//                if (requestedURI != null && !requestedURI.equals("/user/login")) {
+//                    getExternal().redirect(requestedURI);
+//                    return;
+//                }
+//
+//                redirect(getDefaultPage(user));
 
             } catch (NotFoundException ex) {
                 // VERY UNLIKE TO HAPPEN
@@ -86,11 +79,12 @@ public class LoginController extends EventRegistrationCommonController
         } catch (ServletException ex) {
             // FAILURE FAILURE FAILURE FAILURE FAILURE FAILURE FAILURE 
             error("Access Denied");
-        } catch (IOException ex) {
-            LOG.log(Level.SEVERE, "### login() IO EXCEPTION:{0}",
-                    ex.getMessage());
-            error("A Problem has Occur. IO EXCEPTION");
-        }
+        } 
+//        catch (IOException ex) {
+//            LOG.log(Level.SEVERE, "### login() IO EXCEPTION:{0}",
+//                    ex.getMessage());
+//            error("A Problem has Occur. IO EXCEPTION");
+//        }
     }
     
     public void logout(ActionEvent event) {
