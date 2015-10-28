@@ -30,7 +30,7 @@
     </url-mapping>
     
     <url-mapping id="organizer_create_event">
-        <pattern value="/event/#{organizerID}/new"/>
+        <pattern value="/event/new"/>
         <view-id value="/faces/organizer/event.xhtml"/>
     </url-mapping>
     

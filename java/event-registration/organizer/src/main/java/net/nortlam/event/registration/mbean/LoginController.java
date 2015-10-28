@@ -49,7 +49,7 @@ public class LoginController extends EventRegistrationCommonController
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
     public void login() {
         LOG.log(Level.INFO, ">>> login() RequestedURI:{0}", requestedURI);
         try {
@@ -60,20 +60,18 @@ public class LoginController extends EventRegistrationCommonController
             try {
                 Organizer organizer = service.findByEmail(getEmail());
                 
-//                // Access the original URL, if any
-//                if (requestedURI != null && !requestedURI.equals("/user/login")) {
-//                    getExternal().redirect(requestedURI);
-//                    return;
-//                }
-//
-//                redirect(getDefaultPage(user));
+                // Access the original URL, if any
+                if (requestedURI != null && !requestedURI.equals("/login")) {
+                    getExternal().redirect(requestedURI);
+                    return;
+                }
+
+                redirect(getDefaultPage(organizer));
 
             } catch (NotFoundException ex) {
                 // VERY UNLIKE TO HAPPEN
-            } catch (InternalServerErrorException ex) {
-                LOG.log(Level.SEVERE,
-                        "### login() INTERNAL SERVER ERROR EXCEPTION:{0}",
-                        ex.getMessage());
+            } catch (InternalServerErrorException | IOException ex) {
+                redirectInternalServerError();
             }
 
         } catch (ServletException ex) {

@@ -37,16 +37,19 @@
     
     <security-constraint>
         <display-name>Only Organizer Access</display-name>
+        
         <web-resource-collection>
-            <web-resource-name>Organizer Folder</web-resource-name>
+            <web-resource-name>Organizer Folder using Pretty Faces</web-resource-name>
             <description/>
-            <url-pattern>/organizer/*</url-pattern>
+            <url-pattern>/event/*</url-pattern>
         </web-resource-collection>
+        
         <web-resource-collection>
             <web-resource-name>Organizer Folder using Faces pages</web-resource-name>
             <description/>
             <url-pattern>/faces/organizer/*</url-pattern>
         </web-resource-collection>
+        
         <auth-constraint>
             <description/>
             <role-name>Organizer</role-name>

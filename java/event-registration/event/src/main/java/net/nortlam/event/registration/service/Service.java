@@ -101,64 +101,104 @@ public class Service extends AbstractService<Event> {
         }
         // location
         if(event.getLocation() != null && 
-                            event.getLocation().length() > Event.LENGTH_LOCATION)
+                            event.getLocation().length() > Event.LENGTH_LOCATION) {
+            LOG.log(Level.WARNING, "### validation() Location is bigger than"+
+                    " {0} characters", Event.LENGTH_LOCATION);
             throw new BiggerException(String.format(
                                     "Location is bigger than %d characters",
                                                     Event.LENGTH_LOCATION));
+        }
+        
         // address
         if(event.getAddress() != null &&
-                event.getAddress().length() > Event.LENGTH_ADDRESS)
+                event.getAddress().length() > Event.LENGTH_ADDRESS) {
+            LOG.log(Level.WARNING, "### validation() Address is bigger than"+
+                    " {0} characters", Event.LENGTH_ADDRESS);
             throw new BiggerException(String.format(
                                     "Address is bigger than %d characters",
                                                     Event.LENGTH_ADDRESS));
+        }
         // city
         if(event.getCity() != null &&
-                event.getCity().length() > Event.LENGTH_CITY)
+                event.getCity().length() > Event.LENGTH_CITY) {
+            LOG.log(Level.WARNING, "### validation() City is bigger than"+
+                    " {0} characters", Event.LENGTH_CITY);
             throw new BiggerException(String.format(
                                     "City is bigger than %d characters",
                                                             Event.LENGTH_CITY));
+        }
+        
         // region
         if(event.getRegion() != null &&
-                event.getRegion().length() > Event.LENGTH_REGION)
+                event.getRegion().length() > Event.LENGTH_REGION) {
+            LOG.log(Level.WARNING, "### validation() Region is bigger than"+
+                    " {0} characters", Event.LENGTH_REGION);
             throw new BiggerException(String.format(
                                     "Region is bigger than %d characters",
                                                     Event.LENGTH_REGION));
+        }
+        
         // zipCode
-        if(event.getZipCode() != null && event.getZipCode().length() > Event.LENGTH_ZIP_CODE)
-             throw new BiggerException(String.format(
+        if(event.getZipCode() != null && event.getZipCode().length() > Event.LENGTH_ZIP_CODE) {
+            LOG.log(Level.WARNING, "### validation() ZIPCode is bigger than"+
+                    " {0} characters", Event.LENGTH_ZIP_CODE);
+            throw new BiggerException(String.format(
                                     "ZIPCode is bigger than %d characters",
                                                     Event.LENGTH_ZIP_CODE));
+        }
+        
        // country
         if(event.getCountry() != null && 
-                            event.getCountry().length() > Event.LENGTH_COUNTRY)
+                            event.getCountry().length() > Event.LENGTH_COUNTRY) {
+            LOG.log(Level.WARNING, "### validation() Country is bigger than"+
+                    " {0} characters", Event.LENGTH_DESIGNATION);
             throw new BiggerException(String.format(
                                     "Country is bigger than %d characters",
                                                     Event.LENGTH_DESIGNATION));
+        }
+        
         // starts
-        if(event.getStarts() == null)
+        if(event.getStarts() == null) {
+            LOG.log(Level.WARNING, "### validation() Event's Start date is Missing");
             throw new MissingInformationException("Event's Start date is Missing");
+        }
         
         // ends
-        if(event.getEnds() == null)
+        if(event.getEnds() == null) {
+            LOG.log(Level.WARNING, "### validation() Event's End date is Missing");
             throw new MissingInformationException("Event's End date is Missing");
+        }
         
         // ends must be bigger than starts
-        if(!event.getEnds().after(event.getStarts()))
+        if(!event.getEnds().after(event.getStarts())) {
+            LOG.log(Level.WARNING, "### validation() Event's date ends is after"+
+                    " Event's date starts");
             throw new IllegalArgumentException(
                                 "Event's date ends is after Event's date starts");
+        }
+        
         // description
         if(event.getDescription() != null && 
-                    event.getDescription().length() > Event.LENGTH_DESCRIPTION)
+                    event.getDescription().length() > Event.LENGTH_DESCRIPTION) {
+            LOG.log(Level.WARNING, "### validation() Description is bigger "+
+                    "than {0} characters", Event.LENGTH_DESCRIPTION);
             throw new BiggerException(String.format(
                                     "Description is bigger than %d characters",
                                                     Event.LENGTH_DESCRIPTION));
+        }
+        
         // Organizer
-        if(event.getOrganizer() == 0)
+        if(event.getOrganizer() == 0) {
+            LOG.log(Level.WARNING, "### validation() Organizer's is Missing");
             throw new MissingInformationException("Organizer's is Missing");
+        }
+        
         
         // Tickets
-        if(event.getTickets() == null)
+        if(event.getTickets() == null) {
+            LOG.log(Level.WARNING, "### validation() Ticket's is Missing");
             throw new MissingInformationException("Ticket's is Missing");
+        }
     }
     
     // LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 

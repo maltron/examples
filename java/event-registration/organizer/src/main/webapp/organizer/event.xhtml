@@ -7,7 +7,6 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <f:metadata>
-        <f:viewParam name="organizerID" value="#{organizer.organizerID}"/>
         <f:viewParam name="eventID" value="#{event.eventID}"/>
     </f:metadata>
     <h:head>
@@ -170,7 +169,7 @@
                     <p:row>
                         <p:column>
                             <p:commandButton id="button" value="Save" icon="ui-icon-disk" 
-                                   update="formheader" actionListener="#{event.save}"/>
+                                             update="formheader" actionListener="#{event.save}"/>
                         </p:column>
                     </p:row>
 

@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import net.nortlam.event.registration.entity.Event;
+import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.entity.Ticket;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
@@ -93,10 +94,17 @@ public class EventController extends EventRegistrationCommonController
     
     public void save(ActionEvent e) {
         LOG.log(Level.INFO, ">>> EventController.save(): {0}", hostEventService());
+        LOG.log(Level.INFO, ">>> EventController.save(): Remote User:", getExternal().getRemoteUser());
+        
         try {
             String hostname = hostEventService();
-            if(isNew) event = service.requestCreateEvent(hostname, event);
-            else event = service.requestUpdateEvent(hostname, event);
+            if(isNew) {
+                Organizer organizer = service.findByEmail(getExternal().getRemoteUser());
+                
+                // IMPORTANT: Information on which Organizer is doing this event
+                event.setOrganizer(organizer.getID());
+                event = service.requestCreateEvent(hostname, event);
+            } else event = service.requestUpdateEvent(hostname, event);
             
             isNew = false;
             
