@@ -27,8 +27,6 @@ public class LoginController extends EventRegistrationCommonController
     @EJB
     private Service service;
 
-    public static final String DEFAULT_PAGE = "organizer/events/%d";
-
     private String requestedURI;
 
     private String email;
@@ -61,12 +59,12 @@ public class LoginController extends EventRegistrationCommonController
                 Organizer organizer = service.findByEmail(getEmail());
                 
                 // Access the original URL, if any
-                if (requestedURI != null && !requestedURI.equals("/login")) {
+                if (requestedURI != null && !requestedURI.contains("/login")) {
                     getExternal().redirect(requestedURI);
                     return;
                 }
 
-                redirect(getDefaultPage(organizer));
+                redirect("event/all");
 
             } catch (NotFoundException ex) {
                 // VERY UNLIKE TO HAPPEN
@@ -78,11 +76,6 @@ public class LoginController extends EventRegistrationCommonController
             // FAILURE FAILURE FAILURE FAILURE FAILURE FAILURE FAILURE 
             error("Access Denied");
         } 
-//        catch (IOException ex) {
-//            LOG.log(Level.SEVERE, "### login() IO EXCEPTION:{0}",
-//                    ex.getMessage());
-//            error("A Problem has Occur. IO EXCEPTION");
-//        }
     }
     
     public void logout(ActionEvent event) {
@@ -90,26 +83,10 @@ public class LoginController extends EventRegistrationCommonController
             getRequest().logout();
             
             // REDIRECT TO LIST EVENTS
-            goListEvents(null);
+            redirect(hostEventService(), "");
             
         } catch(ServletException ex) {
             LOG.log(Level.SEVERE, "### logout() SERVLET EXCEPTION:{0}", 
-                                                                ex.getMessage());
-        }
-    }
-    
-    // GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO 
-    //   GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO 
-    
-    public void goNewOrganizer(ActionEvent event) {
-        redirect("new/organizer");
-    }
-    
-    public void goListEvents(ActionEvent event) {
-        try {
-            getExternal().redirect(String.format("%s", hostEventService()));
-        } catch(IOException ex) {
-            LOG.log(Level.WARNING, "### goListEvents(): IO EXCEPTION:{0}",
                                                                 ex.getMessage());
         }
     }
@@ -118,9 +95,5 @@ public class LoginController extends EventRegistrationCommonController
     public void init() {
         // Get the original URL (if any)
         requestedURI = getOriginalURL();
-    }
-
-    private String getDefaultPage(Organizer organizer) {
-        return String.format(DEFAULT_PAGE, organizer.getID());
     }
 }

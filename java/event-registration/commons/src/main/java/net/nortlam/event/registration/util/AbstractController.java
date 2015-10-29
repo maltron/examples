@@ -62,7 +62,8 @@ public class AbstractController implements Serializable {
     protected void redirect(String host, String contextPath) {
         try {
             String original = host != null ? host : getServletRequest().getContextPath();
-            getExternal().redirect(String.format("%s/%s", original, contextPath));
+            getExternal().redirect(String.format("%s/%s", original, 
+                    contextPath != null ? contextPath : ""));
         } catch(IOException ex) {
             LOG.log(Level.SEVERE, "### redirect() IO EXCEPTION:{0}", ex.getMessage());
         }

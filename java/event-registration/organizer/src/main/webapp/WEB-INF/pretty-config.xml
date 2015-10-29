@@ -28,12 +28,18 @@
         <pattern value="/#{organizerID}"/>
         <view-id value="/faces/organizer/organizer.xhtml"/>
     </url-mapping>
-    
+
+    <!-- Events for Organizer -->    
     <url-mapping id="organizer_create_event">
         <pattern value="/event/new"/>
         <view-id value="/faces/organizer/event.xhtml"/>
     </url-mapping>
     
+    <url-mapping id="organizer_list_events">
+        <pattern value="/event/all"/>
+        <view-id value="/faces/organizer/listevents.xhtml"/>
+    </url-mapping>
+
     <url-mapping id="organizer_edit_event">
         <pattern value="/event/#{eventID}"/>
         <view-id value="/faces/organizer/event.xhtml"/>

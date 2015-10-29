@@ -32,7 +32,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/organizer/organizer.xhtml</welcome-file>
+        <welcome-file>faces/organizer/listevents.xhtml</welcome-file>
     </welcome-file-list>
     
     <security-constraint>

@@ -1,6 +1,7 @@
 package net.nortlam.event.registration.mbean;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,7 @@ import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
 import net.nortlam.event.registration.service.Service;
 import net.nortlam.event.registration.util.EventRegistrationCommonController;
+import org.primefaces.event.SelectEvent;
 
 @ManagedBean(name="event")
 @ViewScoped
@@ -33,6 +35,13 @@ public class EventController extends EventRegistrationCommonController
     private boolean isNew;
     private String ticketName;
     private int ticketQuantity;
+    
+    // Logged Organizer
+    private Organizer loggedOrganizer;
+    
+    // For Listing Events
+    private Collection<Event> events;
+    private Event eventSelected;
 
     public EventController() {
     }
@@ -52,6 +61,22 @@ public class EventController extends EventRegistrationCommonController
         } catch(InternalServerErrorException ex) {
             redirectInternalServerError();
         }
+    }
+    
+    public Organizer getLoggedOrganizer() {
+        if(loggedOrganizer == null) {
+            try {
+                String email = getExternal().getRemoteUser();
+                loggedOrganizer = service.findByEmail(email);
+                
+            } catch(NotFoundException ex) {
+                redirectNotFoundError();
+            } catch(InternalServerErrorException ex) {
+                redirectInternalServerError();
+            }
+        }
+        
+        return loggedOrganizer;
     }
     
     public String getEventID() {return null;}// NOTHING TO DO
@@ -107,7 +132,6 @@ public class EventController extends EventRegistrationCommonController
             } else event = service.requestUpdateEvent(hostname, event);
             
             isNew = false;
-            
             info("Successfull", "Event's Information saved");
             
         } catch(AlreadyExistsException ex) {
@@ -126,4 +150,36 @@ public class EventController extends EventRegistrationCommonController
         }
     }
     
+    // LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS 
+    //  LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS 
+    
+    public Collection<Event> getEvents() {
+        if(events == null) {
+            try {
+                Organizer organizer = getLoggedOrganizer();
+                events = service.requestEventsForOrganizer(hostEventService(), 
+                                                            organizer.getID());
+            } catch(NotFoundException ex) {
+                redirectNotFoundError();
+            } catch(InternalServerErrorException ex) {
+                redirectInternalServerError();
+            }
+        }
+        
+        return events;
+    }
+    
+    public void setEventSelected(Event eventSelected) {
+        this.eventSelected = eventSelected;
+    }
+    
+    public Event getEventSelected() {
+        return eventSelected;
+    }
+    
+    public void onRowSelect(SelectEvent event) {
+        String eventSelected = String.format("event/%d", 
+                getEventSelected().getID());
+        redirect(hostOrganizerService(), eventSelected);
+    }
 }

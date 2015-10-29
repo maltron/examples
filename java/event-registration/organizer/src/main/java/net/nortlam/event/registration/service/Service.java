@@ -1,11 +1,15 @@
 package net.nortlam.event.registration.service;
 
 import java.net.URI;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
@@ -122,8 +126,36 @@ public class Service extends AbstractService<Organizer> {
     //  REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST
     public Event requestEvent(String host, long ID) throws NotFoundException,
                                                  InternalServerErrorException {
-        URI uri = UriBuilder.fromUri(host).path("/api/{ID}").build(ID);
+        URI uri = UriBuilder.fromUri(host).path("/api/v1/{ID}").build(ID);
         return request(uri, Event.class);
+    }
+    
+    public Collection<Event> requestEventsForOrganizer(String host, long organizerID) 
+                        throws NotFoundException, InternalServerErrorException {
+        URI uri = UriBuilder.fromUri(host).path("/api/v1/organizer/{ID}").build(organizerID);
+        
+        GenericType<Collection<Event>> responseType = 
+                                        new GenericType<Collection<Event>>() {};
+        
+        Response response = null; Collection<Event> events = null;
+        try {
+            response = ClientBuilder.newClient().target(uri)
+                    .request(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON).get();
+            if(response.getStatus() == Response.Status.OK.getStatusCode()) {
+                events = response.readEntity(responseType);
+            } else {
+                Response.StatusType info = response.getStatusInfo();
+                LOG.log(Level.SEVERE, "### request() PROBLEM:{0} {1}",
+                        new Object[] {response.getStatus(),
+                            info != null ? info.getReasonPhrase() : "<NO REASON GIVEN>"});
+            }
+            
+        } finally {
+            if(response != null) response.close();
+        }
+        
+        return events;
     }
 
 //    public Response create(Event event) throws IllegalArgumentException, 
@@ -168,7 +200,7 @@ public class Service extends AbstractService<Organizer> {
     
     public Event requestUpdateEvent(String host, Event event)
                         throws NotFoundException, InternalServerErrorException {
-        URI uri = UriBuilder.fromUri(host).path("/api").build();
+        URI uri = UriBuilder.fromUri(host).path("/api/v1").build();
         Event updated = null;
         
         Response response = null;
@@ -194,7 +226,7 @@ public class Service extends AbstractService<Organizer> {
     
     public boolean requestDeleteEvent(String host, Event event) 
                         throws NotFoundException, InternalServerErrorException {
-        URI uri = UriBuilder.fromUri(host).path("/api/{ID}").build(event.getID());
+        URI uri = UriBuilder.fromUri(host).path("/api/v1/{ID}").build(event.getID());
         
         boolean success = false;
         Response response = null;

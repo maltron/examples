@@ -13,10 +13,9 @@
         <h:form id="formlistevents">
             <table style="width: 100%"><tr>
             <td align="left"><p:commandButton id="buttonCreateEvent" value="Create Event"
-                                              actionListener="#{event.goCreateEvent}"/></td>
+                                              actionListener="#{nav.goNewEvent()}"/></td>
             <td align="right"><p:commandButton id="buttonManageEvent" value="Manage Event"
-                                               disabled="#{empty event.eventSelected}"
-                                               actionListener="#{event.goManageEvent}"/></td>
+                                               actionListener="#{nav.goOrganizer()}"/></td>
             </tr></table>
             
             <p:separator/>

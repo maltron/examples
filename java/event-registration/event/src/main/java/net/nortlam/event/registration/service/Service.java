@@ -219,6 +219,24 @@ public class Service extends AbstractService<Event> {
         return getEntityManager().createQuery(query).getResultList();
     }
     
+    public Collection<Event> listEventsForOrganizer(long organizerID) 
+                                                    throws NoResultException,
+                            NonUniqueResultException, QueryTimeoutException,
+                            TransactionRequiredException, PessimisticLockException,
+                            LockTimeoutException, PersistenceException {
+        
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Event> query = builder.createQuery(Event.class);
+        Root<Event> root = query.from(Event.class);
+        
+        query.select(root).where(builder.equal(
+                root.get(Event.COLUMN_ORGANIZER), organizerID))
+                .orderBy(builder.asc(root.get(Event.COLUMN_EVENT_STARTS)));
+        
+        return getEntityManager().createQuery(query).getResultList();
+    }
+                
+    
     
     // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     //  FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 

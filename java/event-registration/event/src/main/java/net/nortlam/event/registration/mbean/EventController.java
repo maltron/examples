@@ -147,7 +147,7 @@ public class EventController extends EventRegistrationCommonController
     }
     
     public void onRowSelect(SelectEvent event) {
-        String eventSelected = String.format("/event/%d", 
+        String eventSelected = String.format("event/%d", 
                 getEventSelected().getID());
         redirect(hostEventService(), eventSelected);
     }

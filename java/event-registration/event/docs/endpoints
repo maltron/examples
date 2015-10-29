@@ -1,0 +1,26 @@
+GET: /api/v1/{ID}
+Content-type: application/jsona | Accept: application/json
+
+Returns an instance of an Event
+Example:
+curl -X GET -i http://localhost:8080/event/api/v1/1
+{"tickets":[{"tickets":{"id":2,"name":"Female","quantity":250}},{"tickets":{"id":1,"name":"Male","quantity":100}}],"id":1,"edition":2015,"designation":"myevent","title":"My Event 2015 - The Example Event for all People, edition 2015","location":"The Example Convention Center","address":"505 Maple Street","city":"Example Town","region":"Utah","zipCode":"95550","country":"Brazil","starts":1477490400000,"ends":1477684800000,"description":"This is a small example of a description regarding a event","organizer":1}
+
+GET: /api/v1/organizer/{ID}
+Content-type: application/json | Accept: application/json
+
+Returns a List of Events for a particular Organizer
+curl -X GET -i http://localhost:8080/event/api/v1/organizer/1
+Returns:  204 NO CONTENT: In case there isn't anything to return from
+          200 OK: Returns a array of JSON Content content several events
+
+POST: /api/v1
+Content-type: application/json | Accept: application/json
+
+Used to insert new insert new Event
+curl -X POST -i 
+
+
+
+
+
