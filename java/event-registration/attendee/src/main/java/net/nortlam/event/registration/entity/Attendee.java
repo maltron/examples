@@ -1,0 +1,135 @@
+package net.nortlam.event.registration.entity;
+
+import java.io.Serializable;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author Mauricio "Maltron" Leal <maltron@gmail.com> */
+@Entity(name="Attendee")
+@Table(name="ATTENDEE", uniqueConstraints = 
+        @UniqueConstraint(name = "ATTENDEE_FIRST_AND_LAST_NAME",
+                                columnNames = {"FIRST_NAME", "LAST_NAME"}))
+@XmlRootElement(name="Event")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Attendee implements Serializable {
+
+    public static final String COLUMN_ID = "id";
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="EVENT_ID")
+    @XmlAttribute(name = COLUMN_ID, required=false)
+    private long ID;
+    
+    public static final int LENGTH_FIRST_NAME = 40;
+    @Column(name="FIRST_NAME", length = LENGTH_FIRST_NAME, nullable = false)
+    private String firstName;
+    
+    public static final int LENGTH_LAST_NAME = 40;
+    @Column(name="LAST_NAME", length = LENGTH_LAST_NAME, nullable = false)
+    private String lastName;
+    
+    public static final int LENGTH_EMAIL = 120;
+    @Column(name="EMAIL", length = LENGTH_EMAIL, nullable = false, unique = true)
+    private String email;
+
+    public Attendee() {
+    }
+
+    public Attendee(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + (int) (this.ID ^ (this.ID >>> 32));
+        hash = 97 * hash + Objects.hashCode(this.firstName);
+        hash = 97 * hash + Objects.hashCode(this.lastName);
+        hash = 97 * hash + Objects.hashCode(this.email);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Attendee other = (Attendee) obj;
+        if (this.ID != other.ID) {
+            return false;
+        }
+        if (!Objects.equals(this.firstName, other.firstName)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastName, other.lastName)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        return true;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("<Attendee ID=\"").append(ID).append("\">");
+        builder.append("<FirstName>").append(firstName != null ? firstName : "NULL")
+                .append("</FirstName>");
+        builder.append("<LastName>").append(lastName != null ? lastName : "NULL")
+                .append("</LastName>");
+        builder.append("<Email>").append(email != null ? email : "NULL")
+                .append("</Email>");
+        builder.append("</Attendee>");
+        
+        return builder.toString();
+    }
+}

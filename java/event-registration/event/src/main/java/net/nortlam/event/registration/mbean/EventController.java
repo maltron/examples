@@ -147,20 +147,13 @@ public class EventController extends EventRegistrationCommonController
     }
     
     public void onRowSelect(SelectEvent event) {
-        String eventSelected = String.format("event/%d", 
-                getEventSelected().getID());
+        // Selection ny ID
+//        String eventSelected = String.format("event/%d", 
+//                getEventSelected().getID());
+        String eventSelected = String.format("%s%d", 
+                getEventSelected().getDesignation(),
+                getEventSelected().getEdition());
         redirect(hostEventService(), eventSelected);
-    }
-    
-    // GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO 
-    //  GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO GOTO 
-    
-    public void goCreateEvent(ActionEvent event) {
-        redirect(hostOrganizerService(), "/new");
-    }
-    
-    public void goManageEvent(ActionEvent event) {
-        redirect(hostOrganizerService(), "/manage");
     }
     
     // ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT 

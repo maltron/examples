@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+        <f:viewParam name="eventID" value="#{event.eventID}"/>
+    </f:metadata>
+
+    <ui:composition template="/layout/event_template.xhtml">
+
+        <ui:define name="ticket_information">
+            <p:panel id="ticket_information" header="Ticket Information" style="margin-bottom:20px">
+                <h:panelGrid columns="4" cellpadding="10" style="width: 100%">
+                    <p:dataTable var="ticket" value="#{event.event.tickets}">
+                        <!-- Ticket: Name -->
+                        <p:column headerText="NAME">
+                            <p:outputLabel value="#{ticket.name}"/>
+                        </p:column>
+                        <!-- Ticket: Ends -->
+                        <p:column headerText="ENDS">
+                            <p:outputLabel value="2d 20h 28m"/>
+                        </p:column>
+                        <!-- Ticket: Price -->
+                        <p:column headerText="PRICE">
+                            <p:outputLabel value="FREE"/>
+                        </p:column>
+                        <!-- Ticket: Quantity -->
+                        <p:column headerText="QUANTITY">
+                            <p:outputLabel value="1"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:panel>
+
+        </ui:define>
+
+        <ui:define name="description_user_registration">
+            <p:focus id="focus" context="panelNewAttedee"/>
+            <p:panel id="panelNewAttedee" header="New Attendee">
+                <h:panelGrid id="gridNewAttendee" columns="4" cellpadding="5">
+                    <p:outputLabel id="labelEmail" for="inputEmail" value="E-Mail"/>
+                    <p:inputText id="inputEmail" value="#{eventRegistration.attendee.email}"
+                                 required="true" requiredMessage="E-Mail is Missing" maxlength="120">
+                        <f:validateLength maximum="120"/>
+                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                    </p:inputText>
+                    <p:watermark id="watermarkEmail" for="inputEmail" value="john@doe.com"/>
+                    <p:message id="messageEmail" for="inputEmail"/>
+
+                    <p:outputLabel id="labelFirstName" for="inputFirstName" value="First Name"/>
+                    <p:inputText id="inputFirstName" value="#{eventRegistration.attendee.firstName}"
+                                 required="true" requiredMessage="First Name is Missing" maxlength="70">
+                        <f:validateLength maximum="70"/>
+                    </p:inputText>
+                    <p:watermark id="watermarkFirst" for="inputFirstName" value="John"/>
+                    <p:message id="messageFirstName" for="inputFirstName"/>
+
+                    <p:outputLabel id="labelLastName" for="inputLastName" value="Last Name"/>
+                    <p:inputText id="inputLastName" value="#{eventRegistration.attendee.lastName}"
+                                 required="true" requiredMessage="Last Name is Missing" maxlength="70">
+                        <f:validateLength maximum="70"/>
+                    </p:inputText>
+                    <p:watermark id="watermarkLast" for="inputLastName" value="Doe"/>
+                    <p:message id="messageLastName" for="inputLastName"/>
+
+                    <p:commandButton id="buttonRegister" value="Register" 
+                                     action="#{eventRegistration.register(event.event)}"
+                                     update="messages messageEmail messageFirstName messageLastName"/>
+                    <p:spacer/>
+                    <p:spacer/>
+                    <p:spacer/>
+                </h:panelGrid>
+            </p:panel>
+        </ui:define>
+
+    </ui:composition>
+</html>

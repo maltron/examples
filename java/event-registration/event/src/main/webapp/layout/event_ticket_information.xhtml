@@ -18,17 +18,15 @@
                         <p:column headerText="NAME">
                             <p:outputLabel value="#{ticket.name}"/>
                         </p:column>
-                        <!-- Ticket: Ends -->
-                        <p:column headerText="ENDS">
-                            <p:outputLabel value="2d 20h 28m"/>
-                        </p:column>
                         <!-- Ticket: Price -->
                         <p:column headerText="PRICE">
                             <p:outputLabel value="FREE"/>
                         </p:column>
                         <!-- Ticket: Quantity -->
                         <p:column headerText="QUANTITY">
-                            <p:selectCheckboxMenu label="1"/>
+                            <p:selectCheckboxMenu id="#{ticket.quantity}" label="1">
+                                <f:selectItems/>
+                            </p:selectCheckboxMenu>
                         </p:column>
                     </p:dataTable>
 
