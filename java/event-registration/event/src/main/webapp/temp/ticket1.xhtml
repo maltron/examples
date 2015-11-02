@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+        <f:viewParam name="designationEdition" value="#{register.designationEdition}"
+                     required="true" 
+                     requiredMessage="Event's Designation and edition are required. Example: /myevent2015"/>        
+    </f:metadata>
+
+    <h:head>
+        <title>ticket1</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet library="css" name="event-registration.css"/>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:focus id="focus" context="panel"/>
+            <p:growl id="messages" showSummary="true"/>
+            <p:panel id="panel" header="Ticket Information">
+                <p:panelGrid id="panelgrid">
+                    <p:row>
+                        <p:column>
+                            <p:dataTable id="datatable" var="ticket" 
+                                         value="#{register.event.tickets}">
+                                <p:column headerText="Name">
+                                    <p:outputLabel value="#{ticket.name}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Quantity">
+                                    <p:selectOneMenu value="#{ticket.quantitySelected}">
+                                        <f:selectItems value="#{register.defaultTicketQuantity}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                
+                            </p:dataTable>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:commandButton id="button" action="#{register.register}"
+                                             value="Submit" icon="ui-icon-disk"
+                                             update="form messages"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
