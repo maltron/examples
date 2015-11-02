@@ -4,11 +4,6 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <f:metadata>
-        <f:viewParam name="designationEdition" value="#{register.designationEdition}"
-                     required="true" 
-                     requiredMessage="Event's Designation and edition are required. Example: /myevent2015"/>        
-    </f:metadata>
 
     <h:head>
         <title>ticket1</title>
@@ -24,7 +19,7 @@
                     <p:row>
                         <p:column>
                             <p:dataTable id="datatable" var="ticket" 
-                                         value="#{register.event.tickets}">
+                                         value="#{temp.event.tickets}">
                                 <p:column headerText="Name">
                                     <p:outputLabel value="#{ticket.name}"/>
                                 </p:column>
@@ -41,7 +36,7 @@
                     
                     <p:row>
                         <p:column>
-                            <p:commandButton id="button" action="#{register.register}"
+                            <p:commandButton id="button" action="#{temp.listTickets()}"
                                              value="Submit" icon="ui-icon-disk"
                                              update="form messages"/>
                         </p:column>

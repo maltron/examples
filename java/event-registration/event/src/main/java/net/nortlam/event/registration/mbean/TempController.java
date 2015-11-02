@@ -108,6 +108,6 @@ public class TempController extends EventRegistrationCommonController
             return null;
         }
         
-        return "result_datatable_tickets";
+        return "ticket2";
     }
 }

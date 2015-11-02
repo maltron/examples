@@ -19,7 +19,8 @@
                     <p:row>
                         <p:column>
                             <p:dataTable id="datatable" var="ticket" 
-                                         value="#{register.event.tickets}">
+                                         value="#{temp.event.tickets}"
+                                         emptyMessage="NO TICKETS FOR YOU">
                                 <p:column headerText="Name">
                                     <p:outputLabel value="#{ticket.name}"/>
                                 </p:column>
