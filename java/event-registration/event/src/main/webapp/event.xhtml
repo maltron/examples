@@ -7,7 +7,8 @@
       xmlns:p="http://primefaces.org/ui">
     
     <f:metadata>
-        <f:viewParam name="eventID" value="#{event.eventID}"/>
+        <f:viewParam name="designationEdition" value="#{register.designationEdition}"
+                     required="true" requiredMessage="Event's Designation and edition are required. Example: /myevent2015"/>        
     </f:metadata>
 
     <ui:composition template="/layout/event_template.xhtml">

@@ -12,11 +12,13 @@
     <h:body>
         <ui:composition>
             <!-- EVENT DESCRIPTION -->
-            <p:panel id="event_details" header="Event Details" style="margin-bottom:20px">
-                <h:panelGrid columns="1" cellpadding="10">
-                    <p:outputLabel value="#{event.event.description}"/>
-                </h:panelGrid>                        
-            </p:panel>
+            <h:form id="form_event_description">
+                <p:panel id="event_details" header="Event Details" style="margin-bottom:20px">
+                    <h:panelGrid columns="1" cellpadding="10">
+                        <p:outputLabel value="#{register.event.description}"/>
+                    </h:panelGrid>                        
+                </p:panel>
+            </h:form>
         </ui:composition>
     </h:body>
 </html>

@@ -22,4 +22,8 @@ public class NavigationController extends EventRegistrationCommonController
     public void goOrganizer() {
         redirect(hostOrganizerService(), "event/all");
     }
+    
+    public void goRegister() {
+        redirect(hostEventService(), String.format("register/%d"));
+    }
 }

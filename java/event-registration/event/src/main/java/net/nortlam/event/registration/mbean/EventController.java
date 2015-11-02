@@ -46,9 +46,9 @@ public class EventController extends EventRegistrationCommonController
     @EJB
     private Service service;
     
-    private Event event;
-    private String eventID;
-    private boolean isNew;
+//    private Event event;
+//    private String eventID;
+//    private boolean isNew;
     
     // Used basic for a list of Events
     private Event eventSelected;
@@ -56,70 +56,34 @@ public class EventController extends EventRegistrationCommonController
     public EventController() {
     }
     
-    public void setEventID(String eventID) {
-        try {
-            long value = Long.parseLong(eventID);
-            event = service.findByID(value);
-            isNew = false;
-            
-        } catch(NumberFormatException ex) {
-            LOG.log(Level.WARNING, "### setEventID() NUMBER FORMAT EXCEPTION:{0}",
-                                                                ex.getMessage());
-            redirectInternalServerError();
-        } catch(NotFoundException ex) {
-            redirectNotFoundError();
-        } catch(InternalServerErrorException ex) {
-            redirectInternalServerError();
-        }
-    }
-    
-    public String getEventID() { return null; } // NOTHING TO DO
-
-    public Event getEvent() {
-        if(event == null) {
-            event = new Event();
-            event.setTickets(new HashSet<Ticket>());
-            isNew = true;
-        }
-        
-        return event;
-    }
-    
-    public Organizer getOrganizer() {
-        try {
-            if(event.getOrganizer() > 0)
-                return service.requestOrganizerByID(hostOrganizerService(), 
-                                                        event.getOrganizer());
-        } catch(NotFoundException ex) {
-            redirectNotFoundError();
-        } catch(InternalServerErrorException ex) {
-            redirectInternalServerError();
-        }
-        
-        return null;
-    }
-    
-    public void setDesignationEdition(String designationEdition) {
-        String designation = extractDesignation(designationEdition);
-        int edition = extractEdition(designationEdition);
-        
-        if(designation == null || edition == 0) {
-            LOG.log(Level.WARNING, "### setDesignationEdition() Arguments *NOT* valid:"+
-                    " Designation:{0} Edition:{1}", new Object[] {designation, edition});
-            redirectNotFoundError();
-            return;
-        }
-        
-        try {
-            event = service.findByDesignationEdition(designation, edition);
-        } catch(NotFoundException ex) {
-            redirectNotFoundError();
-        } catch(InternalServerErrorException ex) {
-            redirectInternalServerError();
-        }
-    }
-    
-    public String getDesignationEdition() { return null; } // NOT USED
+//    public void setEventID(String eventID) {
+//        try {
+//            long value = Long.parseLong(eventID);
+//            event = service.findByID(value);
+//            isNew = false;
+//            
+//        } catch(NumberFormatException ex) {
+//            LOG.log(Level.WARNING, "### setEventID() NUMBER FORMAT EXCEPTION:{0}",
+//                                                                ex.getMessage());
+//            redirectInternalServerError();
+//        } catch(NotFoundException ex) {
+//            redirectNotFoundError();
+//        } catch(InternalServerErrorException ex) {
+//            redirectInternalServerError();
+//        }
+//    }
+//    
+//    public String getEventID() { return null; } // NOTHING TO DO
+//
+//    public Event getEvent() {
+//        if(event == null) {
+//            event = new Event();
+//            event.setTickets(new HashSet<Ticket>());
+//            isNew = true;
+//        }
+//        
+//        return event;
+//    }
     
     
     // LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
@@ -159,28 +123,28 @@ public class EventController extends EventRegistrationCommonController
     // ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT 
     //  ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT 
     
-    public void save(ActionEvent e) {
-        try {
-            if(isNew) event = service.create(event);
-            else event = service.update(event);
-            
-            info("Successfull", "Event's Information saved");
-            
-        } catch(AlreadyExistsException ex) {
-            // Event's Designation and Edition already exist
-            error(ex.getMessage());
-            
-        } catch(BiggerException ex) {
-            error(ex.getMessage());
-            
-        } catch(IllegalArgumentException ex) {
-            error(ex.getMessage());
-            
-        } catch(MissingInformationException ex) {
-            error(ex.getMessage());
-            
-        } catch(InternalServerErrorException ex) {
-            redirectInternalServerError();
-        }
-    }
+//    public void save(ActionEvent e) {
+//        try {
+//            if(isNew) event = service.create(event);
+//            else event = service.update(event);
+//            
+//            info("Successfull", "Event's Information saved");
+//            
+//        } catch(AlreadyExistsException ex) {
+//            // Event's Designation and Edition already exist
+//            error(ex.getMessage());
+//            
+//        } catch(BiggerException ex) {
+//            error(ex.getMessage());
+//            
+//        } catch(IllegalArgumentException ex) {
+//            error(ex.getMessage());
+//            
+//        } catch(MissingInformationException ex) {
+//            error(ex.getMessage());
+//            
+//        } catch(InternalServerErrorException ex) {
+//            redirectInternalServerError();
+//        }
+//    }
 }

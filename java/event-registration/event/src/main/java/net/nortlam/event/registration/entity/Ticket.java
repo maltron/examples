@@ -2,12 +2,15 @@ package net.nortlam.event.registration.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -19,6 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Ticket implements Serializable {
+    
+    private static final Logger LOG = Logger.getLogger(Ticket.class.getName());
 
     public static final String COLUMN_ID = "id";
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,17 +37,23 @@ public class Ticket implements Serializable {
     @XmlElement(name=COLUMN_NAME, type=String.class, required=true)
     private String name;
     
-    public static final String COLUMN_QUANTITY = "quantity";
-    @Column(name="QUANTITY", columnDefinition = "INT", nullable = false)
-    @XmlElement(name=COLUMN_QUANTITY, type=int.class, required=true)
-    private int quantity;
+    public static final String COLUMN_QUANTITY_AVAILABLE = "quantityAvailable";
+    @Column(name="QUANTITY_AVAILABLE", columnDefinition = "INT", nullable = false)
+    @XmlElement(name=COLUMN_QUANTITY_AVAILABLE, type=int.class, required=true)
+    private int quantityAvailable;
+    
+    public static final String COLUMN_QUANTITY_SELECTED = "quantitySelected";
+    @Transient
+//    @Column(name="QUANTITY_SELECTED", columnDefinition = "INT", nullable = true)
+    @XmlElement(name=COLUMN_QUANTITY_SELECTED, type=int.class, required=false)
+    private int quantitySelected;
 
     public Ticket() {
     }
 
-    public Ticket(String name, int quantity) {
+    public Ticket(String name, int quantityAvailable) {
         this.name = name;
-        this.quantity = quantity;
+        this.quantityAvailable = quantityAvailable;
     }
 
     public long getID() {
@@ -61,12 +72,22 @@ public class Ticket implements Serializable {
         this.name = name;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getQuantityAvailable() {
+        return quantityAvailable;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantityAvailable(int quantityAvailable) {
+        this.quantityAvailable = quantityAvailable;
+    }
+
+    public int getQuantitySelected() {
+        LOG.log(Level.INFO, ">>> getQuantitySelected() {0}", quantitySelected);
+        return quantitySelected;
+    }
+
+    public void setQuantitySelected(int quantitySelected) {
+        LOG.log(Level.INFO, ">>> setQuantitySelected({0})", quantitySelected);
+        this.quantitySelected = quantitySelected;
     }
 
     @Override
@@ -74,7 +95,8 @@ public class Ticket implements Serializable {
         int hash = 5;
         hash = 59 * hash + (int) (this.ID ^ (this.ID >>> 32));
         hash = 59 * hash + Objects.hashCode(this.name);
-        hash = 59 * hash + this.quantity;
+        hash = 59 * hash + this.quantityAvailable;
+        hash = 59 * hash + this.quantitySelected;
         return hash;
     }
 
@@ -93,7 +115,10 @@ public class Ticket implements Serializable {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (this.quantity != other.quantity) {
+        if (this.quantityAvailable != other.quantityAvailable) {
+            return false;
+        }
+        if (this.quantitySelected != other.quantitySelected) {
             return false;
         }
         return true;
@@ -104,7 +129,12 @@ public class Ticket implements Serializable {
         StringBuilder builder = new StringBuilder();
         builder.append("<Ticket ID=\"").append(ID).append("\">");
         builder.append("<Name>").append(name != null ? name : "NULl").append("</Name>");
-        builder.append("<Quantity>").append(quantity).append("</Quantity>");
+        builder.append("<QuantityAvailable>").append(quantityAvailable > 0 ? 
+                quantityAvailable : "ZERO")
+                .append("</QuantityAvailable>");
+        builder.append("<QuantitySelected>").append(quantitySelected > 0 ?
+                quantitySelected : "ZERO")
+                .append("</QuantitySelected>");
         
         builder.append("</Ticket>");
         

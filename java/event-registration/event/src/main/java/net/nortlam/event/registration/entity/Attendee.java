@@ -2,13 +2,6 @@ package net.nortlam.event.registration.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -18,35 +11,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  * @author Mauricio "Maltron" Leal <maltron@gmail.com> */
-@Entity(name="Attendee")
-@Table(name="ATTENDEE", uniqueConstraints = 
-        @UniqueConstraint(name = "ATTENDEE_FIRST_AND_LAST_NAME",
-                                columnNames = {"FIRST_NAME", "LAST_NAME"}))
+//@Entity(name="Attendee")
+//@Table(name="ATTENDEE", uniqueConstraints = 
+//        @UniqueConstraint(name = "ATTENDEE_FIRST_AND_LAST_NAME",
+//                                columnNames = {"FIRST_NAME", "LAST_NAME"}))
 @XmlRootElement(name="Attendee")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Attendee implements Serializable {
 
     public static final String COLUMN_ID = "id";
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ATTENDEE_ID")
+//    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name="ATTENDEE_ID")
     @XmlAttribute(name = COLUMN_ID, required=false)
     private long ID;
     
     public static final String COLUMN_FIRST_NAME = "firstName";
     public static final int LENGTH_FIRST_NAME = 40;
-    @Column(name="FIRST_NAME", length = LENGTH_FIRST_NAME, nullable = false)
+//    @Column(name="FIRST_NAME", length = LENGTH_FIRST_NAME, nullable = false)
     @XmlElement(name=COLUMN_FIRST_NAME, type=String.class, required=true)
     private String firstName;
     
     public static final String COLUMN_LAST_NAME = "lastName";
     public static final int LENGTH_LAST_NAME = 40;
-    @Column(name="LAST_NAME", length = LENGTH_LAST_NAME, nullable = false)
+//    @Column(name="LAST_NAME", length = LENGTH_LAST_NAME, nullable = false)
     @XmlElement(name=COLUMN_LAST_NAME, type=String.class, required=true)
     private String lastName;
 
     public static final String COLUMN_EMAIL = "email";
     public static final int LENGTH_EMAIL = 120;
-    @Column(name="EMAIL", length = LENGTH_EMAIL, nullable = false, unique = true)
+//    @Column(name="EMAIL", length = LENGTH_EMAIL, nullable = false, unique = true)
     @XmlElement(name=COLUMN_EMAIL, type=String.class, required=true)
     private String email;
 
