@@ -5,6 +5,11 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
+    <f:metadata>
+        <f:viewParam name="designationEdition" value="#{register.designationEdition}"
+                     required="true"/>        
+    </f:metadata>
+
     <h:head>
         <title>ticket1</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -19,14 +24,14 @@
                     <p:row>
                         <p:column>
                             <p:dataTable id="datatable" var="ticket" 
-                                         value="#{temp.event.tickets}">
+                                         value="#{register.event.tickets}">
                                 <p:column headerText="Name">
                                     <p:outputLabel value="#{ticket.name}"/>
                                 </p:column>
                                 
                                 <p:column headerText="Quantity">
                                     <p:selectOneMenu value="#{ticket.quantitySelected}">
-                                        <f:selectItems value="#{register.defaultTicketQuantity}"/>
+                                        <f:selectItems value="#{register.value}"/>
                                     </p:selectOneMenu>
                                 </p:column>
                                 
@@ -36,7 +41,7 @@
                     
                     <p:row>
                         <p:column>
-                            <p:commandButton id="button" action="#{temp.listTickets()}"
+                            <p:commandButton id="button" action="#{register.listTickets()}"
                                              value="Submit" icon="ui-icon-disk"
                                              update="form messages"/>
                         </p:column>
