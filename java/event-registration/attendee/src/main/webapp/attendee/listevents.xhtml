@@ -16,16 +16,12 @@
                         <p:commandButton id="buttonBack" value="Back" onclick="history.go(-1);"/>
                     </td>
                     <td align="center">
-                        <p:commandButton id="buttonNewEvent" value="New..." action="#{nav.goEventNew()}"/>
-                        <p:commandButton id="buttonEditEvent" value="Edit" 
-                                         disabled="#{empty event.eventSelected}" action="#{nav.goEventEdit(event.eventSelected)}"/>
-                        <p:commandButton id="buttonDeleteEvent" value="Delete" disabled="#{empty event.eventSelected}"/>
+                        <p:commandButton id="buttonCancelRefund" value="Cancel/Refund" 
+                                         disabled="#{empty attendee.enrollSelected}" action="#{nav.goEventEdit(event.eventSelected)}"/>
                         <p:spacer/>
-                        <p:commandButton id="buttonAttendance" value="Attendees"  disabled="#{empty event.eventSelected}"/>
-                        <p:commandButton id="buttonTickets" value="Tickets" disabled="true"/>
                     </td>
                     <td align="right">
-                        <p:commandButton id="buttonSettings" value="Settings" action="#{nav.goOrganizerEdit()}"/>
+                        <p:commandButton id="buttonSettings" value="Settings" action="#{nav.goAttendeeEdit()}"/>
                         <p:commandButton id="buttonLogout" value="Logout" actionListener="#{login.logout}"/>
                     </td>
                 </tr>
@@ -36,9 +32,14 @@
             <p:panel id="panel" header="Events enroll for Attendee:#{attendee.loggedAttendee.firstName} #{attendee.loggedAttendee.lastName}">
                 <h:panelGrid columns="1" cellpadding="5">
                     <p:dataTable id="tableListEvents"  
-                                 value="#{attendee.listEventsForAttendee}" style="border: none"
-                                 selectionMode="single" 
+                                 value="#{attendee.listEventsForAttendee()}" style="border: none"
+                                 selectionMode="single" selection="#{attendee.enrollSelected}" 
                                  var="enroll" rowKey="#{enroll.ID}" emptyMessage="No Events for this Attendee">
+                        <p:ajax id="ajaxDoubleSelect" event="rowDblselect" listener="#{attendee.onRowSelect}"/>
+                        <p:ajax id="ajaxSelect" event="rowSelect"
+                                update=":formlisteventsattendee:buttonCancelRefund"/>
+                        <p:ajax id="ajaxUnselect" event="rowUnselect"
+                                update=":formlisteventsattendee:buttonCancelRefund"/>
 
                         <p:column id="columnTitle" width="170">
                             <f:facet name="header">
@@ -46,7 +47,7 @@
                             </f:facet>
                             <p:outputLabel value="#{enroll.title}" style="float:left"/>
                         </p:column>
-
+                        
                     </p:dataTable>
                 </h:panelGrid>
             </p:panel>

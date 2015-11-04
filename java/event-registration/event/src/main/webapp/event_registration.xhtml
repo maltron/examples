@@ -61,7 +61,8 @@
                         <p:watermark id="watermarkLast" for="inputLastName" value="Doe"/>
 
                         <p:commandButton id="buttonRegister" value="Register" 
-                                         actionListener="#{register.register}"
+                                         actionListener="#{register.registrationActionListener}"
+                                         action="#{register.register}"
                                          update="form_user_registration"/>
                         <p:spacer/>
                         <p:spacer/>

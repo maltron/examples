@@ -11,7 +11,10 @@ import javax.inject.Named;
 import javax.annotation.PostConstruct;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
+import javax.persistence.EntityExistsException;
+import javax.persistence.TransactionRequiredException;
 import net.nortlam.event.registration.entity.Attendee;
+import net.nortlam.event.registration.entity.Enroll;
 import net.nortlam.event.registration.entity.Event;
 import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.entity.Ticket;
@@ -148,18 +151,49 @@ public class RegistrationController extends EventRegistrationCommonController
         redirect("registration/new");
     }
     
-    public String register() {
+    public void register() {
         LOG.log(Level.INFO, ">>> register()");
         
         // Registration Pre-Verification
+        
         // Step #1: Verify if this Email already exists
-        //          YES:
-        //           NO: 
+        //          YES: OK, move forward for the registration
+        //           NO: Redirect to Attendee Service for Account creation
+        //               Using the email, First and Last Name already typed
+        try {
+            attendee = service.requestAttendeeByEMail(hostAttendeeService(), attendee.getEmail());
+            // Yes, it does exist
+        } catch(NotFoundException ex) {
+            error("Account doesn't exist", "Please create an Attendee account before purchasing your tickets");
+            return;
+        } catch(InternalServerErrorException ex) {
+            redirectInternalServerError();
+        }
         
-        // Step #2: Verify if this Attendee 
+        // Step #2: Verify if there is enough tickets available to sell to
+        ///         YES: Ok, move forward 
+        //           NO: Error Message 
         
         
-        return "";
+        // Step #3: Purchase it
+        try {
+            service.purchase(event, attendee);
+        } catch(EntityExistsException | IllegalArgumentException | 
+                            TransactionRequiredException ex) {
+            LOG.log(Level.SEVERE, "### register() EXCEPTION:{0}", ex.getMessage());
+            redirectInternalServerError();
+        }
+        
+        // Step #4: Notify Attendee about the enrollment of this event
+        try {
+            service.postEnrollAttendeeToEvent(hostAttendeeService(), event, attendee);
+        } catch(NotFoundException ex) {
+            redirectNotFoundError();
+        } catch(InternalServerErrorException ex) {
+            redirectInternalServerError();
+        }
+        
+        redirect("registration/success");
     }
     
 }

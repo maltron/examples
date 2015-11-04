@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.LockTimeoutException;
 import javax.persistence.NoResultException;
@@ -259,7 +260,6 @@ public class Service extends AbstractService<Event> {
         return findByProperty(em, Event.class, "ID", ID);
     }
     
-    
     // TRANSACTION TRANSACTION TRANSACTION TRANSACTION TRANSACTION TRANSACTION 
     //   TRANSACTION TRANSACTION TRANSACTION TRANSACTION TRANSACTION TRANSACTION 
 
@@ -268,7 +268,8 @@ public class Service extends AbstractService<Event> {
      *          A Transaction Manager must be create in order to safely handle
      *          this kind of transaction */
     public boolean purchase(Event event, Attendee attendee) 
-                        throws NotFoundException, InternalServerErrorException {
+            throws IllegalArgumentException, EntityExistsException, 
+                                                TransactionRequiredException {
         boolean success = false;
         
         // Step #1: Create a Order

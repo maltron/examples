@@ -14,9 +14,19 @@
     </url-mapping>
     
     <!-- Attendee -->
+    <url-mapping id="attendee_login">
+        <pattern value="/login"/>
+        <view-id value="/faces/login.xhtml"/>
+    </url-mapping>
+
     <url-mapping id="attendee_new">
         <pattern value="/new"/>
         <view-id value="/faces/new_attendee.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="attendee_edit">
+        <pattern value="/#{attendeeID}"/>
+        <view-id value="/faces/attendee/attendee.xhtml"/>
     </url-mapping>
 
     <!-- Events for this Attendee -->    

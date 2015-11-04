@@ -24,6 +24,7 @@ import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
 import net.nortlam.event.registration.service.Service;
 import net.nortlam.event.registration.util.EventRegistrationCommonController;
+import org.primefaces.event.SelectEvent;
 
 @Named("attendee")
 @ViewScoped
@@ -39,6 +40,8 @@ public class AttendeeController extends EventRegistrationCommonController
     
     // Logged Attendee
     private Attendee loggedAttendee;
+    
+    private Enroll enrollSelected;
     
 
     public AttendeeController() {}
@@ -103,7 +106,23 @@ public class AttendeeController extends EventRegistrationCommonController
         
         return null;
     }
+
+    public Enroll getEnrollSelected() {
+        return enrollSelected;
+    }
+
+    public void setEnrollSelected(Enroll enrollSelected) {
+        this.enrollSelected = enrollSelected;
+    }
     
+    public void onRowSelect(SelectEvent event) {
+//        String eventSelected = String.format("event/%d", 
+//                getEventSelected().getID());
+//        redirect(hostOrganizerService(), eventSelected);
+    }
+    
+    // PERSITENT PERSITENT PERSITENT PERSITENT PERSITENT PERSITENT PERSITENT PERSITENT 
+    //  PERSITENT PERSITENT PERSITENT PERSITENT PERSITENT PERSITENT PERSITENT PERSITENT 
     public void save(ActionEvent event) {
         LOG.log(Level.INFO, ">>> save() isNew ? {0} Attendee ID:{1}", new Object[] {
             isNew, attendee.getID()

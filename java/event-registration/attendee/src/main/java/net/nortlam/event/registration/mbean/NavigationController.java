@@ -1,9 +1,14 @@
 package net.nortlam.event.registration.mbean;
 
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import net.nortlam.event.registration.entity.Attendee;
 import net.nortlam.event.registration.entity.Event;
+import net.nortlam.event.registration.exception.InternalServerErrorException;
+import net.nortlam.event.registration.exception.NotFoundException;
+import net.nortlam.event.registration.service.Service;
 import net.nortlam.event.registration.util.EventRegistrationCommonController;
 
 /**
@@ -15,6 +20,8 @@ import net.nortlam.event.registration.util.EventRegistrationCommonController;
 @ViewScoped
 public class NavigationController extends EventRegistrationCommonController 
                                                     implements Serializable {
+    @EJB
+    private Service service;
     
     public void goEventNew() {
         redirect("event/new");
@@ -28,18 +35,18 @@ public class NavigationController extends EventRegistrationCommonController
         redirect("event/all");
     }
     
-//    public void goOrganizerEdit() {
-//        try {
-//            String email = getExternal().getRemoteUser();
-//            Organizer organizer = service.findByEmail(email);
-//            redirect(String.format("%d", organizer.getID()));
-//            
-//        } catch(NotFoundException ex) {
-//            redirectNotFoundError();
-//        } catch(InternalServerErrorException ex) {
-//            redirectInternalServerError();
-//        }
-//    }
+    public void goAttendeeEdit() {
+        try {
+            String email = getExternal().getRemoteUser();
+            Attendee attendee = service.findByEmail(email);
+            redirect(String.format("%d", attendee.getID()));
+            
+        } catch(NotFoundException ex) {
+            redirectNotFoundError();
+        } catch(InternalServerErrorException ex) {
+            redirectInternalServerError();
+        }
+    }
     
     public void goAttendeeNew() {
         redirect("new");

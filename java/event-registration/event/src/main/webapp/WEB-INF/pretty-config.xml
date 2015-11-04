@@ -24,5 +24,10 @@
         <pattern value="/registration/new"/>
         <view-id value="/faces/event_registration.xhtml"/>
     </url-mapping>
+    
+    <url-mapping id="event_registration_success">
+        <pattern value="/registration/success"/>
+        <view-id value="/faces/event_registration_success.xhtml"/>
+    </url-mapping>
 
 </pretty-config>
