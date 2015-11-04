@@ -27,6 +27,8 @@ public class EventRegistrationCommonController extends AbstractController {
     public static final String PARAMETER_ORGANIZER_SERVICE_HOST = "service-organizer";
     public static final String DEFAULT_ORGANIZER_SERVICE_HOST = "http://localhost:8080/organizer";
     
+    public static final String KEY_EVENT = "KEY_EVENT";
+    
     public void redirectNotFoundError() {
         redirect(ERROR_NOT_FOUND);
     }

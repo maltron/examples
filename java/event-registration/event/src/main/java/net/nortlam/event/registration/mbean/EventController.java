@@ -2,13 +2,11 @@ package net.nortlam.event.registration.mbean;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 import javax.persistence.LockTimeoutException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
@@ -18,25 +16,15 @@ import javax.persistence.QueryTimeoutException;
 import javax.persistence.TransactionRequiredException;
 
 import net.nortlam.event.registration.entity.Event;
-import net.nortlam.event.registration.entity.Organizer;
-import net.nortlam.event.registration.entity.Ticket;
-import net.nortlam.event.registration.exception.AlreadyExistsException;
-import net.nortlam.event.registration.exception.BiggerException;
-import net.nortlam.event.registration.exception.InternalServerErrorException;
-import net.nortlam.event.registration.exception.MissingInformationException;
-import net.nortlam.event.registration.exception.NotFoundException;
 import net.nortlam.event.registration.service.Service;
 import net.nortlam.event.registration.util.EventRegistrationCommonController;
-
-import static net.nortlam.event.registration.util.Extraction.extractDesignation;
-import static net.nortlam.event.registration.util.Extraction.extractEdition;
 
 import org.primefaces.event.SelectEvent;
 
 /**
  *
  * @author Mauricio "Maltron" Leal <maltron@gmail.com> */
-@ManagedBean(name="event")
+@Named("event")
 @ViewScoped
 public class EventController extends EventRegistrationCommonController 
                                                         implements Serializable {
@@ -46,45 +34,11 @@ public class EventController extends EventRegistrationCommonController
     @EJB
     private Service service;
     
-//    private Event event;
-//    private String eventID;
-//    private boolean isNew;
-    
     // Used basic for a list of Events
     private Event eventSelected;
 
     public EventController() {
     }
-    
-//    public void setEventID(String eventID) {
-//        try {
-//            long value = Long.parseLong(eventID);
-//            event = service.findByID(value);
-//            isNew = false;
-//            
-//        } catch(NumberFormatException ex) {
-//            LOG.log(Level.WARNING, "### setEventID() NUMBER FORMAT EXCEPTION:{0}",
-//                                                                ex.getMessage());
-//            redirectInternalServerError();
-//        } catch(NotFoundException ex) {
-//            redirectNotFoundError();
-//        } catch(InternalServerErrorException ex) {
-//            redirectInternalServerError();
-//        }
-//    }
-//    
-//    public String getEventID() { return null; } // NOTHING TO DO
-//
-//    public Event getEvent() {
-//        if(event == null) {
-//            event = new Event();
-//            event.setTickets(new HashSet<Ticket>());
-//            isNew = true;
-//        }
-//        
-//        return event;
-//    }
-    
     
     // LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
     //  LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
@@ -111,40 +65,9 @@ public class EventController extends EventRegistrationCommonController
     }
     
     public void onRowSelect(SelectEvent event) {
-        // Selection ny ID
-//        String eventSelected = String.format("event/%d", 
-//                getEventSelected().getID());
         String eventSelected = String.format("%s%d", 
                 getEventSelected().getDesignation(),
                 getEventSelected().getEdition());
         redirect(hostEventService(), eventSelected);
     }
-    
-    // ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT 
-    //  ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT ACTION EVENT 
-    
-//    public void save(ActionEvent e) {
-//        try {
-//            if(isNew) event = service.create(event);
-//            else event = service.update(event);
-//            
-//            info("Successfull", "Event's Information saved");
-//            
-//        } catch(AlreadyExistsException ex) {
-//            // Event's Designation and Edition already exist
-//            error(ex.getMessage());
-//            
-//        } catch(BiggerException ex) {
-//            error(ex.getMessage());
-//            
-//        } catch(IllegalArgumentException ex) {
-//            error(ex.getMessage());
-//            
-//        } catch(MissingInformationException ex) {
-//            error(ex.getMessage());
-//            
-//        } catch(InternalServerErrorException ex) {
-//            redirectInternalServerError();
-//        }
-//    }
 }

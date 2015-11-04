@@ -24,6 +24,7 @@ import javax.faces.application.NavigationHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
@@ -53,6 +54,10 @@ public class AbstractController implements Serializable {
     
     protected HttpServletRequest getServletRequest() {
         return (HttpServletRequest)getExternal().getRequest();
+    }
+    
+    protected Flash getFlash() {
+        return getExternal().getFlash();
     }
     
     protected void redirect(String contextPath) {

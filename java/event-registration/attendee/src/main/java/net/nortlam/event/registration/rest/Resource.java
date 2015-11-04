@@ -34,6 +34,14 @@ public class Resource {
         return Response.ok(found).build();
     }
     
+    @GET @Path("/email/{email}")
+    public Response fetch(@PathParam("email")String email) throws NotFoundException, 
+                                        InternalServerErrorException {
+        Attendee found = service.findByEmail(email);
+        
+        return Response.ok(found).build();
+    }
+    
     @POST @Consumes(MediaType.APPLICATION_JSON)
     public Response create(Attendee organizer) throws IllegalArgumentException, BiggerException,
                         MissingInformationException, AlreadyExistsException, 

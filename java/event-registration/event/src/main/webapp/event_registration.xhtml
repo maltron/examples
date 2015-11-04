@@ -11,9 +11,9 @@
 
         <ui:define name="ticket_information">
             <h:form id="form_ticket_information">
-                <p:panel id="ticket_information" header="Ticket Summary" style="margin-bottom:20px">
+                <p:panel id="ticket_information" header="Order Summary" style="margin-bottom:20px">
                     <h:panelGrid columns="4" cellpadding="10" style="width: 100%">
-                        <p:dataTable var="ticket" value="#{register.event.tickets}">
+                        <p:dataTable var="ticket" value="#{register.ticketOrdered}">
                             <!-- Ticket: Name -->
                             <p:column headerText="NAME">
                                 <p:outputLabel value="#{ticket.name}"/>

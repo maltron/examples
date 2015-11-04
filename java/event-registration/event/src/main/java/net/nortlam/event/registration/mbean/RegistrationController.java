@@ -1,17 +1,15 @@
 package net.nortlam.event.registration.mbean;
 
-import temp.TempController;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import javax.annotation.PostConstruct;
+import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import net.nortlam.event.registration.entity.Attendee;
 import net.nortlam.event.registration.entity.Event;
@@ -27,22 +25,24 @@ import static net.nortlam.event.registration.util.Extraction.extractEdition;
 /**
  *
  * @author Mauricio "Maltron" Leal <maltron@gmail.com> */
-@ManagedBean(name="register")
-@RequestScoped
+@Named("register")
+@ViewScoped
 public class RegistrationController extends EventRegistrationCommonController
                                                         implements Serializable {
     private static final int[] VALUES = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     private Event event;
+    private Organizer organizer;
+    private Attendee attendee;
     
     @EJB
     private Service service;
 
-    private static final Logger LOG = Logger.getLogger(TempController.class.getName());
+    private static final Logger LOG = Logger.getLogger(RegistrationController.class.getName());
 
     public RegistrationController() {
     }
 
-    public int[] getValue() {
+    public int[] getDefaultQuantity() {
         return VALUES;
     }
     
@@ -71,59 +71,86 @@ public class RegistrationController extends EventRegistrationCommonController
     
 
     public Event getEvent() {
-        if (event == null) {
-            LOG.log(Level.INFO, ">>> getEvent() Event IS NULL");
-            event = new Event();
-            event.setTitle("TITLE");
-            
-            Ticket ONE = new Ticket("ONE", 200);
-            Ticket TWO = new Ticket("TWO", 300);
-            Set<Ticket> tickets = new HashSet<Ticket>(2);
-            tickets.add(ONE); tickets.add(TWO);
-            event.setTickets(tickets);
-
-            for (Ticket t : event.getTickets()) {
-                LOG.log(Level.INFO, ">>> getEvent() Ticket:{0}", t);
-            }
-        }
-
         return event;
     }
     
-    public Set<Ticket> getTicketSelected() {
-        return ticketSelected;
-    }
-    
-    private Set<Ticket> ticketSelected;
-    public String listTickets() {
-//        boolean found = false;
-//        for (Ticket ticket : event.getTickets()) {
-//            LOG.log(Level.INFO, "Ticket:{0}", ticket);
-//            if (ticket.getQuantitySelected() > 0) {
-//                found = true; break;
-//            }
-//        }
-//
-//        if (!found) {
-//            error("No tickets were selected");
-//            return null;
-//        }
-        for (Ticket ticket : event.getTickets()) {
-            LOG.log(Level.INFO, "Ticket:{0}", ticket);
-            if (ticket.getQuantitySelected() > 0) {
-                if(ticketSelected == null) ticketSelected = new HashSet<Ticket>();
-                ticketSelected.add(ticket);
+    public Organizer getOrganizer() {
+        if(organizer == null) {
+            try {
+                if(event.getOrganizer() > 0) {
+                    organizer = service.requestOrganizerByID(hostOrganizerService(), 
+                                                        event.getOrganizer());
+                } else {
+                    LOG.log(Level.SEVERE, "### getOrganizer() UNABLE TO FETCH ORGANIZER DATA");
+                }
+            } catch(NotFoundException ex) {
+                redirectNotFoundError();
+            } catch(InternalServerErrorException ex) {
+                redirectInternalServerError();
             }
         }
-
-        if (ticketSelected == null) {
-            error("No tickets were selected");
-            return null;
+        
+        return organizer;
+    }
+    
+    public Attendee getAttendee() {
+        if(attendee == null) {
+            attendee = new Attendee();
         }
-
         
+        return attendee;
+    }
+    
+    public Set<Ticket> getTicketOrdered() {
+        Set<Ticket> ordered = new HashSet<Ticket>();
+        for(Ticket ticket: event.getTickets())
+            if(ticket.getQuantitySelected() > 0)
+                ordered.add(ticket);
         
-        return "ticket2";
+        return ordered;
+    }
+    
+    private boolean isTicketOrdered() {
+        boolean found = false;
+        for(Ticket ticket: event.getTickets())
+            if(ticket.getQuantitySelected() > 0) {
+                found = true; break;
+            }
+        
+        return found;
+    }
+    
+    @PostConstruct
+    private void init() {
+        LOG.log(Level.INFO, ">>> init() Fetching Event");
+        event = (Event)getFlash().get(KEY_EVENT);
+        LOG.log(Level.INFO, ">>> init() GET {0}", event);
+    }
+    
+    public void registrationActionListener(ActionEvent e) {
+        LOG.log(Level.INFO, ">>> registrationActionListener()");
+        // First, check if there is any ticket selected.
+        // It must be greater then ZERO
+        if(!isTicketOrdered()) {
+            error("No tickets selected", 
+                    "You must select a certain quantity of tickets first");
+            throw new AbortProcessingException("### registrationActionListener() "+
+                    " No tickets were selected");
+        }
+        
+        Event temp = (Event)getFlash().put(KEY_EVENT, event);
+        LOG.log(Level.INFO, ">>> registrationActionListener() PUT {0}", temp);
+    }
+    
+    public void registration() {
+        LOG.log(Level.INFO, ">>> registration()");
+        //return "event_registration?faces-redirect=true";
+        redirect("registration/new");
+    }
+    
+    public String register() {
+        LOG.log(Level.INFO, ">>> register()");
+        return "";
     }
     
 }

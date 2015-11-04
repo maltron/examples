@@ -19,6 +19,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.core.UriBuilder;
+import net.nortlam.event.registration.entity.Attendee;
 import net.nortlam.event.registration.entity.Event;
 import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
@@ -235,8 +236,6 @@ public class Service extends AbstractService<Event> {
         
         return getEntityManager().createQuery(query).getResultList();
     }
-                
-    
     
     // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     //  FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
@@ -265,7 +264,15 @@ public class Service extends AbstractService<Event> {
         URI uri = UriBuilder.fromUri(host).path("/api/v1/{ID}").build(ID);
         return request(uri, Organizer.class);
     }
-
+    
+    public Attendee requestAttendeeByEMail(String host, String email) 
+                        throws NotFoundException, InternalServerErrorException {
+        URI uri = UriBuilder.fromUri(host).path("/api/v1/email/{email}").build(email);
+        return request(uri, Attendee.class);
+    }
+    
+    // ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER
+    //  ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER 
     @Override
     public EntityManager getEntityManager() {
         return em;

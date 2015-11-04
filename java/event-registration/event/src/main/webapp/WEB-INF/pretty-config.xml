@@ -18,5 +18,11 @@
         <pattern value="/#{designationEdition}"/>
         <view-id value="/faces/event.xhtml"/>
     </url-mapping>
+    
+    <!-- Event Registration -->
+    <url-mapping id="event_registration">
+        <pattern value="/registration/new"/>
+        <view-id value="/faces/event_registration.xhtml"/>
+    </url-mapping>
 
 </pretty-config>

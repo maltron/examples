@@ -12,7 +12,7 @@
     <h:body>
         <ui:composition>
             <h:form id="form_ticket_information">
-                <p:growl id="messages" showSummary="true"/>
+                <p:growl id="messages" showSummary="true" showDetail="true"/>
                 <p:panel id="ticket_information" header="Ticket Information" style="margin-bottom:20px">
                     <h:panelGrid columns="4" cellpadding="10" style="width: 100%">
                         <p:dataTable var="t" value="#{register.event.tickets}">
@@ -27,7 +27,7 @@
                             <!-- Ticket: Quantity SELECTED -->
                             <p:column headerText="QUANTITY">
                                 <p:selectOneMenu value="#{t.quantitySelected}">
-                                    <f:selectItems value="#{register.defaultTicketQuantity}"/>
+                                    <f:selectItems value="#{register.defaultQuantity}"/>
                                 </p:selectOneMenu>
                             </p:column>
                         </p:dataTable>
@@ -37,7 +37,8 @@
                     <h:panelGrid columns="1">
                         <p:commandButton id="buttonRegister" value="Register" 
                                          style="left: 10px"
-                                         action="#{register.performRegister}"
+                                         actionListener="#{register.registrationActionListener}"
+                                         action="#{register.registration()}"
                                          update="form_ticket_information messages"/>
                     </h:panelGrid>
                     <br/>

@@ -1,8 +1,8 @@
 package net.nortlam.event.registration.mbean;
 
 import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 import net.nortlam.event.registration.util.EventRegistrationCommonController;
 
 /**
@@ -10,7 +10,7 @@ import net.nortlam.event.registration.util.EventRegistrationCommonController;
  * here
  *
  * @author Mauricio "Maltron" Leal <maltron@gmail.com> */
-@ManagedBean(name = "nav")
+@Named("nav")
 @ViewScoped
 public class NavigationController extends EventRegistrationCommonController 
                                                     implements Serializable {

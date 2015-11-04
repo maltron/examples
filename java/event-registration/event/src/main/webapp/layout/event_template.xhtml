@@ -43,7 +43,7 @@
                     <h:form id="form_event_organizer">
                         <p:panel id="organizer" header="Organizer" style="margin-bottom:20px">
                             <h:panelGrid columns="1">
-                                <b><p:outputLabel value="#{register.organizer.firstName} #{register.organizer.lastName}"/></b><br/>
+                                <b><p:outputLabel value="#{register.organizer != null ? register.organizer.firstName : '##########'} #{register.organizer != null ? register.organizer.lastName : '##########'}"/></b><br/>
                                 <!--                                <p:outputLabel value="Hyper Island designs learning experiences that challenge companies and individuals to grow and stay competitive in a increasingly digitized world. Our range of immersive programs and courses seeks to equip you with the necessary knowledge and skills to lead and change and begin a journey of lifelong learning."/>-->
                                 <p:spacer/>
                                 <p:commandButton value="Contact the Organizer"/>
