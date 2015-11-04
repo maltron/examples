@@ -150,6 +150,15 @@ public class RegistrationController extends EventRegistrationCommonController
     
     public String register() {
         LOG.log(Level.INFO, ">>> register()");
+        
+        // Registration Pre-Verification
+        // Step #1: Verify if this Email already exists
+        //          YES:
+        //           NO: 
+        
+        // Step #2: Verify if this Attendee 
+        
+        
         return "";
     }
     

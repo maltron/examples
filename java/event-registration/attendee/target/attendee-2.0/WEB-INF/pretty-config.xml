@@ -13,4 +13,17 @@
         <view-id value="/faces/error/internal_server.xhtml"/>
     </url-mapping>
     
+    <!-- Attendee -->
+    <url-mapping id="attendee_new">
+        <pattern value="/new"/>
+        <view-id value="/faces/new_attendee.xhtml"/>
+    </url-mapping>
+
+    <!-- Events for this Attendee -->    
+    <url-mapping id="attendee_list_events">
+        <pattern value="/event/all"/>
+        <view-id value="/faces/attendee/listevents.xhtml"/>
+    </url-mapping>
+    
+    
 </pretty-config>

@@ -1,0 +1,2 @@
+/subsystem=security/security-domain=AttendeeRealm:add(cache-type=default)
+/subsystem=security/security-domain=AttendeeRealm/authentication=classic:add(login-modules=[{"code"=>"Database","flag"=>"required","module-options"=>[("dsJndiName"=>"java:/jboss/datasources/event/registration/AttendeeDS"),("principalsQuery"=>"select PASSWORD from ATTENDEE where EMAIL=?"),("rolesQuery"=>"SELECT 'Attendee', 'Roles' FROM ORGANIZER WHERE EMAIL=?"),("hashAlgorithm"=>"SHA-256"),("hashEncoding"=>"base64"),("unauthenticatedIdentity"=>"guest")]}]

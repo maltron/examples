@@ -8,20 +8,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import net.nortlam.event.registration.util.Encrypt;
 
 /**
  *
  * @author Mauricio "Maltron" Leal <maltron@gmail.com> */
 @Entity(name="Attendee")
-@Table(name="ATTENDEE", uniqueConstraints = 
-        @UniqueConstraint(name = "ATTENDEE_FIRST_AND_LAST_NAME",
-                                columnNames = {"FIRST_NAME", "LAST_NAME"}))
+@Table(name="ATTENDEE")
+//        uniqueConstraints = 
+//        @UniqueConstraint(name = "ATTENDEE_FIRST_AND_LAST_NAME",
+//                                columnNames = {"FIRST_NAME", "LAST_NAME"}))
 @XmlRootElement(name="Attendee")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Attendee implements Serializable {
@@ -50,6 +51,11 @@ public class Attendee implements Serializable {
     @XmlElement(name=COLUMN_EMAIL, type=String.class, required=true)
     private String email;
 
+    public static final int LENGTH_PASSWORD = 120;
+    @Column(name="PASSWORD", length = LENGTH_PASSWORD, nullable = false)
+    @XmlElement(name="password", type=String.class, required=true)
+    private String password;
+
     public Attendee() {
     }
 
@@ -57,6 +63,13 @@ public class Attendee implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public Attendee(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
     }
 
     public long getID() {
@@ -91,6 +104,14 @@ public class Attendee implements Serializable {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = Encrypt.encrypt(password); // ENCRYPTION GOES HERE
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -98,6 +119,7 @@ public class Attendee implements Serializable {
         hash = 97 * hash + Objects.hashCode(this.firstName);
         hash = 97 * hash + Objects.hashCode(this.lastName);
         hash = 97 * hash + Objects.hashCode(this.email);
+        hash = 97 * hash + Objects.hashCode(this.password);
         return hash;
     }
 
@@ -122,6 +144,9 @@ public class Attendee implements Serializable {
         if (!Objects.equals(this.email, other.email)) {
             return false;
         }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
         return true;
     }
     
@@ -135,6 +160,7 @@ public class Attendee implements Serializable {
                 .append("</LastName>");
         builder.append("<Email>").append(email != null ? email : "NULL")
                 .append("</Email>");
+        builder.append("<Password>").append(password != null ? "*****" : "NULL").append("</Password>");
         builder.append("</Attendee>");
         
         return builder.toString();

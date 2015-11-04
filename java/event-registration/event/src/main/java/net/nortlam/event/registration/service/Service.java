@@ -18,9 +18,12 @@ import javax.persistence.TransactionRequiredException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import net.nortlam.event.registration.entity.Attendee;
+import net.nortlam.event.registration.entity.Enroll;
 import net.nortlam.event.registration.entity.Event;
+import net.nortlam.event.registration.entity.Order;
 import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
@@ -256,6 +259,27 @@ public class Service extends AbstractService<Event> {
         return findByProperty(em, Event.class, "ID", ID);
     }
     
+    
+    // TRANSACTION TRANSACTION TRANSACTION TRANSACTION TRANSACTION TRANSACTION 
+    //   TRANSACTION TRANSACTION TRANSACTION TRANSACTION TRANSACTION TRANSACTION 
+
+    /**
+     * PENDING: Ideally, this kind of transaction shouldn't be done in this way.
+     *          A Transaction Manager must be create in order to safely handle
+     *          this kind of transaction */
+    public boolean purchase(Event event, Attendee attendee) 
+                        throws NotFoundException, InternalServerErrorException {
+        boolean success = false;
+        
+        // Step #1: Create a Order
+        Order newOrder = new Order(event, attendee);
+        
+        // Step #2: Save it a Order
+        em.persist(newOrder);
+        
+        return success;
+    }
+    
     // REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST 
     //  REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST 
     
@@ -269,6 +293,34 @@ public class Service extends AbstractService<Event> {
                         throws NotFoundException, InternalServerErrorException {
         URI uri = UriBuilder.fromUri(host).path("/api/v1/email/{email}").build(email);
         return request(uri, Attendee.class);
+    }
+    
+    public Enroll postEnrollAttendeeToEvent(String host, Event event, Attendee attendee)
+                        throws NotFoundException, InternalServerErrorException {
+        URI uri = UriBuilder.fromUri(host).path("/api/v1/enroll").build();
+        
+        Enroll newEnroll = new Enroll(event, attendee);
+        
+        Response response = null; Enroll enroll = null;
+        try {
+            response = post(uri, newEnroll);
+            if(response.getStatus() == Response.Status.CREATED.getStatusCode())
+                enroll = response.readEntity(Enroll.class);
+            // ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR 
+            else if(response.getStatus() == Response.Status.NOT_FOUND.getStatusCode()) {
+                throw new NotFoundException();
+            } else {
+                Response.StatusType info = response.getStatusInfo();
+                LOG.log(Level.SEVERE, "### request() PROBLEM:{0} {1}",
+                        new Object[] {response.getStatus(),
+                            info != null ? info.getReasonPhrase() : "<NO REASON GIVEN>"});
+            }
+            
+        } finally {
+            if(response != null) response.close();
+        }
+        
+        return enroll;
     }
     
     // ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER

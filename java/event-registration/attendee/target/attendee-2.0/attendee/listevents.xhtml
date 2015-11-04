@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Event Registration: Attendee List Events</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form id="formlisteventsattendee">
+            <table style="width: 100%">
+                <tr><td align="left">
+                        <p:commandButton id="buttonBack" value="Back" onclick="history.go(-1);"/>
+                    </td>
+                    <td align="center">
+                        <p:commandButton id="buttonNewEvent" value="New..." action="#{nav.goEventNew()}"/>
+                        <p:commandButton id="buttonEditEvent" value="Edit" 
+                                         disabled="#{empty event.eventSelected}" action="#{nav.goEventEdit(event.eventSelected)}"/>
+                        <p:commandButton id="buttonDeleteEvent" value="Delete" disabled="#{empty event.eventSelected}"/>
+                        <p:spacer/>
+                        <p:commandButton id="buttonAttendance" value="Attendees"  disabled="#{empty event.eventSelected}"/>
+                        <p:commandButton id="buttonTickets" value="Tickets" disabled="true"/>
+                    </td>
+                    <td align="right">
+                        <p:commandButton id="buttonSettings" value="Settings" action="#{nav.goOrganizerEdit()}"/>
+                        <p:commandButton id="buttonLogout" value="Logout" actionListener="#{login.logout}"/>
+                    </td>
+                </tr>
+            </table>
+            <p:separator/>
+            <p:focus id="focus" context="panel"/>
+            <p:growl id="messages" showSummary="true"/> 
+            <p:panel id="panel" header="Events enroll for Attendee:#{attendee.loggedAttendee.firstName} #{attendee.loggedAttendee.lastName}">
+                <h:panelGrid columns="1" cellpadding="5">
+                    <p:dataTable id="tableListEvents"  
+                                 value="#{attendee.listEventsForAttendee}" style="border: none"
+                                 selectionMode="single" 
+                                 var="enroll" rowKey="#{enroll.ID}" emptyMessage="No Events for this Attendee">
+
+                        <p:column id="columnTitle" width="170">
+                            <f:facet name="header">
+                                <p:outputLabel value="Title" style="float:left"/>
+                            </f:facet>
+                            <p:outputLabel value="#{enroll.title}" style="float:left"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>

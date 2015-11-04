@@ -32,6 +32,45 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>faces/attendee/listevents.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <security-constraint>
+        <display-name>Only Attendee Access</display-name>
+        
+        <web-resource-collection>
+            <web-resource-name>Organizer Folder using Pretty Faces</web-resource-name>
+            <description/>
+            <url-pattern>/event/*</url-pattern>
+        </web-resource-collection>
+        
+        <web-resource-collection>
+            <web-resource-name>Attendee Folder using Faces pages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/attendee/*</url-pattern>
+        </web-resource-collection>
+        
+        <auth-constraint>
+            <description/>
+            <role-name>Attendee</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <description/>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>AttendeeRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login</form-login-page>
+            <form-error-page>/login-error.html</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <security-role>
+        <role-name>Attendee</role-name>
+    </security-role>    
+    
 </web-app>

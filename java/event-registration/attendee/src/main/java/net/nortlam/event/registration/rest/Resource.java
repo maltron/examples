@@ -12,12 +12,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import net.nortlam.event.registration.entity.Attendee;
+import net.nortlam.event.registration.entity.Enroll;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
 import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
 import net.nortlam.event.registration.service.Service;
+import net.nortlam.event.registration.service.ServiceEnroll;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,6 +27,9 @@ public class Resource {
     
     @EJB
     private Service service;
+    
+    @EJB
+    private ServiceEnroll serviceEnroll;
     
     @GET @Path("/{ID}")
     public Response fetch(@PathParam("ID") long ID) throws NotFoundException, 
@@ -47,6 +52,17 @@ public class Resource {
                         MissingInformationException, AlreadyExistsException, 
                                                 InternalServerErrorException {
         Attendee inserted = service.create(organizer);
+        
+        return Response.ok(inserted).status(Response.Status.CREATED).build();
+    }
+    
+    @POST @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/enroll")
+    public Response createEnroll(Enroll enroll) throws IllegalArgumentException, BiggerException,
+                        MissingInformationException, AlreadyExistsException, 
+                                                InternalServerErrorException {
+        
+        Enroll inserted = serviceEnroll.create(enroll);
         
         return Response.ok(inserted).status(Response.Status.CREATED).build();
     }

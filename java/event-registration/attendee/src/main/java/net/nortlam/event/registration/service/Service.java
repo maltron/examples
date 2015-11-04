@@ -1,11 +1,24 @@
 package net.nortlam.event.registration.service;
 
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.LockTimeoutException;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.PessimisticLockException;
+import javax.persistence.QueryTimeoutException;
+import javax.persistence.TransactionRequiredException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import net.nortlam.event.registration.entity.Attendee;
+import net.nortlam.event.registration.entity.Enroll;
+import net.nortlam.event.registration.entity.Event;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
@@ -89,39 +102,57 @@ public class Service extends AbstractService<Attendee> {
             // NOTHING TO DO
         }
         
-        // FIRST AND LAST NAME
-        try {
-            Attendee found = findByFirstLastName(attendee.getFirstName(), 
-                                                        attendee.getLastName());
-            if(isNew) throw new AlreadyExistsException(
-                String.format("First (%s) and Last(%s) already exists",
-                        attendee.getFirstName(), attendee.getLastName()));
-            else if(found.getID() != attendee.getID())
-                throw new AlreadyExistsException(
-                String.format("First (%s) and Last(%s) already exists",
-                        attendee.getFirstName(), attendee.getLastName()));
-            
-        } catch(NotFoundException ex) {
-            // NOTHING TO DO
-        }
+//        // FIRST AND LAST NAME
+//        try {
+//            Attendee found = findByFirstLastName(attendee.getFirstName(), 
+//                                                        attendee.getLastName());
+//            if(isNew) throw new AlreadyExistsException(
+//                String.format("First (%s) and Last(%s) already exists",
+//                        attendee.getFirstName(), attendee.getLastName()));
+//            else if(found.getID() != attendee.getID())
+//                throw new AlreadyExistsException(
+//                String.format("First (%s) and Last(%s) already exists",
+//                        attendee.getFirstName(), attendee.getLastName()));
+//            
+//        } catch(NotFoundException ex) {
+//            // NOTHING TO DO
+//        }
         
     }
     
     // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     //  FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     
+    public Collection<Enroll> listEventsForAttendee(long attendeeID)
+                                                    throws NoResultException,
+                            NonUniqueResultException, QueryTimeoutException,
+                            TransactionRequiredException, PessimisticLockException,
+                            LockTimeoutException, PersistenceException {
+        
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Enroll> query = builder.createQuery(Enroll.class);
+        Root<Enroll> root = query.from(Enroll.class);
+        
+        query.select(root).where(builder.equal(
+                root.get(Enroll.COLUMN_ATTENDEE), attendeeID));
+//                .orderBy(builder.asc(root.get(Event.COLUMN_EVENT_STARTS)));
+        
+        return getEntityManager().createQuery(query).getResultList();        
+    }
+    
     public Attendee findByEmail(String email) throws NotFoundException, 
                                                     InternalServerErrorException {
         return findByProperty(em, Attendee.class, "email", email);
     }
     
-    public Attendee findByFirstLastName(String firstName, String lastName)
-                        throws NotFoundException, InternalServerErrorException {
-        return findByProperty(em, Attendee.class, "firstName", firstName,
-                                                            "lastName", lastName);
-    }
+//    public Attendee findByFirstLastName(String firstName, String lastName)
+//                        throws NotFoundException, InternalServerErrorException {
+//        return findByProperty(em, Attendee.class, "firstName", firstName,
+//                                                            "lastName", lastName);
+//    }
     
-
+    // ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER 
+    //  ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER 
     @Override
     public EntityManager getEntityManager() {
         return em;
