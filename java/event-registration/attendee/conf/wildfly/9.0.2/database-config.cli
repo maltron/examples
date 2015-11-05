@@ -1,4 +1,4 @@
 #module add --name=com.mysql --resources=/home/mauricio/java/api/jdbc/mysql/latest/mysql.jar --dependencies=javax.api,javax.transaction.api
 #/subsystem=datasources/jdbc-driver=MySQL:add(driver-name=MySQL, driver-module-name=com.mysql, driver-class-name=com.mysql.jdbc.Driver, driver-xa-datasource-class-name=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource)
 /subsystem=datasources/data-source=AttendeeDS:add(driver-name=MySQL, jndi-name=java:/jboss/datasources/event/registration/AttendeeDS, connection-url=jdbc:mysql://localhost:3306/attendee, user-name=mauricio, password=maltron)
-/subsystem=datasources/data-source=OrganizerDS:test-connection-in-pool
+/subsystem=datasources/data-source=AttendeeDS:test-connection-in-pool
