@@ -55,6 +55,7 @@ public class Order implements Serializable {
         Collection<OrderItem> items = new ArrayList<OrderItem>();
         for(Ticket ticket: event.getTickets())
             items.add(new OrderItem(ticket));
+        setItems(items);
         
         setEventID(event.getID());
         setAttendeeID(attendee.getID());

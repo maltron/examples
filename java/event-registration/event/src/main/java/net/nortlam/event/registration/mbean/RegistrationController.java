@@ -11,6 +11,14 @@ import javax.inject.Named;
 import javax.annotation.PostConstruct;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
+import javax.jms.Connection;
+import javax.jms.DeliveryMode;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.Topic;
 import javax.persistence.EntityExistsException;
 import javax.persistence.TransactionRequiredException;
 import net.nortlam.event.registration.entity.Attendee;
@@ -20,6 +28,7 @@ import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.entity.Ticket;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
 import net.nortlam.event.registration.exception.NotFoundException;
+import net.nortlam.event.registration.jms.Messaging;
 import net.nortlam.event.registration.service.Service;
 import net.nortlam.event.registration.util.EventRegistrationCommonController;
 import static net.nortlam.event.registration.util.Extraction.extractDesignation;
@@ -39,7 +48,7 @@ public class RegistrationController extends EventRegistrationCommonController
     
     @EJB
     private Service service;
-
+    
     private static final Logger LOG = Logger.getLogger(RegistrationController.class.getName());
 
     public RegistrationController() {
@@ -175,23 +184,16 @@ public class RegistrationController extends EventRegistrationCommonController
         //           NO: Error Message 
         
         
-        // Step #3: Purchase it
+        // Step #3: Purchase it and notify everyon interested in the purchase process
         try {
             service.purchase(event, attendee);
+            
         } catch(EntityExistsException | IllegalArgumentException | 
                             TransactionRequiredException ex) {
             LOG.log(Level.SEVERE, "### register() EXCEPTION:{0}", ex.getMessage());
             redirectInternalServerError();
         }
         
-        // Step #4: Notify Attendee about the enrollment of this event
-        try {
-            service.postEnrollAttendeeToEvent(hostAttendeeService(), event, attendee);
-        } catch(NotFoundException ex) {
-            redirectNotFoundError();
-        } catch(InternalServerErrorException ex) {
-            redirectInternalServerError();
-        }
         
         redirect("registration/success");
     }

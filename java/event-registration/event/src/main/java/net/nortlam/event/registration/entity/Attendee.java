@@ -1,7 +1,22 @@
 package net.nortlam.event.registration.entity;
 
 import java.io.Serializable;
+import java.io.StringReader;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.json.Json;
+import javax.json.JsonException;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import javax.json.stream.JsonParsingException;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -20,6 +35,8 @@ import net.nortlam.event.registration.util.Encrypt;
 @XmlRootElement(name="Attendee")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Attendee implements Serializable {
+
+    private static final Logger LOG = Logger.getLogger(Attendee.class.getName());
 
     public static final String COLUMN_ID = "id";
 //    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +62,7 @@ public class Attendee implements Serializable {
     @XmlElement(name=COLUMN_EMAIL, type=String.class, required=true)
     private String email;
 
+    public static final String COLUMN_PASSWORD = "password";
     public static final int LENGTH_PASSWORD = 120;
 //    @Column(name="PASSWORD", length = LENGTH_PASSWORD, nullable = false)
     @XmlElement(name="password", type=String.class, required=true)
@@ -64,6 +82,51 @@ public class Attendee implements Serializable {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+    }
+    
+    public Attendee(String json) throws JsonException, JsonParsingException, IllegalStateException {
+        JsonReader reader = Json.createReader(new StringReader(json));
+        JsonObject object = reader.readObject();
+        try {
+            try {
+                setID(object.getInt(COLUMN_ID));
+            } catch(NullPointerException ex) {
+                // if the specified name doesn't have any mapping
+                setID(0);
+            }
+            
+            try {
+                setFirstName(object.getString(COLUMN_FIRST_NAME));
+            } catch(NullPointerException ex) {
+                LOG.log(Level.WARNING, "### NULL POINTER EXCEPTION: firstName is Missing");
+                setFirstName(null);
+            }
+            
+            try {
+                setLastName(object.getString(COLUMN_LAST_NAME));
+            } catch(NullPointerException ex) {
+                LOG.log(Level.WARNING, "### NULL POINTER EXCEPTION: lastName is Missing");
+                setLastName(null);
+            }
+            
+            try {
+                setEmail(object.getString(COLUMN_EMAIL));
+            } catch(NullPointerException ex) {
+                LOG.log(Level.WARNING, "### NULL POINTER EXCEPTION: email is Missing");
+                setEmail(null);
+            }
+            
+            try {
+                setPassword(object.getString(COLUMN_PASSWORD));
+            } catch(NullPointerException ex) {
+                LOG.log(Level.WARNING, "### NULL POINTER EXCEPTION: password is Missing");
+                setPassword(null);
+            }
+            
+        } catch(ClassCastException ex) {
+            //  if the value for specified name mapping is not assignable to JsonNumber
+            LOG.log(Level.SEVERE, "### CLASS CAST EXCEPTION:{0}", ex.getMessage());
+        }
     }
 
     public long getID() {
@@ -146,17 +209,25 @@ public class Attendee implements Serializable {
     
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("<Attendee ID=\"").append(ID).append("\">");
-        builder.append("<FirstName>").append(firstName != null ? firstName : "NULL")
-                .append("</FirstName>");
-        builder.append("<LastName>").append(lastName != null ? lastName : "NULL")
-                .append("</LastName>");
-        builder.append("<Email>").append(email != null ? email : "NULL")
-                .append("</Email>");
-        builder.append("<Password>").append(password != null ? "*****" : "NULL").append("</Password>");
-        builder.append("</Attendee>");
+//        StringBuilder builder = new StringBuilder();
+//        builder.append("<Attendee ID=\"").append(ID).append("\">");
+//        builder.append("<FirstName>").append(firstName != null ? firstName : "NULL")
+//                .append("</FirstName>");
+//        builder.append("<LastName>").append(lastName != null ? lastName : "NULL")
+//                .append("</LastName>");
+//        builder.append("<Email>").append(email != null ? email : "NULL")
+//                .append("</Email>");
+//        builder.append("<Password>").append(password != null ? "*****" : "NULL").append("</Password>");
+//        builder.append("</Attendee>");
+//        
+//        return builder.toString();
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        if(ID > 0) builder.add(COLUMN_ID, ID);
+        builder.add(COLUMN_FIRST_NAME, firstName);
+        builder.add(COLUMN_LAST_NAME, lastName);
+        builder.add(COLUMN_EMAIL, email);
+        builder.add(COLUMN_PASSWORD, password);
         
-        return builder.toString();
+        return builder.build().toString();
     }
 }

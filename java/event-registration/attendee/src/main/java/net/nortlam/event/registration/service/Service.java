@@ -18,7 +18,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import net.nortlam.event.registration.entity.Attendee;
 import net.nortlam.event.registration.entity.Enroll;
-import net.nortlam.event.registration.entity.Event;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;

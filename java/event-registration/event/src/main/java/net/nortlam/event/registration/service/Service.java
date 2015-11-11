@@ -6,6 +6,14 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.Connection;
+import javax.jms.DeliveryMode;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.Topic;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.LockTimeoutException;
@@ -19,7 +27,6 @@ import javax.persistence.TransactionRequiredException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import net.nortlam.event.registration.entity.Attendee;
 import net.nortlam.event.registration.entity.Enroll;
@@ -31,6 +38,7 @@ import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
 import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
+import net.nortlam.event.registration.jms.Messaging;
 import net.nortlam.event.registration.util.AbstractService;
 
 @Stateless
@@ -40,6 +48,9 @@ public class Service extends AbstractService<Event> {
     
     @PersistenceContext
     private EntityManager em;
+    
+    @Inject
+    private Messaging messaging;
     
     public Service() {
         super(Event.class);
@@ -278,6 +289,30 @@ public class Service extends AbstractService<Event> {
         // Step #2: Save it a Order
         em.persist(newOrder);
         
+        // Step #4: Notify Everyone that a new Order was placed
+        //          1 - Attendee: So it can list of a events enrolled
+        //          2 - Event: So it can adjust the number of remaining tickets
+        //          3 - Organizer: So it can track 
+        Connection connection = null; Session session = null;
+        try {
+            connection = messaging.connection();
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            Topic topic = messaging.topic();
+            
+            MessageProducer producer = session.createProducer(topic);
+            producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+            
+            Enroll enroll = new Enroll(event, attendee);
+            TextMessage textMessage = session.createTextMessage(enroll.toString());
+            producer.send(textMessage);
+            
+        } catch(JMSException ex) {
+            LOG.log(Level.SEVERE, "### JMS EXCEPTION:{0}", ex.getMessage());
+        } finally {
+            if(session != null) try{session.close();}catch(JMSException ex){}
+            if(connection != null) try{connection.close();}catch(JMSException ex){}
+        }
+        
         return success;
     }
     
@@ -296,33 +331,33 @@ public class Service extends AbstractService<Event> {
         return request(uri, Attendee.class);
     }
     
-    public Enroll postEnrollAttendeeToEvent(String host, Event event, Attendee attendee)
-                        throws NotFoundException, InternalServerErrorException {
-        URI uri = UriBuilder.fromUri(host).path("/api/v1/enroll").build();
-        
-        Enroll newEnroll = new Enroll(event, attendee);
-        
-        Response response = null; Enroll enroll = null;
-        try {
-            response = post(uri, newEnroll);
-            if(response.getStatus() == Response.Status.CREATED.getStatusCode())
-                enroll = response.readEntity(Enroll.class);
-            // ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR 
-            else if(response.getStatus() == Response.Status.NOT_FOUND.getStatusCode()) {
-                throw new NotFoundException();
-            } else {
-                Response.StatusType info = response.getStatusInfo();
-                LOG.log(Level.SEVERE, "### request() PROBLEM:{0} {1}",
-                        new Object[] {response.getStatus(),
-                            info != null ? info.getReasonPhrase() : "<NO REASON GIVEN>"});
-            }
-            
-        } finally {
-            if(response != null) response.close();
-        }
-        
-        return enroll;
-    }
+//    public Enroll postEnrollAttendeeToEvent(String host, Event event, Attendee attendee)
+//                        throws NotFoundException, InternalServerErrorException {
+//        URI uri = UriBuilder.fromUri(host).path("/api/v1/enroll").build();
+//        
+//        Enroll newEnroll = new Enroll(event, attendee);
+//        
+//        Response response = null; Enroll enroll = null;
+//        try {
+//            response = post(uri, newEnroll);
+//            if(response.getStatus() == Response.Status.CREATED.getStatusCode())
+//                enroll = response.readEntity(Enroll.class);
+//            // ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR 
+//            else if(response.getStatus() == Response.Status.NOT_FOUND.getStatusCode()) {
+//                throw new NotFoundException();
+//            } else {
+//                Response.StatusType info = response.getStatusInfo();
+//                LOG.log(Level.SEVERE, "### request() PROBLEM:{0} {1}",
+//                        new Object[] {response.getStatus(),
+//                            info != null ? info.getReasonPhrase() : "<NO REASON GIVEN>"});
+//            }
+//            
+//        } finally {
+//            if(response != null) response.close();
+//        }
+//        
+//        return enroll;
+//    }
     
     // ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER
     //  ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER 
