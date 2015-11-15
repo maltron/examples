@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+        <f:viewParam name="designationEdition" value="#{HHH.designationEdition}"
+                     required="true"/>        
+    </f:metadata>
+    <h:head>
+        <title>event1</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form id="formevent1">
+            <p:focus id="focus" context="panel"/>
+            <p:growl id="messages" showSummary="true" showDetail="true"/>
+            <p:panel id="panel" header="EVENT 1">
+                <p:panelGrid id="panelgrid">
+                    <p:row>
+                        <p:column><p:outputLabel id="labelone" for="inputone" value="Value"/></p:column>
+                        <p:column><p:inputText id="inputone" value="#{HHH.event.title}"/></p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:commandButton id="button" actionListener="#{e1.show}"
+                                             action="event2"
+                                             value="Button" icon="ui-icon-disk"
+                                             update="messages"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>

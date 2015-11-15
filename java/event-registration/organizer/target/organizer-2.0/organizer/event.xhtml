@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <f:metadata>
+        <f:viewParam name="eventID" value="#{event.eventID}"/>
+    </f:metadata>
+    <h:head>
+        <title>Event Registration: Organizer: Event</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!--        <h:outputStylesheet library="css" name="event-registration.css"/>-->
+    </h:head>
+    <h:body>
+        <h:form id="formheader">
+            <p:commandButton id="buttonBack" value="Back" onclick="history.go(-1);"/>
+            <p:separator/>
+            <p:focus id="focus" context="panelmain"/>
+            <p:growl id="messages" showSummary="true" showDetail="true"/>
+            <c:set var="panelHeader" value="New Event"/>
+            <c:if test="#{not empty event.event.designation}">
+                <c:set var="panelHeader" value="Event: [#{event.event.designation}#{event.event.edition}] - #{event.event.title}"/>
+            </c:if>
+            <p:panel id="panelmain" header="#{panelHeader}">
+                <p:panelGrid id="gridmain">
+
+                    <p:row>
+                        <p:column colspan="3">
+                            <p:panel id="panelDetails" header="Event Details">
+                                <p:panelGrid id="panelgridDetails">
+                                    <p:row>
+                                        <p:column><p:outputLabel id="labelDesignation" for="inputDesignation" value="Designation"/></p:column>
+                                        <p:column><p:inputText id="inputDesignation" required="true" value="#{event.event.designation}"/></p:column>
+                                        <p:column><p:watermark id="watermarkDesignation" value="myevent" for="inputDesignation"/></p:column>
+                                        <p:column><p:outputLabel id="labelEdition" for="inputEdition" value="Edition"/></p:column>
+                                        <p:column><p:inputText id="inputEdition" required="true" value="#{event.event.edition}" 
+                                                               style="float: right" size="10"/></p:column>
+                                        <p:column><p:watermark id="watermarkEdition" value="2015" for="inputEdition"/></p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column><p:outputLabel id="labelTitle" for="inputTitle" value="Title"/></p:column>
+                                        <p:column colspan="4"><p:inputText id="inputTitle" required="true" 
+                                                                           value="#{event.event.title}" size="50"/></p:column>
+                                        <p:column><p:watermark id="watermarkTitle" value="My Event 2015 - A simple example of title" 
+                                                               for="inputTitle"/></p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column><p:outputLabel id="labelLocation" for="inputLocation" value="Location"/></p:column>
+                                        <p:column><p:inputText id="inputLocation" required="true" value="#{event.event.location}"/></p:column>
+                                        <p:column><p:watermark id="watermarkLocation" value="Example Convention Center" 
+                                                               for="inputLocation"/></p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column><p:outputLabel id="labelAddress" for="inputAddress" value="Address"/></p:column>
+                                        <p:column><p:inputText id="inputAddress" required="true" value="#{event.event.address}"/></p:column>
+                                        <p:column><p:watermark id="watermarkAddress" value="95666 Mapple Street - Grenoble" 
+                                                               for="inputAddress"/></p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column><p:outputLabel id="labelCity" for="inputCity" value="City"/></p:column>
+                                        <p:column><p:inputText id="inputCity" required="true" value="#{event.event.city}"/></p:column>
+                                        <p:column><p:watermark id="watermarCity" value="Example Town" 
+                                                               for="inputCity"/></p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column><p:outputLabel id="labelRegion" for="inputRegion" value="Region"/></p:column>
+                                        <p:column><p:inputText id="inputRegion" required="true" value="#{event.event.region}"/></p:column>
+                                        <p:column><p:watermark id="watermarkRegion" value="Example Territory" 
+                                                               for="inputRegion"/></p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column><p:outputLabel id="labelZIPCode" for="inputZIPCode" value="ZIP Code"/></p:column>
+                                        <p:column><p:inputText id="inputZIPCode" required="true" value="#{event.event.zipCode}"/></p:column>
+                                        <p:column><p:watermark id="watermarkZIPCode" value="95666" 
+                                                               for="inputZIPCode"/></p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column><p:outputLabel id="labelCountry" for="inputCountry" value="Country"/></p:column>
+                                        <p:column><p:inputText id="inputCountry" required="true" value="#{event.event.country}"/></p:column>
+                                        <p:column><p:watermark id="watermarkCountry" value="Brazil" 
+                                                               for="inputCountry"/></p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column><p:outputLabel id="labelDescription" for="inputDescription" value="Description"/></p:column>
+                                        <p:column colspan="5">
+                                            <p:inputTextarea id="inputDescription" rows="5" cols="63" value="#{event.event.description}"/>
+                                        </p:column>
+                                        <p:column><p:watermark id="watermarkDescription" value="This small description let your users understand the purpose or other details important regarding this event" for="inputDescription"/>
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+
+                            </p:panel>
+                        </p:column>
+                    </p:row>
+					                    
+                    
+                    <p:row>
+                        <p:column colspan="3">
+                            <p:panel id="panelStartEndDate" header="Dates">
+                                <p:panelGrid columns="4">
+                                    <p:outputLabel id="labelStarts" for="inputStarts" value="Stars"/>
+                                    <p:calendar id="inputStarts" value="#{event.event.starts}"
+                                                required="true" requiredMessage="Event's Start is Missing"
+                                                pattern="EEE, MM/dd/yyyy HH:mm:ss" size="40"/>
+                                    <p:outputLabel id="labelEnds" for="inputEnds" value="Ends"/>
+                                    <p:calendar id="inputEnds" value="#{event.event.ends}"
+                                                required="true" requiredMessage="Event's End is Missing"
+                                                pattern="EEE, MM/dd/yyyy HH:mm:ss" size="40"/>
+                                </p:panelGrid>
+                            </p:panel>
+                        </p:column>
+                    </p:row>                                  
+
+                    <p:row id="rowtickets">
+                        <p:column id="columntickets" colspan="3">
+                            <p:panel id="panelTickets" header="Tickets">
+                                <p:panelGrid id="gridtickets">
+
+                                    <p:row>
+                                        <p:column><p:outputLabel id="labelTicketName" value="Name" for="inputTicketName"/></p:column>
+                                        <p:column><p:inputText id="inputTicketName" value="#{event.ticketName}"/></p:column>
+                                        <p:column><p:outputLabel id="labelTicketQuantity" value="Quantity" for="sliderTicketQuantity"/></p:column>
+                                        <p:column><p:spinner id="sliderTicketQuantity" min="1" stepFactor="1" value="#{event.ticketQuantity}"/></p:column>
+                                        <p:column><p:commandButton id="buttonAddTicket" value="Add" actionListener="#{event.addTicket}" 
+                                                                   ajax="true" process="@form"
+                                                                   update=":formheader:tableTickets :formheader:inputTicketName :formheader:sliderTicketQuantity"/></p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column colspan="5">
+                                            <p:dataTable id="tableTickets" var="t" value="#{event.event.tickets}"
+                                                         editable="false" style="width: 100%">
+                                                <p:column headerText="Name">
+                                                    <p:outputLabel value="#{t.name}"/>
+                                                </p:column>
+
+                                                <p:column headerText="Quantity">
+                                                    <p:outputLabel value="#{t.quantityAvailable}"/>
+                                                </p:column>
+
+                                                <p:column>
+                                                    <p:commandButton id="buttonRemove" value="Remove"
+                                                                     ajax="true" actionListener="#{event.removeTicket(t)}"
+                                                                     update=":formheader:tableTickets :formheader:inputTicketName :formheader:sliderTicketQuantity"/>
+                                                </p:column>
+
+                                            </p:dataTable>
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                            </p:panel>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:commandButton id="button" value="Save" icon="ui-icon-disk" 
+                                             update="formheader" actionListener="#{event.save}"/>
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>

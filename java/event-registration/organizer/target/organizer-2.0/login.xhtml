@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Event Registration: Organizer: Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form id="formlogin">
+            <p:focus id="focus" context="panel"/>
+            <p:growl id="messages" showSummary="true"/>
+            <p:panel id="panel" header="Login: Organizer">
+                <h:panelGrid columns="4" cellpadding="5">
+                    <p:outputLabel id="labelEmail" for="labelEmail" value="E-Mail"/>
+                    <p:inputText id="inputEmail" value="#{login.email}"
+                                 required="true" requiredMessage="E-Mail is Missing">
+                        <f:validateLength maximum="120"/>
+                    </p:inputText>
+                    <p:watermark id="watermarkEmail" for="inputEmail" value="john@doe.com"/>
+                    <p:message id="messageEmail" for="inputEmail"/>
+
+                    <p:outputLabel id="labelPassword" for="inputPassword" value="Password"/>
+                    <p:password id="inputPassword" value="#{login.password}"
+                                required="true" requiredMessage="Password is Missing">
+                        <f:validateLength maximum="50"/>
+                    </p:password>
+                    <p:spacer/>
+                    <p:message id="messagePassword" for="inputPassword"/>
+
+                    <p:commandButton id="button" value="Login" action="#{login.login()}" 
+                                     icon="ui-icon-key" update="messages messageEmail messagePassword"/>
+                </h:panelGrid>
+                <p:commandLink id="linkNewOrganizer" ajax="false" value="Sign in" immediate="true"
+                               actionListener="#{nav.goOrganizerNew()}"/>
+            </p:panel>
+        </h:form>
+
+    </h:body>
+</html>
