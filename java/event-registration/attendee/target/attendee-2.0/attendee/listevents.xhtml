@@ -32,9 +32,9 @@
             <p:panel id="panel" header="Events enroll for Attendee:#{attendee.loggedAttendee.firstName} #{attendee.loggedAttendee.lastName}">
                 <h:panelGrid columns="1" cellpadding="5">
                     <p:dataTable id="tableListEvents"  
-                                 value="#{attendee.listEventsForAttendee()}" style="border: none"
-                                 selectionMode="single" selection="#{attendee.enrollSelected}" 
-                                 var="enroll" rowKey="#{enroll.ID}" emptyMessage="No Events for this Attendee">
+                                 value="#{attendee.listOrdersForAttendee()}" style="border: none"
+                                 selectionMode="single" selection="#{attendee.orderSelected}" 
+                                 var="order" rowKey="#{order.ID}" emptyMessage="No Orders for this Attendee">
                         <p:ajax id="ajaxDoubleSelect" event="rowDblselect" listener="#{attendee.onRowSelect}"/>
                         <p:ajax id="ajaxSelect" event="rowSelect"
                                 update=":formlisteventsattendee:buttonCancelRefund"/>
@@ -45,7 +45,14 @@
                             <f:facet name="header">
                                 <p:outputLabel value="Title" style="float:left"/>
                             </f:facet>
-                            <p:outputLabel value="#{enroll.title}" style="float:left"/>
+                            <p:outputLabel value="#{order.title}" style="float:left"/>
+                        </p:column>
+                        
+                        <p:column id="columnStars" width="50">
+                            <f:facet name="header">
+                                <p:outputLabel value="When" style="float:center"/>
+                            </f:facet>
+                            <p:outputLabel value="#{format.formatDate(order.starts)}" style="float:center"/>
                         </p:column>
                         
                     </p:dataTable>

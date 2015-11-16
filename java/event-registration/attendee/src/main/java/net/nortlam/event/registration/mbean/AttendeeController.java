@@ -16,7 +16,7 @@ import javax.persistence.PessimisticLockException;
 import javax.persistence.QueryTimeoutException;
 import javax.persistence.TransactionRequiredException;
 import net.nortlam.event.registration.entity.Attendee;
-import net.nortlam.event.registration.entity.Enroll;
+import net.nortlam.event.registration.entity.Order;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
@@ -41,7 +41,7 @@ public class AttendeeController extends EventRegistrationCommonController
     // Logged Attendee
     private Attendee loggedAttendee;
     
-    private Enroll enrollSelected;
+    private Order orderSelected;
     
 
     public AttendeeController() {}
@@ -93,9 +93,9 @@ public class AttendeeController extends EventRegistrationCommonController
     // LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
     //  LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
     
-    public Collection<Enroll> listEventsForAttendee() {
+    public Collection<Order> listOrdersForAttendee() {
         try {
-            return service.listEventsForAttendee(getLoggedAttendee().getID());
+            return service.listOrdersForAttendee(getLoggedAttendee().getID());
         } catch(NoResultException | NonUniqueResultException | QueryTimeoutException |
                 TransactionRequiredException | PessimisticLockException | LockTimeoutException ex) {
             LOG.log(Level.SEVERE, "### listEventsForAttendee() <SEVERAL> Exception:{0}",
@@ -107,12 +107,12 @@ public class AttendeeController extends EventRegistrationCommonController
         return null;
     }
 
-    public Enroll getEnrollSelected() {
-        return enrollSelected;
+    public Order getOrderSelected() {
+        return orderSelected;
     }
 
-    public void setEnrollSelected(Enroll enrollSelected) {
-        this.enrollSelected = enrollSelected;
+    public void setOrderSelected(Order enrollSelected) {
+        this.orderSelected = enrollSelected;
     }
     
     public void onRowSelect(SelectEvent event) {

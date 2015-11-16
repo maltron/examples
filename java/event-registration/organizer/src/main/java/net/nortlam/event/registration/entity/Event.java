@@ -113,6 +113,11 @@ public class Event implements Serializable {
     @XmlElements({@XmlElement(name = COLUMN_TICKETS, type = Ticket.class, required = false)})
     private Set<Ticket> tickets;
     
+    public static final String COLUMN_REMAINING_TICKETS = "remainingTickets";
+//    @Column(name="REMAINING", nullable = false)
+    @XmlElement(name=COLUMN_REMAINING_TICKETS, type=long.class, required=true)
+    private long remainingTickets;
+    
     public Event() {
     }
 
@@ -236,29 +241,41 @@ public class Event implements Serializable {
         this.tickets = tickets;
     }
 
+    public long getRemainingTickets() {
+        return remainingTickets;
+    }
+
+    public void setRemainingTickets(long remainingTickets) {
+        this.remainingTickets = remainingTickets;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + (int) (this.ID ^ (this.ID >>> 32));
-        hash = 37 * hash + this.edition;
-        hash = 37 * hash + Objects.hashCode(this.designation);
-        hash = 37 * hash + Objects.hashCode(this.title);
-        hash = 37 * hash + Objects.hashCode(this.location);
-        hash = 37 * hash + Objects.hashCode(this.address);
-        hash = 37 * hash + Objects.hashCode(this.city);
-        hash = 37 * hash + Objects.hashCode(this.region);
-        hash = 37 * hash + Objects.hashCode(this.zipCode);
-        hash = 37 * hash + Objects.hashCode(this.country);
-        hash = 37 * hash + Objects.hashCode(this.starts);
-        hash = 37 * hash + Objects.hashCode(this.ends);
-        hash = 37 * hash + Objects.hashCode(this.description);
-        hash = 37 * hash + (int) (this.organizer ^ (this.organizer >>> 32));
-        hash = 37 * hash + Objects.hashCode(this.tickets);
+        int hash = 7;
+        hash = 59 * hash + (int) (this.ID ^ (this.ID >>> 32));
+        hash = 59 * hash + this.edition;
+        hash = 59 * hash + Objects.hashCode(this.designation);
+        hash = 59 * hash + Objects.hashCode(this.title);
+        hash = 59 * hash + Objects.hashCode(this.location);
+        hash = 59 * hash + Objects.hashCode(this.address);
+        hash = 59 * hash + Objects.hashCode(this.city);
+        hash = 59 * hash + Objects.hashCode(this.region);
+        hash = 59 * hash + Objects.hashCode(this.zipCode);
+        hash = 59 * hash + Objects.hashCode(this.country);
+        hash = 59 * hash + Objects.hashCode(this.starts);
+        hash = 59 * hash + Objects.hashCode(this.ends);
+        hash = 59 * hash + Objects.hashCode(this.description);
+        hash = 59 * hash + (int) (this.organizer ^ (this.organizer >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.tickets);
+        hash = 59 * hash + (int) (this.remainingTickets ^ (this.remainingTickets >>> 32));
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
@@ -270,6 +287,12 @@ public class Event implements Serializable {
             return false;
         }
         if (this.edition != other.edition) {
+            return false;
+        }
+        if (this.organizer != other.organizer) {
+            return false;
+        }
+        if (this.remainingTickets != other.remainingTickets) {
             return false;
         }
         if (!Objects.equals(this.designation, other.designation)) {
@@ -296,16 +319,13 @@ public class Event implements Serializable {
         if (!Objects.equals(this.country, other.country)) {
             return false;
         }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
         if (!Objects.equals(this.starts, other.starts)) {
             return false;
         }
         if (!Objects.equals(this.ends, other.ends)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (this.organizer != other.organizer) {
             return false;
         }
         if (!Objects.equals(this.tickets, other.tickets)) {
@@ -332,6 +352,8 @@ public class Event implements Serializable {
         builder.append("<Description>").append(description != null ? description : "NULL").append("</Description>");
         builder.append("<Organizer>").append(organizer).append("</Organizer>");
         builder.append("<Tickets>").append(tickets != null ? tickets.toString() : "NULL").append("</Tickets>");
+        builder.append("<RemainingTickets>").append(remainingTickets > 0 ? remainingTickets : "ZERO")
+                .append("</RemainingTickets>");
         builder.append("</Event>");
         
         return builder.toString();

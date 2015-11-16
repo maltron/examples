@@ -10,11 +10,9 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 import javax.json.JsonException;
-import net.nortlam.event.registration.entity.Enroll;
-import net.nortlam.event.registration.exception.AlreadyExistsException;
-import net.nortlam.event.registration.exception.BiggerException;
-import net.nortlam.event.registration.exception.InternalServerErrorException;
-import net.nortlam.event.registration.exception.MissingInformationException;
+import javax.persistence.EntityExistsException;
+import javax.persistence.TransactionRequiredException;
+import net.nortlam.event.registration.entity.Order;
 import net.nortlam.event.registration.jms.Messaging;
 
 /**
@@ -30,29 +28,33 @@ public class RegisterEnrollMDB implements MessageListener {
     private static final Logger LOG = Logger.getLogger(RegisterEnrollMDB.class.getName());
     
     @EJB
-    private ServiceEnroll service;
+    private Service service;
 
     @Override
     public void onMessage(Message message) {
-        LOG.log(Level.INFO, ">>> onMessage()");
-        
         if(message instanceof TextMessage) {
             try {
                 String json = ((TextMessage)message).getText();
-                Enroll enroll = new Enroll(json);
-                LOG.log(Level.INFO, ">>> onMessage Attendee is enrolled ito an Event");
-                service.create(enroll);
+                LOG.log(Level.INFO, ">>> onMessage() Message:{0}", json);
+                Order order = new Order(json);
+                LOG.log(Level.INFO, ">>> onMessage() Attendee is ordered");
+                service.save(order);
                 
-            } catch(IllegalArgumentException ex) {
-                LOG.log(Level.SEVERE, "### ILLEGAL AGUMENT EXCEPTION:{0}", ex.getMessage());
-            } catch(BiggerException ex) {
-                LOG.log(Level.SEVERE, "### BIGGER EXCEPTION:{0}", ex.getMessage());
-            } catch(MissingInformationException ex) {
-                LOG.log(Level.SEVERE, "### MISSING INFORMATION EXCEPTION:{0}", ex.getMessage());
-            } catch(AlreadyExistsException ex) {
-                LOG.log(Level.SEVERE, "### ALREADY EXISTING EXCEPTION:{0}", ex.getMessage());
-            } catch(InternalServerErrorException ex) {
-                LOG.log(Level.SEVERE, "### INTERNAL SERVER ERROR EXCEPTION:{0}", ex.getMessage());
+            } catch(EntityExistsException | 
+                    IllegalArgumentException | TransactionRequiredException ex) {
+                LOG.log(Level.SEVERE, 
+                        "### ENTITY EXISTS | ILLEGAL | TRANSACTION REQUIRED:{0}",
+                                                                ex.getMessage());
+//            } catch(IllegalArgumentException ex) {
+//                LOG.log(Level.SEVERE, "### ILLEGAL AGUMENT EXCEPTION:{0}", ex.getMessage());
+//            } catch(BiggerException ex) {
+//                LOG.log(Level.SEVERE, "### BIGGER EXCEPTION:{0}", ex.getMessage());
+//            } catch(MissingInformationException ex) {
+//                LOG.log(Level.SEVERE, "### MISSING INFORMATION EXCEPTION:{0}", ex.getMessage());
+//            } catch(AlreadyExistsException ex) {
+//                LOG.log(Level.SEVERE, "### ALREADY EXISTING EXCEPTION:{0}", ex.getMessage());
+//            } catch(InternalServerErrorException ex) {
+//                LOG.log(Level.SEVERE, "### INTERNAL SERVER ERROR EXCEPTION:{0}", ex.getMessage());
             } catch(JMSException ex) {
                 LOG.log(Level.SEVERE, "### JMS EXCEPTION:{0}", ex.getMessage());
             } catch(JsonException ex) {

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.LockTimeoutException;
 import javax.persistence.NoResultException;
@@ -17,7 +18,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import net.nortlam.event.registration.entity.Attendee;
-import net.nortlam.event.registration.entity.Enroll;
+import net.nortlam.event.registration.entity.Order;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
@@ -119,22 +120,29 @@ public class Service extends AbstractService<Attendee> {
         
     }
     
+    /**
+     * Just save any Order from Event's Service */
+    public void save(Order order) throws EntityExistsException, 
+                        IllegalArgumentException, TransactionRequiredException {
+        getEntityManager().persist(order);
+    }
+    
     // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     //  FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     
-    public Collection<Enroll> listEventsForAttendee(long attendeeID)
+    public Collection<Order> listOrdersForAttendee(long attendeeID)
                                                     throws NoResultException,
                             NonUniqueResultException, QueryTimeoutException,
                             TransactionRequiredException, PessimisticLockException,
                             LockTimeoutException, PersistenceException {
         
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Enroll> query = builder.createQuery(Enroll.class);
-        Root<Enroll> root = query.from(Enroll.class);
+        CriteriaQuery<Order> query = builder.createQuery(Order.class);
+        Root<Order> root = query.from(Order.class);
         
         query.select(root).where(builder.equal(
-                root.get(Enroll.COLUMN_ATTENDEE), attendeeID));
-//                .orderBy(builder.asc(root.get(Event.COLUMN_EVENT_STARTS)));
+                root.get(Order.COLUMN_ATTENDEE), attendeeID))
+                .orderBy(builder.asc(root.get(Order.COLUMN_STARTS)));
         
         return getEntityManager().createQuery(query).getResultList();        
     }

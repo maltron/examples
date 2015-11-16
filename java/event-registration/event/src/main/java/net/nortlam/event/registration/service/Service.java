@@ -6,14 +6,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.jms.Connection;
-import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.jms.Topic;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.LockTimeoutException;
@@ -29,16 +22,15 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.core.UriBuilder;
 import net.nortlam.event.registration.entity.Attendee;
-import net.nortlam.event.registration.entity.Enroll;
 import net.nortlam.event.registration.entity.Event;
 import net.nortlam.event.registration.entity.Order;
 import net.nortlam.event.registration.entity.Organizer;
+import net.nortlam.event.registration.entity.Ticket;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
 import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
-import net.nortlam.event.registration.jms.Messaging;
 import net.nortlam.event.registration.util.AbstractService;
 
 @Stateless
@@ -49,12 +41,26 @@ public class Service extends AbstractService<Event> {
     @PersistenceContext
     private EntityManager em;
     
-    @Inject
-    private Messaging messaging;
-    
     public Service() {
         super(Event.class);
     }
+
+    @Override
+    public Event create(Event event) throws IllegalArgumentException, 
+                                    BiggerException, MissingInformationException, 
+                            AlreadyExistsException, InternalServerErrorException {
+        // It's important during first creation, the remaining tickets
+        // must be updated accordigly 
+        long total = 0;
+        for(Ticket ticket: event.getTickets())
+            total += ticket.getQuantityAvailable();
+        
+        event.setRemainingTickets(total);
+        
+        return super.create(event); 
+    }
+    
+    
 
     @Override
     public void validation(Event event, boolean isNew) 
@@ -215,6 +221,12 @@ public class Service extends AbstractService<Event> {
             LOG.log(Level.WARNING, "### validation() Ticket's is Missing");
             throw new MissingInformationException("Ticket's is Missing");
         }
+        
+        // Remaining Tickets
+        if(event.getRemainingTickets() > 0) {
+            LOG.log(Level.WARNING, "### validation() Remaining Tickets must be greater than zero");
+            throw new MissingInformationException("Remaining Tickets must be great than zero");
+        }
     }
     
     // LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 
@@ -293,25 +305,11 @@ public class Service extends AbstractService<Event> {
         //          1 - Attendee: So it can list of a events enrolled
         //          2 - Event: So it can adjust the number of remaining tickets
         //          3 - Organizer: So it can track 
-        Connection connection = null; Session session = null;
         try {
-            connection = messaging.connection();
-            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Topic topic = messaging.topic();
-            
-            MessageProducer producer = session.createProducer(topic);
-            producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-            
-            Enroll enroll = new Enroll(event, attendee);
-            TextMessage textMessage = session.createTextMessage(enroll.toString());
-            producer.send(textMessage);
-            
+            sendAsyncMessage(newOrder.toString());
         } catch(JMSException ex) {
             LOG.log(Level.SEVERE, "### JMS EXCEPTION:{0}", ex.getMessage());
-        } finally {
-            if(session != null) try{session.close();}catch(JMSException ex){}
-            if(connection != null) try{connection.close();}catch(JMSException ex){}
-        }
+        } 
         
         return success;
     }

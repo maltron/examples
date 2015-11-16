@@ -3,6 +3,14 @@ package net.nortlam.event.registration.util;
 import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
+import javax.jms.Connection;
+import javax.jms.DeliveryMode;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.Topic;
 import javax.persistence.EntityManager;
 import javax.persistence.LockTimeoutException;
 import javax.persistence.NoResultException;
@@ -24,10 +32,14 @@ import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
 import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
+import net.nortlam.event.registration.jms.Messaging;
 
 public abstract class AbstractService<T> {
     
     private Class<T> className;
+    
+    @Inject
+    private Messaging messaging;
     
     public AbstractService(Class<T> className) {
         this.className = className;
@@ -183,4 +195,24 @@ public abstract class AbstractService<T> {
                 .accept(MediaType.APPLICATION_JSON).delete();
     }
     
+    // MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING 
+    //   MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING 
+    protected void sendAsyncMessage(String json) throws JMSException {
+        Connection connection = null; Session session = null;
+        try {
+            connection = messaging.connection(); connection.start();
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            Topic topic = messaging.topic();
+            
+            MessageProducer producer = session.createProducer(topic);
+            producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+            
+            TextMessage textMessage = session.createTextMessage(json);
+            producer.send(textMessage);
+            
+        } finally {
+            if(session != null) try{session.close();}catch(JMSException e){}
+            if(connection != null) try{connection.close();}catch(JMSException e){}
+        }
+    }
 }

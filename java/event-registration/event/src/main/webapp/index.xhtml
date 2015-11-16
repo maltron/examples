@@ -73,6 +73,14 @@
                             <p:outputLabel value="#{format.formatDate(e.ends)}" style="float:center"/>
                         </p:column>
                         
+                        <!-- Remaining -->
+                        <p:column id="columnRemaining" width="10">
+                            <f:facet name="header">
+                                <p:outputLabel value="Remaining" style="float:center"/>
+                            </f:facet>
+                            <p:outputLabel value="#{e.remainingTickets > 0 ? e.remainingTickets : 'SOLD OUT'}"/>
+                        </p:column>
+                        
                     </p:dataTable>
                 </h:panelGrid>
             </p:panel>
