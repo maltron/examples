@@ -264,6 +264,38 @@ public class Service extends AbstractService<Event> {
         return getEntityManager().createQuery(query).getResultList();
     }
     
+    public boolean alreadyExistOrderFor(Event event, Attendee attendee) 
+                                            throws InternalServerErrorException {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Order> query = builder.createQuery(Order.class);
+        Root<Order> root = query.from(Order.class);
+        
+        query.select(root).where(builder.and(
+                builder.equal(root.get(Order.COLUMN_EVENT), event.getID()),
+                builder.equal(root.get(Order.COLUMN_ATTENDEE), attendee.getID())));
+        
+        boolean found = false;
+        try {
+            getEntityManager().createQuery(query).getSingleResult();
+            found = true;
+        } catch(NoResultException ex) {
+            // There isn't an order for this Attendee 
+        } catch(NonUniqueResultException | QueryTimeoutException | 
+                TransactionRequiredException | PessimisticLockException |
+                LockTimeoutException ex) {
+            LOG.log(Level.SEVERE, "### NON UNIQUE RESULT | QUERY TIMEOUT | "+
+                    "TRANSACTION REQUIRED | PESSIMISTIC LOCK EXCEPTION EXCEPTION"+
+                    " {0}", ex.getMessage());
+            throw new InternalServerErrorException(ex);
+            
+        } catch(PersistenceException ex) {
+            LOG.log(Level.SEVERE, "### PERSISTENCE EXCEPTION EX:{0}", ex.getMessage());
+            throw new InternalServerErrorException(ex);
+        }
+        
+        return found;
+    }
+    
     // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     //  FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     

@@ -34,7 +34,7 @@ public class OrderItem implements Serializable {
     private static final Logger LOG = Logger.getLogger(OrderItem.class.getName());
 
     public static final String COLUMN_ID = "id";
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name="ORDER_ITEM_ID")
     @XmlAttribute(name=COLUMN_ID, required=false)
     private long ID;

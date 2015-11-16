@@ -111,12 +111,10 @@ public class Ticket implements Serializable {
     }
 
     public int getQuantitySelected() {
-        LOG.log(Level.INFO, ">>> getQuantitySelected() {0}", quantitySelected);
         return quantitySelected;
     }
 
     public void setQuantitySelected(int quantitySelected) {
-        LOG.log(Level.INFO, ">>> setQuantitySelected({0})", quantitySelected);
         this.quantitySelected = quantitySelected;
     }
 

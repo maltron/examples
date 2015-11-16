@@ -98,8 +98,11 @@ public class Order implements Serializable {
     public Order(Event event, Attendee attendee) {
         // Create the items for this particular Order
         Collection<OrderItem> items = new ArrayList<OrderItem>();
-        for(Ticket ticket: event.getTickets())
-            items.add(new OrderItem(ticket));
+        for(Ticket ticket: event.getTickets()) {
+            // Only those that has a quantitySelected > 0
+            if(ticket.getQuantitySelected() > 0)
+                items.add(new OrderItem(ticket));
+        }
         setItems(items);
         
         setAttendeeID(attendee.getID());
@@ -142,19 +145,19 @@ public class Order implements Serializable {
                     OrderItem orderItem = new OrderItem();
                     
                     try {
-                        orderItem.setID(object.getInt(OrderItem.COLUMN_ID));
+                        orderItem.setID(objectOrderItem.getInt(OrderItem.COLUMN_ID));
                     } catch(NullPointerException ex) {
                         orderItem.setID(0);
                     }
 
                     try {
-                        orderItem.setTicketID(object.getInt(OrderItem.COLUMN_TICKET));
+                        orderItem.setTicketID(objectOrderItem.getInt(OrderItem.COLUMN_TICKET));
                     } catch(NullPointerException ex) {
                         orderItem.setTicketID(0);
                     }
 
                     try {
-                        orderItem.setQuantity(object.getInt(OrderItem.COLUMN_QUANTITY));
+                        orderItem.setQuantity(objectOrderItem.getInt(OrderItem.COLUMN_QUANTITY));
                     } catch(NullPointerException ex) {
                         orderItem.setQuantity(0);
                     }
@@ -320,6 +323,6 @@ public class Order implements Serializable {
         if(starts != null)
             builder.add(COLUMN_STARTS, starts.getTime());
         
-        return builder.toString();
+        return builder.build().toString();
     }
 }

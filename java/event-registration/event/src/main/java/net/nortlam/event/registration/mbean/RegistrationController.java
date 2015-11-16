@@ -160,11 +160,25 @@ public class RegistrationController extends EventRegistrationCommonController
         //           NO: Redirect to Attendee Service for Account creation
         //               Using the email, First and Last Name already typed
         try {
-            attendee = service.requestAttendeeByEMail(hostAttendeeService(), attendee.getEmail());
+            attendee = service.requestAttendeeByEMail(hostAttendeeService(), 
+                                                            attendee.getEmail());
             // Yes, it does exist
         } catch(NotFoundException ex) {
-            error("Account doesn't exist", "Please create an Attendee account before purchasing your tickets");
+            error("Account doesn't exist", 
+              "Please create an Attendee account before purchasing your tickets");
             return;
+        } catch(InternalServerErrorException ex) {
+            redirectInternalServerError();
+        }
+        
+        // Step #2: Verify if there is *already* an order for this Attendee
+        try {
+            if(service.alreadyExistOrderFor(event, attendee)) {
+                error("Order already exists",
+                        "There is a previous order placed from Attendee for this Event");
+                return;
+            }
+            
         } catch(InternalServerErrorException ex) {
             redirectInternalServerError();
         }
