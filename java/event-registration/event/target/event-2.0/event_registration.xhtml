@@ -36,7 +36,7 @@
             <h:form id="form_user_registration">
                 <p:growl id="messages" showSummary="true" showDetail="true"/>
                 <p:focus id="focus" context="panelNewAttedee"/>
-                <p:panel id="panelNewAttedee" header="New Attendee">
+                <p:panel id="panelNewAttedee" header="Existing User">
                     <h:panelGrid id="gridNewAttendee" columns="3" cellpadding="5">
                         <p:outputLabel id="labelEmail" for="inputEmail" value="E-Mail"/>
                         <p:inputText id="inputEmail" value="#{register.attendee.email}"
@@ -46,24 +46,19 @@
                         </p:inputText>
                         <p:watermark id="watermarkEmail" for="inputEmail" value="john@doe.com"/>
 
-                        <p:outputLabel id="labelFirstName" for="inputFirstName" value="First Name"/>
-                        <p:inputText id="inputFirstName" value="#{register.attendee.firstName}"
-                                     required="true" requiredMessage="First Name is Missing" maxlength="70">
-                            <f:validateLength maximum="70"/>
-                        </p:inputText>
-                        <p:watermark id="watermarkFirst" for="inputFirstName" value="John"/>
+                        <p:outputLabel id="labelPassword" for="inputPassword" value="Password"/>
+                        <p:password id="inputPassword" value="#{register.password}"
+                                    required="true" requiredMessage="Password is Missing">
+                            <f:validateLength maximum="50"/>
+                        </p:password>
+                        <p:spacer/>
 
-                        <p:outputLabel id="labelLastName" for="inputLastName" value="Last Name"/>
-                        <p:inputText id="inputLastName" value="#{register.attendee.lastName}"
-                                     required="true" requiredMessage="Last Name is Missing" maxlength="70">
-                            <f:validateLength maximum="70"/>
-                        </p:inputText>
-                        <p:watermark id="watermarkLast" for="inputLastName" value="Doe"/>
-
-                        <p:commandButton id="buttonRegister" value="Register" 
+                        <p:commandButton id="buttonRegister" value="Confirm Registration" 
                                          actionListener="#{register.registrationActionListener}"
                                          action="#{register.register}"
                                          update="form_user_registration"/>
+                        <p:commandLink id="linkNewAttendee" ajax="false" value="New Attendee" immediate="true"
+                                       actionListener="#{nav.goAttendeeNew()}"/>
                         <p:spacer/>
                         <p:spacer/>
                         <p:spacer/>

@@ -20,6 +20,7 @@ import net.nortlam.event.registration.entity.Ticket;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
 import net.nortlam.event.registration.exception.NotFoundException;
 import net.nortlam.event.registration.service.Service;
+import net.nortlam.event.registration.util.Encrypt;
 import net.nortlam.event.registration.util.EventRegistrationCommonController;
 import static net.nortlam.event.registration.util.Extraction.extractDesignation;
 import static net.nortlam.event.registration.util.Extraction.extractEdition;
@@ -35,6 +36,7 @@ public class RegistrationController extends EventRegistrationCommonController
     private Event event;
     private Organizer organizer;
     private Attendee attendee;
+    private String password;
     
     @EJB
     private Service service;
@@ -42,6 +44,14 @@ public class RegistrationController extends EventRegistrationCommonController
     private static final Logger LOG = Logger.getLogger(RegistrationController.class.getName());
 
     public RegistrationController() {
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int[] getDefaultQuantity() {
@@ -162,6 +172,13 @@ public class RegistrationController extends EventRegistrationCommonController
         try {
             attendee = service.requestAttendeeByEMail(hostAttendeeService(), 
                                                             attendee.getEmail());
+            // Check if the password match
+            if(!Encrypt.encrypt(password).equals(attendee.getPassword())) {
+                error("Unable to authenticate",
+                        "Credentials doesn't match");
+                return;
+            }
+            
             // Yes, it does exist
         } catch(NotFoundException ex) {
             error("Account doesn't exist", 

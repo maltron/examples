@@ -30,4 +30,8 @@ public class NavigationController extends EventRegistrationCommonController
     public void goEventHome() {
         redirect(hostEventService(), "");
     }
+    
+    public void goAttendeeNew() {
+        redirect(hostAttendeeService(), "new");
+    }
 }
