@@ -20,12 +20,13 @@ import net.nortlam.event.registration.jms.Messaging;
  * @author Mauricio "Maltron" Leal <maltron@gmail.com> */
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
-        @ActivationConfigProperty(propertyName = "destination", propertyValue = Messaging.TOPIC), 
+        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = Messaging.TOPIC_ORDER_INFORMATION),
+        @ActivationConfigProperty(propertyName = "destination", propertyValue = Messaging.TOPIC_ORDER), 
         @ActivationConfigProperty(propertyName="acknowledgeMode", propertyValue="Auto-acknowledge")
 })
-public class RegisterEnrollMDB implements MessageListener {
+public class NotificationOrderMDB implements MessageListener {
 
-    private static final Logger LOG = Logger.getLogger(RegisterEnrollMDB.class.getName());
+    private static final Logger LOG = Logger.getLogger(NotificationOrderMDB.class.getName());
     
     @EJB
     private Service service;

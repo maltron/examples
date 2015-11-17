@@ -40,11 +40,11 @@ public class MessagingActiveMQ implements Messaging {
     }
 
     @Override
-    public Topic topic() {
+    public Topic topicOrder() {
         Topic topic = null;
         try {
             InitialContext context = new InitialContext();
-            topic = (Topic)context.lookup(TOPIC_INFORMATION);
+            topic = (Topic)context.lookup(TOPIC_ORDER_INFORMATION);
             
         } catch(NamingException ex) {
             LOG.log(Level.SEVERE, "### topic() NAMING EXCEPTION {0}", 

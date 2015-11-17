@@ -37,32 +37,42 @@
                 <p:growl id="messages" showSummary="true" showDetail="true"/>
                 <p:focus id="focus" context="panelNewAttedee"/>
                 <p:panel id="panelNewAttedee" header="Existing User">
-                    <h:panelGrid id="gridNewAttendee" columns="3" cellpadding="5">
-                        <p:outputLabel id="labelEmail" for="inputEmail" value="E-Mail"/>
-                        <p:inputText id="inputEmail" value="#{register.attendee.email}"
-                                     required="true" requiredMessage="E-Mail is Missing" maxlength="120">
-                            <f:validateLength maximum="120"/>
-                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
-                        </p:inputText>
-                        <p:watermark id="watermarkEmail" for="inputEmail" value="john@doe.com"/>
+                    <p:panelGrid id="gridNewAttendee">
+                        <p:row>
+                            <p:column><p:outputLabel id="labelEmail" for="inputEmail" value="E-Mail"/></p:column>
+                            <p:column><p:inputText id="inputEmail" value="#{register.attendee.email}"
+                                                   required="true" requiredMessage="E-Mail is Missing" maxlength="120">
+                                    <f:validateLength maximum="120"/>
+                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                                </p:inputText></p:column>
+                            <p:column><p:watermark id="watermarkEmail" for="inputEmail" value="john@doe.com"/></p:column>
+                        </p:row>
 
-                        <p:outputLabel id="labelPassword" for="inputPassword" value="Password"/>
-                        <p:password id="inputPassword" value="#{register.password}"
-                                    required="true" requiredMessage="Password is Missing">
-                            <f:validateLength maximum="50"/>
-                        </p:password>
-                        <p:spacer/>
+                        <p:row>
+                            <p:column><p:outputLabel id="labelPassword" 
+                                   for="inputPassword" value="Password"/></p:column>
+                            <p:column><p:password id="inputPassword" value="#{register.password}"
+                                                  required="true" requiredMessage="Password is Missing">
+                                    <f:validateLength maximum="50"/>
+                                </p:password></p:column>
+                            <p:column/>
+                        </p:row>
 
-                        <p:commandButton id="buttonRegister" value="Confirm Registration" 
-                                         actionListener="#{register.registrationActionListener}"
-                                         action="#{register.register}"
-                                         update="form_user_registration"/>
-                        <p:commandLink id="linkNewAttendee" ajax="false" value="New Attendee" immediate="true"
-                                       actionListener="#{nav.goAttendeeNew()}"/>
-                        <p:spacer/>
-                        <p:spacer/>
-                        <p:spacer/>
-                    </h:panelGrid>
+                        <p:row>
+                            <p:column colspan="3"><p:commandButton id="buttonRegister" value="Confirm Registration" 
+                                             actionListener="#{register.registrationActionListener}"
+                                             action="#{register.confirmRegistration}"
+                                             update="form_user_registration"/><br/></p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column colspan="3">
+                                <p:commandLink id="linkNewAttendee" ajax="false" 
+                                               value="New Attendee" immediate="true"
+                                           actionListener="#{register.goAttendeeNew()}"/></p:column>
+                        </p:row>
+                        
+                    </p:panelGrid>
                 </p:panel>
             </h:form>
         </ui:define>

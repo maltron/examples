@@ -6,7 +6,14 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.Connection;
+import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.Topic;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.LockTimeoutException;
@@ -31,6 +38,7 @@ import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
 import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
+import net.nortlam.event.registration.jms.Messaging;
 import net.nortlam.event.registration.util.AbstractService;
 
 @Stateless
@@ -40,6 +48,9 @@ public class Service extends AbstractService<Event> {
     
     @PersistenceContext
     private EntityManager em;
+    
+    @Inject
+    private Messaging messaging;
     
     public Service() {
         super(Event.class);
@@ -338,13 +349,35 @@ public class Service extends AbstractService<Event> {
         //          2 - Event: So it can adjust the number of remaining tickets
         //          3 - Organizer: So it can track 
         try {
-            sendAsyncMessage(newOrder.toString());
+            notifyOrder(newOrder);
         } catch(JMSException ex) {
             LOG.log(Level.SEVERE, "### JMS EXCEPTION:{0}", ex.getMessage());
         } 
         
         return success;
     }
+    
+    // MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING 
+    //   MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING 
+    protected void notifyOrder(Order order) throws JMSException {
+        Connection connection = null; Session session = null;
+        try {
+            connection = messaging.connection(); connection.start();
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            Topic topic = messaging.topicOrder();
+            
+            MessageProducer producer = session.createProducer(topic);
+            producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+            
+            TextMessage textMessage = session.createTextMessage(order.toString());
+            producer.send(textMessage);
+            
+        } finally {
+            if(session != null) try{session.close();}catch(JMSException e){}
+            if(connection != null) try{connection.close();}catch(JMSException e){}
+        }
+    }
+    
     
     // REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST 
     //  REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST 

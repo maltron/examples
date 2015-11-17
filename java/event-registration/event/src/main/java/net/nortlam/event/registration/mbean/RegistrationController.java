@@ -160,7 +160,12 @@ public class RegistrationController extends EventRegistrationCommonController
         redirect("registration/new");
     }
     
-    public void register() {
+    public void goAttendeeNew() {
+        getFlash().put(KEY_EVENT, event);
+        redirect(hostAttendeeService(), "new");
+    }
+    
+    public void confirmRegistration() {
         LOG.log(Level.INFO, ">>> register()");
         
         // Registration Pre-Verification

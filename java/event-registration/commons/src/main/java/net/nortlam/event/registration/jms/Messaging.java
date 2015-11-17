@@ -9,10 +9,10 @@ import javax.jms.Topic;
 public interface Messaging {
 
     public static final String FACTORY_INFORMATION = "java:/AMQConnectionFactory";
-    public static final String TOPIC_INFORMATION = "java:/topic/event-registration";
-    public static final String TOPIC = "activemq/topic/event-registration";
+    public static final String TOPIC_ORDER_INFORMATION = "java:/topic/notification/order";
+    public static final String TOPIC_ORDER = "activemq/topic/notification/order";
     
     public Connection connection();
-    public Topic topic();
+    public Topic topicOrder();
 
 }
