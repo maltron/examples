@@ -1,5 +1,7 @@
 package net.nortlam.event.registration.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
@@ -28,6 +30,8 @@ public class NotificationOrderMDB implements MessageListener {
 
     private static final Logger LOG = Logger.getLogger(NotificationOrderMDB.class.getName());
     
+    public static final SimpleDateFormat DATE_FORMAT = 
+                                new SimpleDateFormat("EEEE,   MMM d, yyyy 'at' HH:mm (z)");
     @EJB
     private Service service;
 
@@ -36,9 +40,11 @@ public class NotificationOrderMDB implements MessageListener {
         if(message instanceof TextMessage) {
             try {
                 String json = ((TextMessage)message).getText();
-                LOG.log(Level.INFO, ">>> onMessage() Message:{0}", json);
+                LOG.log(Level.INFO, ">>> [ATTENDEE] onMessage() Message:{0}", json);
                 Order order = new Order(json);
-                LOG.log(Level.INFO, ">>> onMessage() Attendee is ordered");
+                LOG.log(Level.INFO, ">>> [ATTENDEE] onMessage() STARTS:{0}", DATE_FORMAT.format(order.getStarts()));
+                
+                LOG.log(Level.INFO, ">>> [ATTENDEE] onMessage() Attendee is ordered");
                 service.save(order);
                 
             } catch(EntityExistsException | 

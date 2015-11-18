@@ -1,6 +1,7 @@
 package net.nortlam.event.registration.service;
 
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.logging.Level;
@@ -70,8 +71,6 @@ public class Service extends AbstractService<Event> {
         
         return super.create(event); 
     }
-    
-    
 
     @Override
     public void validation(Event event, boolean isNew) 
@@ -234,9 +233,9 @@ public class Service extends AbstractService<Event> {
         }
         
         // Remaining Tickets
-        if(event.getRemainingTickets() > 0) {
+        if(event.getRemainingTickets() <= 0) {
             LOG.log(Level.WARNING, "### validation() Remaining Tickets must be greater than zero");
-            throw new MissingInformationException("Remaining Tickets must be great than zero");
+            throw new BiggerException("Remaining Tickets must be great than zero");
         }
     }
     
@@ -360,6 +359,11 @@ public class Service extends AbstractService<Event> {
     // MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING 
     //   MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING 
     protected void notifyOrder(Order order) throws JMSException {
+        SimpleDateFormat DATE_FORMAT = 
+                                new SimpleDateFormat("EEEE,   MMM d, yyyy 'at' HH:mm (z)");
+        LOG.log(Level.INFO, ">>> [EVENT] notifyOrder() REAL VALUE:{0} STARTS:{1}", 
+                new Object[] {order.getStarts().getTime(), DATE_FORMAT.format(order.getStarts())});
+        
         Connection connection = null; Session session = null;
         try {
             connection = messaging.connection(); connection.start();
@@ -368,7 +372,8 @@ public class Service extends AbstractService<Event> {
             
             MessageProducer producer = session.createProducer(topic);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-            
+
+            LOG.log(Level.INFO, ">>> [EVENT] notifyOrder JSON:{0}", order.toString());
             TextMessage textMessage = session.createTextMessage(order.toString());
             producer.send(textMessage);
             

@@ -2,6 +2,7 @@ package net.nortlam.event.registration.entity;
 
 import java.io.Serializable;
 import java.io.StringReader;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -20,8 +21,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -36,6 +35,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
+import net.nortlam.event.registration.util.DateUtil;
 
 /**
  * This is the information regarding the sell of tickets
@@ -167,8 +167,12 @@ public class Order implements Serializable {
             }
             
             try {
-                setOrderPlaced(new Date(object.getInt(COLUMN_ORDER_PLACED)));
+                setOrderPlaced(DateUtil.toDate(object.getString(COLUMN_ORDER_PLACED)));
             } catch(NullPointerException ex) {
+                setOrderPlaced(null);
+            } catch(ParseException ex) {
+                LOG.log(Level.WARNING, "### PARSE EXCEPTION: Unable to Parse Date:{0}",
+                        ex.getMessage());
                 setOrderPlaced(null);
             }
             
@@ -179,8 +183,12 @@ public class Order implements Serializable {
             }
             
             try {
-                setStarts(new Date(object.getInt(COLUMN_STARTS)));
+                setStarts(DateUtil.toDate(object.getString(COLUMN_STARTS)));
             } catch(NullPointerException ex) {
+                setStarts(null);
+            } catch(ParseException ex) {
+                LOG.log(Level.WARNING, "### PARSE EXCEPTION: Unable to Parse Date:{0}",
+                        ex.getMessage());
                 setStarts(null);
             }
             
@@ -317,11 +325,11 @@ public class Order implements Serializable {
         }
         
         if(orderPlaced != null) 
-            builder.add(COLUMN_ORDER_PLACED, orderPlaced.getTime());
+            builder.add(COLUMN_ORDER_PLACED, DateUtil.toString(orderPlaced));
         if(title != null) 
             builder.add(COLUMN_TITLE, title);
         if(starts != null)
-            builder.add(COLUMN_STARTS, starts.getTime());
+            builder.add(COLUMN_STARTS, DateUtil.toString(starts));
         
         return builder.build().toString();
     }

@@ -32,7 +32,8 @@ import static net.nortlam.event.registration.util.Extraction.extractEdition;
 @ViewScoped
 public class RegistrationController extends EventRegistrationCommonController
                                                         implements Serializable {
-    private static final int[] VALUES = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    public static final int MAX_TICKETS = 10;
+    
     private Event event;
     private Organizer organizer;
     private Attendee attendee;
@@ -54,8 +55,20 @@ public class RegistrationController extends EventRegistrationCommonController
         this.password = password;
     }
 
-    public int[] getDefaultQuantity() {
-        return VALUES;
+    public int[] getTicketQuantity(Ticket ticket) {
+        int[] result;
+        if(ticket.getQuantityAvailable() >= MAX_TICKETS) {
+            result = new int[MAX_TICKETS+1];
+            for(int i=0; i < MAX_TICKETS+1; i++) result[i] = i;
+        
+        } else {
+            result = new int[ticket.getQuantityAvailable()+1];
+            for(int i=0; i < ticket.getQuantityAvailable()+1; i++)
+                result[i] = i;
+                
+        }
+        
+        return result;
     }
     
     public void setDesignationEdition(String designationEdition) {
@@ -172,8 +185,8 @@ public class RegistrationController extends EventRegistrationCommonController
         
         // Step #1: Verify if this Email already exists
         //          YES: OK, move forward for the registration
-        //           NO: Redirect to Attendee Service for Account creation
-        //               Using the email, First and Last Name already typed
+        //           NO: There is a link to register a new Attendeee down below
+        //               
         try {
             attendee = service.requestAttendeeByEMail(hostAttendeeService(), 
                                                             attendee.getEmail());
@@ -193,7 +206,20 @@ public class RegistrationController extends EventRegistrationCommonController
             redirectInternalServerError();
         }
         
-        // Step #2: Verify if there is *already* an order for this Attendee
+        // Step #2: Verify if there is available tickets to be purchase
+        boolean foundSelectedGreaterAvailable = false;
+        for(Ticket ticket: event.getTickets())
+            if(foundSelectedGreaterAvailable = (ticket.getQuantitySelected() 
+                                            > ticket.getQuantityAvailable()))
+                break;
+        
+        if(foundSelectedGreaterAvailable) {
+            error("Ticket Problems", 
+             "Unable to purchase number of tickets greater than tickets available");
+            return;
+        }
+        
+        // Step #3: Verify if there is *already* an order for this Attendee
         try {
             if(service.alreadyExistOrderFor(event, attendee)) {
                 error("Order already exists",
@@ -205,12 +231,7 @@ public class RegistrationController extends EventRegistrationCommonController
             redirectInternalServerError();
         }
         
-        // Step #2: Verify if there is enough tickets available to sell to
-        ///         YES: Ok, move forward 
-        //           NO: Error Message 
-        
-        
-        // Step #3: Purchase it and notify everyon interested in the purchase process
+        // Step #4: Purchase it and notify everyone interested in the purchase process
         try {
             service.purchase(event, attendee);
             
