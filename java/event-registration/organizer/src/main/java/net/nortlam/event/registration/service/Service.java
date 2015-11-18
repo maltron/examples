@@ -5,8 +5,17 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
+import javax.persistence.LockTimeoutException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.PessimisticLockException;
+import javax.persistence.QueryTimeoutException;
+import javax.persistence.TransactionRequiredException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -14,6 +23,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import net.nortlam.event.registration.entity.Event;
+import net.nortlam.event.registration.entity.Order;
 import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
@@ -97,6 +107,13 @@ public class Service extends AbstractService<Organizer> {
             throw new BiggerException(String.format(
                     "Password is bigger than %d characters", Organizer.LENGTH_EMAIL));
     }
+    
+    /**
+     * Just save any Order from Event's Service */
+    public void save(Order order) throws EntityExistsException, 
+                        IllegalArgumentException, TransactionRequiredException {
+        getEntityManager().persist(order);
+    }
 
     @Override
     public EntityManager getEntityManager() {
@@ -120,6 +137,22 @@ public class Service extends AbstractService<Organizer> {
                         throws NotFoundException, InternalServerErrorException {
         return findByProperty(em, Organizer.class, "firstName", organizer.getFirstName(),
                                            "lastName", organizer.getLastName());
+    }
+    
+    public Collection<Order> listOrdersForEvent(long eventID) throws IllegalStateException,
+                    QueryTimeoutException, TransactionRequiredException, 
+                                PessimisticLockException, LockTimeoutException, 
+                                                            PersistenceException {
+        
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Order> query = builder.createQuery(Order.class);
+        Root<Order> root = query.from(Order.class);
+        
+        query.select(root).where(builder.equal(
+                root.get(Order.COLUMN_EVENT), eventID))
+                .orderBy(builder.asc(root.get(Order.COLUMN_FIRST_NAME)));
+        
+        return getEntityManager().createQuery(query).getResultList();        
     }
     
     // REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST REQUEST 

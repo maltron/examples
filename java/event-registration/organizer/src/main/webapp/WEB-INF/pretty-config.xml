@@ -44,5 +44,11 @@
         <pattern value="/event/#{eventID}"/>
         <view-id value="/faces/organizer/event.xhtml"/>
     </url-mapping>
+    
+    <!-- Attendees attending a particular Event -->
+    <url-mapping id="organizer_list_attendees_for_event">
+        <pattern value="/event/#{eventID}/attendees"/>
+        <view-id value="/faces/organizer/listattendees.xhtml"/>
+    </url-mapping>
 
 </pretty-config>

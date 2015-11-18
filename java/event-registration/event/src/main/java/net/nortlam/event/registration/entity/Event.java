@@ -2,6 +2,7 @@ package net.nortlam.event.registration.entity;
 
 import java.io.Serializable;
 import java.io.StringReader;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
+import net.nortlam.event.registration.util.DateUtil;
 
 @Entity(name="Event")
 @Table(name="EVENT", uniqueConstraints = 
@@ -213,14 +215,18 @@ public class Event implements Serializable {
             }
             
             try {
-                setStarts(new Date(object.getInt(COLUMN_EVENT_STARTS)));
+                setStarts(DateUtil.toDate(object.getString(COLUMN_EVENT_STARTS)));
             } catch(NullPointerException ex) {
+                setStarts(null);
+            } catch(ParseException ex) {
                 setStarts(null);
             }
             
             try {
-                setEnds(new Date(object.getInt(COLUMN_EVENT_ENDS)));
+                setEnds(DateUtil.toDate(object.getString(COLUMN_EVENT_ENDS)));
             } catch(NullPointerException ex) {
+                setEnds(null);
+            } catch(ParseException ex) {
                 setEnds(null);
             }
             
@@ -534,8 +540,8 @@ public class Event implements Serializable {
         if(region != null) builder.add(COLUMN_REGION, region); // required=false
         if(zipCode != null) builder.add(COLUMN_ZIP_CODE, zipCode); // required=false
         if(country != null) builder.add(COLUMN_COUNTRY, country); // required=false
-        builder.add(COLUMN_EVENT_STARTS, starts.getTime());
-        builder.add(COLUMN_EVENT_ENDS, ends.getTime());
+        builder.add(COLUMN_EVENT_STARTS, DateUtil.toString(starts));
+        builder.add(COLUMN_EVENT_ENDS, DateUtil.toString(ends));
         if(description != null) builder.add(COLUMN_DESCRIPTION, description); // required=false
         builder.add(COLUMN_ORGANIZER, organizer);
         if(tickets != null) {

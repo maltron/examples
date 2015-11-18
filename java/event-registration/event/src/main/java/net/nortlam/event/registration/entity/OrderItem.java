@@ -1,14 +1,12 @@
 package net.nortlam.event.registration.entity;
 
 import java.io.Serializable;
-import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonException;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
 import javax.json.stream.JsonParsingException;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -57,27 +55,25 @@ public class OrderItem implements Serializable {
         setQuantity(ticket.getQuantitySelected());
     }
     
-    public OrderItem(String json) throws JsonException, JsonParsingException,
+    public OrderItem(JsonObject object) throws JsonException, JsonParsingException,
                                                         IllegalStateException {
-        JsonReader reader = Json.createReader(new StringReader(json));
-        JsonObject object = reader.readObject();
         try {
             try {
-                setID(object.getInt(COLUMN_ID));
+                this.ID = object.getInt(COLUMN_ID);
             } catch(NullPointerException ex) {
-                setID(0);
+                this.ID = 0;
             }
             
             try {
-                setTicketID(object.getInt(COLUMN_TICKET));
+                this.ticketID = object.getInt(COLUMN_TICKET);
             } catch(NullPointerException ex) {
-                setTicketID(0);
+                this.ticketID = 0;
             }
             
             try {
-                setQuantity(object.getInt(COLUMN_QUANTITY));
+                this.quantity = object.getInt(COLUMN_QUANTITY);
             } catch(NullPointerException ex) {
-                setQuantity(0);
+                this.quantity = 0;
             }
             
         } catch(ClassCastException ex) {
@@ -152,8 +148,8 @@ public class OrderItem implements Serializable {
 //        return builder.toString();
         JsonObjectBuilder builder = Json.createObjectBuilder();
         if(ID > 0) builder.add(COLUMN_ID, ID); // required=false
-        builder.add(COLUMN_TICKET, ticketID);
-        builder.add(COLUMN_QUANTITY, quantity);
+        if(ticketID > 0 ) builder.add(COLUMN_TICKET, ticketID);
+        if(quantity > 0) builder.add(COLUMN_QUANTITY, quantity);
         
         return builder.build().toString();
     }

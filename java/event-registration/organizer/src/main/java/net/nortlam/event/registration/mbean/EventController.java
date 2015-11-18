@@ -9,7 +9,12 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.persistence.PersistenceException;
+import javax.persistence.PessimisticLockException;
+import javax.persistence.QueryTimeoutException;
+import javax.persistence.TransactionRequiredException;
 import net.nortlam.event.registration.entity.Event;
+import net.nortlam.event.registration.entity.Order;
 import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.entity.Ticket;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
@@ -168,6 +173,31 @@ public class EventController extends EventRegistrationCommonController
         
         return events;
     }
+    
+    
+    // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
+    //   FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
+    
+    public Collection<Order> listOrdersForEvent() throws InternalServerErrorException {
+        try {
+            return service.listOrdersForEvent(getEvent().getID());
+        } catch(IllegalStateException | QueryTimeoutException | 
+                TransactionRequiredException | PessimisticLockException ex) {
+            LOG.log(Level.SEVERE, "### ILLEGAL | QUERY TIMEOUT | "+
+                    "TRANSACTION REQUIRED | PESSIMISTIC LOCK EXCEPTION "+
+                    " {0}", ex.getMessage());
+            throw new InternalServerErrorException(ex);
+        } catch(PersistenceException ex) {
+            LOG.log(Level.SEVERE, "### PERSISTENCE EXCEPTION:{0}", ex.getMessage());
+            throw new InternalServerErrorException(ex);
+        }
+    }
+    
+//   throws IllegalStateException,
+//                    QueryTimeoutException, TransactionRequiredException, 
+//                                PessimisticLockException, LockTimeoutException, 
+//                                                            PersistenceException { 
+    
     
     public void setEventSelected(Event eventSelected) {
         this.eventSelected = eventSelected;

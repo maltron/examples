@@ -1,7 +1,6 @@
 package net.nortlam.event.registration.entity;
 
 import java.io.Serializable;
-import java.io.StringReader;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,7 +14,6 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonException;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
 import javax.json.stream.JsonParsingException;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -69,13 +67,36 @@ public class Order implements Serializable {
     @XmlElement(name=COLUMN_ATTENDEE, type=long.class, required=true)
     private long attendeeID;
     
-    public static final String COLUMN_TICKETS = "items";
+    public static final String COLUMN_FIRST_NAME = "firstName";
+    public static final int LENGTH_FIRST_NAME = 40;
+    @Column(name="FIRST_NAME", length = LENGTH_FIRST_NAME, nullable = false)
+    @XmlElement(name=COLUMN_FIRST_NAME, type=String.class, required=true)
+    private String firstName;
+    
+    public static final String COLUMN_LAST_NAME = "lastName";
+    public static final int LENGTH_LAST_NAME = 40;
+    @Column(name="LAST_NAME", length = LENGTH_LAST_NAME, nullable = false)
+    @XmlElement(name=COLUMN_LAST_NAME, type=String.class, required=true)
+    private String lastName;
+
+    public static final String COLUMN_EMAIL = "email";
+    public static final int LENGTH_EMAIL = 120;
+    @Column(name="EMAIL", length = LENGTH_EMAIL, nullable = false, unique = true)
+    @XmlElement(name=COLUMN_EMAIL, type=String.class, required=true)
+    private String email;
+    
+    public static final String COLUMN_ORDER_ITEMS = "items";
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="ORDER_HAS_ITEMS",
             joinColumns=@JoinColumn(name="ORDER_ID", referencedColumnName="ORDER_ID"),
             inverseJoinColumns=@JoinColumn(name="ORDER_ITEM_ID", referencedColumnName="ORDER_ITEM_ID"))
-    @XmlElements({@XmlElement(name = COLUMN_TICKETS, type = OrderItem.class, required = false)})
+    @XmlElements({@XmlElement(name = COLUMN_ORDER_ITEMS, type = OrderItem.class, required = false)})
     private Collection<OrderItem> items;
+    
+    public static final String COLUMN_TOTAL_ITEMS = "totalItems";
+    @Column(name="TOTAL_ITEMS", nullable = false)
+    @XmlElement(name=COLUMN_TOTAL_ITEMS, type=int.class, required=true)
+    private int totalItems;
 
     public static final String COLUMN_ORDER_PLACED = "orderPlaced";
     @Temporal(TemporalType.TIMESTAMP)
@@ -99,99 +120,105 @@ public class Order implements Serializable {
     
     public Order(Event event, Attendee attendee) {
         // Create the items for this particular Order
-        Collection<OrderItem> items = new ArrayList<OrderItem>();
+        this.totalItems = 0;
+        this.items = new ArrayList<OrderItem>();
         for(Ticket ticket: event.getTickets()) {
             // Only those that has a quantitySelected > 0
-            if(ticket.getQuantitySelected() > 0)
-                items.add(new OrderItem(ticket));
+            if(ticket.getQuantitySelected() > 0) {
+                this.totalItems += ticket.getQuantitySelected();
+                this.items.add(new OrderItem(ticket));
+            }
         }
-        setItems(items);
         
-        setAttendeeID(attendee.getID());
-        setEventID(event.getID());
+        this.attendeeID = attendee.getID();
+        this.firstName = attendee.getFirstName();
+        this.lastName = attendee.getLastName();
+        this.email = attendee.getEmail();
         
-        setOrderPlaced(new Date());
-        setTitle(event.getTitle());
-        setStarts(event.getStarts());
+        this.eventID = event.getID();
+        
+        this.orderPlaced = new Date();
+        this.title = event.getTitle();
+        this.starts = event.getStarts();
     }
     
-    public Order(String json) throws JsonException, JsonParsingException,
+    public Order(JsonObject object) throws JsonException, JsonParsingException,
                                                         IllegalStateException {
-        JsonReader reader = Json.createReader(new StringReader(json));
-        JsonObject object = reader.readObject();
         try {
             try {
-                setID(object.getInt(COLUMN_ID));
+                this.ID = object.getInt(COLUMN_ID);
             } catch(NullPointerException ex) {
-                setID(0);
+                this.ID = 0;
             }
             
             try {
-                setEventID(object.getInt(COLUMN_EVENT));
+                this.eventID = object.getInt(COLUMN_EVENT);
             } catch(NullPointerException ex) {
-                setEventID(0);
+                this.eventID = 0;
             }
             
             try {
-                setAttendeeID(object.getInt(COLUMN_ATTENDEE));
+                this.attendeeID = object.getInt(COLUMN_ATTENDEE);
             } catch(NullPointerException ex) {
-                setAttendeeID(0);
+                this.attendeeID = 0;
+            }
+            
+            try {
+                this.firstName = object.getString(COLUMN_FIRST_NAME);
+            } catch(NullPointerException ex) {
+                this.firstName = null;
+            }
+            
+            try {
+                this.lastName = object.getString(COLUMN_LAST_NAME);
+            } catch(NullPointerException ex) {
+                this.lastName = null;
+            }
+            
+            try {
+                this.email = object.getString(COLUMN_EMAIL);
+            } catch(NullPointerException ex) {
+                this.email = null;
             }
             
             // Items
-            JsonArray arrayOrderItems = object.getJsonArray(COLUMN_TICKETS);
-            if(arrayOrderItems != null) {
-                Collection<OrderItem> items = new ArrayList<OrderItem>();
-                for(int i=0; i < arrayOrderItems.size(); i++) {
-                    JsonObject objectOrderItem = arrayOrderItems.getJsonObject(i);
-                    OrderItem orderItem = new OrderItem();
-                    
-                    try {
-                        orderItem.setID(objectOrderItem.getInt(OrderItem.COLUMN_ID));
-                    } catch(NullPointerException ex) {
-                        orderItem.setID(0);
-                    }
-
-                    try {
-                        orderItem.setTicketID(objectOrderItem.getInt(OrderItem.COLUMN_TICKET));
-                    } catch(NullPointerException ex) {
-                        orderItem.setTicketID(0);
-                    }
-
-                    try {
-                        orderItem.setQuantity(objectOrderItem.getInt(OrderItem.COLUMN_QUANTITY));
-                    } catch(NullPointerException ex) {
-                        orderItem.setQuantity(0);
-                    }
-                    items.add(orderItem);
-                }
-                setItems(items);
+            JsonArray arrayOrderItems = object.getJsonArray(COLUMN_ORDER_ITEMS);
+            if(arrayOrderItems != null && !arrayOrderItems.isEmpty()) {
+                this.items = new ArrayList<OrderItem>();
+                for(int i=0; i < arrayOrderItems.size(); i++) 
+                    items.add(new OrderItem(arrayOrderItems.getJsonObject(i)));
             }
             
             try {
-                setOrderPlaced(DateUtil.toDate(object.getString(COLUMN_ORDER_PLACED)));
+                this.totalItems = object.getInt(COLUMN_TOTAL_ITEMS);
             } catch(NullPointerException ex) {
-                setOrderPlaced(null);
+                this.totalItems = 0;
+            }
+            
+            try {
+                this.orderPlaced = DateUtil.toDate(object.getString(COLUMN_ORDER_PLACED));
+            } catch(NullPointerException ex) {
+                this.orderPlaced = null;
             } catch(ParseException ex) {
                 LOG.log(Level.WARNING, "### PARSE EXCEPTION: Unable to Parse Date:{0}",
                         ex.getMessage());
-                setOrderPlaced(null);
+                this.orderPlaced = null;
             }
             
             try {
-                setTitle(object.getString(COLUMN_TITLE));
+                this.title = object.getString(COLUMN_TITLE);
             } catch(NullPointerException ex) {
-                setTitle(null);
+                this.title = null;
             }
             
             try {
-                setStarts(DateUtil.toDate(object.getString(COLUMN_STARTS)));
+                this.starts = DateUtil.toDate(object.getString(COLUMN_STARTS));
             } catch(NullPointerException ex) {
-                setStarts(null);
+                this.starts = null;
             } catch(ParseException ex) {
                 LOG.log(Level.WARNING, "### PARSE EXCEPTION: Unable to Parse Date:{0}",
                         ex.getMessage());
-                setStarts(null);
+                this.starts = null;
             }
             
         } catch(ClassCastException ex) {
@@ -221,6 +248,38 @@ public class Order implements Serializable {
 
     public void setAttendeeID(long attendeeID) {
         this.attendeeID = attendeeID;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getTotalItems() {
+        return totalItems;
+    }
+
+    public void setTotalItems(int totalItems) {
+        this.totalItems = totalItems;
     }
 
     public Collection<OrderItem> getItems() {
@@ -261,7 +320,11 @@ public class Order implements Serializable {
         hash = 67 * hash + (int) (this.ID ^ (this.ID >>> 32));
         hash = 67 * hash + (int) (this.eventID ^ (this.eventID >>> 32));
         hash = 67 * hash + (int) (this.attendeeID ^ (this.attendeeID >>> 32));
+        hash = 67 * hash + Objects.hashCode(this.firstName);
+        hash = 67 * hash + Objects.hashCode(this.lastName);
+        hash = 67 * hash + Objects.hashCode(this.email);
         hash = 67 * hash + Objects.hashCode(this.items);
+        hash = 67 * hash + this.totalItems;
         hash = 67 * hash + Objects.hashCode(this.orderPlaced);
         hash = 67 * hash + Objects.hashCode(this.title);
         hash = 67 * hash + Objects.hashCode(this.starts);
@@ -289,6 +352,18 @@ public class Order implements Serializable {
         if (this.attendeeID != other.attendeeID) {
             return false;
         }
+        if (this.totalItems != other.totalItems) {
+            return false;
+        }
+        if (!Objects.equals(this.firstName, other.firstName)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastName, other.lastName)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
         if (!Objects.equals(this.title, other.title)) {
             return false;
         }
@@ -308,8 +383,14 @@ public class Order implements Serializable {
     public String toString() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         if(ID > 0) builder.add(COLUMN_ID, ID);
-        builder.add(COLUMN_EVENT, eventID);
-        builder.add(COLUMN_ATTENDEE, attendeeID);
+        if(eventID > 0) builder.add(COLUMN_EVENT, eventID);
+        if(attendeeID > 0) builder.add(COLUMN_ATTENDEE, attendeeID);
+        if(firstName != null)
+            builder.add(COLUMN_FIRST_NAME, firstName);
+        if(lastName != null)
+            builder.add(COLUMN_LAST_NAME, lastName);
+        if(email != null)
+            builder.add(COLUMN_EMAIL, email);
         
         // Items
         if(items != null) {
@@ -323,7 +404,7 @@ public class Order implements Serializable {
                 
                arrayOrderItems.add(builderItem);
             }
-            builder.add(COLUMN_TICKETS, arrayOrderItems);
+            builder.add(COLUMN_ORDER_ITEMS, arrayOrderItems);
         }
         
         if(orderPlaced != null) 

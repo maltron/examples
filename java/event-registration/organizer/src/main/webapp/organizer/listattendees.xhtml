@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+        <f:viewParam name="eventID" value="#{event.eventID}"/>
+    </f:metadata>
+    <h:head>
+        <title>Event Registration: Organizer: List Attendees</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form id="formListForOrganizer">
+            <table style="width: 100%">
+                <tr><td align="left">
+                        <p:commandButton id="buttonBack" value="Back" onclick="history.go(-1);"/>
+                    </td>
+                </tr>
+            </table>
+            <p:separator/>
+            <p:focus id="focus" context="panel"/>
+            <p:growl id="messages" showSummary="true"/> 
+            <p:panel id="panel" header="Attendees for Events:#{event.event.title}">
+                <h:panelGrid columns="1" cellpadding="5">
+                    <p:dataTable id="tableListEvents"  
+                                 value="#{event.listOrdersForEvent()}" style="border: none"
+                                 var="order" rowKey="#{order.ID}" emptyMessage="No Attendees for this Event">
+
+                        <p:column id="columnFirstName" width="40">
+                            <f:facet name="header">
+                                <p:outputLabel value="First Name" style="float:left"/>
+                            </f:facet>
+                            <p:outputLabel value="#{order.firstName}" style="float:left"/>
+                        </p:column>
+                        
+                        <p:column id="columnLastName" width="40">
+                            <f:facet name="header">
+                                <p:outputLabel value="Last Name" style="float:left"/>
+                            </f:facet>
+                            <p:outputLabel value="#{order.lastName}" style="float:left"/>
+                        </p:column>
+                        
+                        <p:column id="columnTotalItems" width="10">
+                            <f:facet name="header">
+                                <p:outputLabel value="# items" style="float:center"/>
+                            </f:facet>
+                            <p:outputLabel value="#{order.totalItems}" style="float:center"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>

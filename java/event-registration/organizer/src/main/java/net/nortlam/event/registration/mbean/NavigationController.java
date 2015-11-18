@@ -32,6 +32,10 @@ public class NavigationController extends EventRegistrationCommonController
         redirect(String.format("event/%d", event.getID()));
     }
     
+    public void goEventAttendees(Event event) {
+        redirect(String.format("event/%d/attendees", event.getID()));
+    }
+    
     public void goEventAll() {
         redirect("event/all");
     }

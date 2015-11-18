@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -21,7 +20,8 @@
                                          disabled="#{empty event.eventSelected}" action="#{nav.goEventEdit(event.eventSelected)}"/>
                         <p:commandButton id="buttonDeleteEvent" value="Delete" disabled="#{empty event.eventSelected}"/>
                         <p:spacer/>
-                        <p:commandButton id="buttonAttendance" value="Attendees"  disabled="#{empty event.eventSelected}"/>
+                        <p:commandButton id="buttonAttendance" value="Attendees"  disabled="#{empty event.eventSelected}"
+                                         action="#{nav.goEventAttendees(event.eventSelected)}"/>
                         <p:commandButton id="buttonTickets" value="Tickets" disabled="true"/>
                     </td>
                     <td align="right">

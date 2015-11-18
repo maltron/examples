@@ -42,12 +42,10 @@ public class NotificationOrderMDB implements MessageListener {
         if(message instanceof TextMessage) {
             try {
                 String json = ((TextMessage)message).getText();
-                LOG.log(Level.INFO, ">>> [ATTENDEE] onMessage() Message:{0}", json);
+                LOG.log(Level.INFO, ">>> [ORGANIZER] onMessage() Message:{0}", json);
                 JsonObject object = Json.createReader(new StringReader(json)).readObject();
                 Order order = new Order(object);
-                LOG.log(Level.INFO, ">>> [ATTENDEE] onMessage() STARTS:{0}", DATE_FORMAT.format(order.getStarts()));
-                
-                LOG.log(Level.INFO, ">>> [ATTENDEE] onMessage() Attendee is ordered");
+                LOG.log(Level.INFO, ">>> [ORGANIZER] onMessage() STARTS:{0}", DATE_FORMAT.format(order.getStarts()));
                 service.save(order);
                 
             } catch(EntityExistsException | 
@@ -55,16 +53,6 @@ public class NotificationOrderMDB implements MessageListener {
                 LOG.log(Level.SEVERE, 
                         "### ENTITY EXISTS | ILLEGAL | TRANSACTION REQUIRED:{0}",
                                                                 ex.getMessage());
-//            } catch(IllegalArgumentException ex) {
-//                LOG.log(Level.SEVERE, "### ILLEGAL AGUMENT EXCEPTION:{0}", ex.getMessage());
-//            } catch(BiggerException ex) {
-//                LOG.log(Level.SEVERE, "### BIGGER EXCEPTION:{0}", ex.getMessage());
-//            } catch(MissingInformationException ex) {
-//                LOG.log(Level.SEVERE, "### MISSING INFORMATION EXCEPTION:{0}", ex.getMessage());
-//            } catch(AlreadyExistsException ex) {
-//                LOG.log(Level.SEVERE, "### ALREADY EXISTING EXCEPTION:{0}", ex.getMessage());
-//            } catch(InternalServerErrorException ex) {
-//                LOG.log(Level.SEVERE, "### INTERNAL SERVER ERROR EXCEPTION:{0}", ex.getMessage());
             } catch(JMSException ex) {
                 LOG.log(Level.SEVERE, "### JMS EXCEPTION:{0}", ex.getMessage());
             } catch(JsonException ex) {

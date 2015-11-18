@@ -1,5 +1,6 @@
 package net.nortlam.event.registration.service;
 
+import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
@@ -9,7 +10,9 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import javax.json.Json;
 import javax.json.JsonException;
+import javax.json.JsonObject;
 import net.nortlam.event.registration.entity.Event;
 import net.nortlam.event.registration.entity.Order;
 import net.nortlam.event.registration.entity.OrderItem;
@@ -44,7 +47,8 @@ public class NotificationOrderMDB implements MessageListener {
             try {
                 String json = ((TextMessage)message).getText();
                 LOG.log(Level.INFO, ">>> [EVENT] onMessage() Message:{0}", json);
-                Order order = new Order(json);
+                JsonObject object = Json.createReader(new StringReader(json)).readObject();
+                Order order = new Order(object);
                 
                 try {
                     Event event = service.read(order.getEventID());
