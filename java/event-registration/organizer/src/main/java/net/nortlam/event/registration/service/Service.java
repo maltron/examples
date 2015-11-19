@@ -115,6 +115,14 @@ public class Service extends AbstractService<Organizer> {
         getEntityManager().persist(order);
     }
 
+    /**
+     * Delete an Order beause the attendee decided not to attend */
+    public void delete(Order order) throws IllegalArgumentException, 
+                                                TransactionRequiredException {
+        getEntityManager().remove(getEntityManager()
+                                            .find(Order.class, order.getID()));
+    }
+
     @Override
     public EntityManager getEntityManager() {
         return em;

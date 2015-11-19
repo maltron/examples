@@ -6,7 +6,10 @@ cd ./commons
 mvn clean package install
 cd ../attendee
 mvn clean package install wildfly:deploy
+jboss-cli.sh --connect --command=":reload"
 cd ../event
 mvn clean package install wildfly:deploy
+jboss-cli.sh --connect --command=":reload"
 cd ../organizer
 mvn clean package install wildfly:deploy
+jboss-cli.sh --connect --command=":reload"

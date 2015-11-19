@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
+import javax.jms.JMSException;
 import javax.persistence.LockTimeoutException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
@@ -88,6 +89,17 @@ public class AttendeeController extends EventRegistrationCommonController
         }
         
         return loggedAttendee;
+    }
+    
+    public void cancelEvent() {
+        LOG.log(Level.INFO, ">>> cancelEvent():{0}", getOrderSelected().toString());
+        Order order = getOrderSelected();
+        try {
+            service.notifyOrderRefund(order);
+        } catch(JMSException ex) {
+            LOG.log(Level.SEVERE, "### JMS EXCEPTION:{0}", ex.getMessage());
+        }
+        redirect("event/all"); // Try to update the page
     }
     
     // LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST LIST 

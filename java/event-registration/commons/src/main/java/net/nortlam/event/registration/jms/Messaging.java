@@ -12,7 +12,11 @@ public interface Messaging {
     public static final String TOPIC_ORDER_INFORMATION = "java:/topic/notification/order";
     public static final String TOPIC_ORDER = "activemq/topic/notification/order";
     
+    public static final String TOPIC_REFUND_INFORMATION = "java:/topic/notification/order/refund";
+    public static final String TOPIC_REFUND = "activemq/topic/notification/order/refund";
+    
     public Connection connection();
     public Topic topicOrder();
+    public Topic topicOrderRefund();
 
 }

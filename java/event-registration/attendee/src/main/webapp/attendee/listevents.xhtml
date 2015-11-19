@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -17,8 +16,17 @@
                     </td>
                     <td align="center">
                         <p:commandButton id="buttonCancelRefund" value="Cancel/Refund" 
-                                         disabled="#{empty attendee.orderSelected}" action="#{nav.goEventEdit(event.eventSelected)}"/>
+                                         disabled="#{empty attendee.orderSelected}" 
+                                         action="#{attendee.cancelEvent()}">
+                            <p:confirm header="Cancel Event" 
+                                       message="Are you sure you want to cancel this Event ?" 
+                                       icon="ui-icon-alert"/>
+                        </p:commandButton>
                         <p:spacer/>
+                        <p:confirmDialog id="confirmCancelAttendee" global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </td>
                     <td align="right">
                         <p:commandButton id="buttonSettings" value="Settings" action="#{nav.goAttendeeEdit()}"/>
@@ -47,14 +55,14 @@
                             </f:facet>
                             <p:outputLabel value="#{order.title}" style="float:left"/>
                         </p:column>
-                        
+
                         <p:column id="columnStars" width="50">
                             <f:facet name="header">
                                 <p:outputLabel value="When" style="float:center"/>
                             </f:facet>
                             <p:outputLabel value="#{format.formatDate(order.starts)}" style="float:center"/>
                         </p:column>
-                        
+
                     </p:dataTable>
                 </h:panelGrid>
             </p:panel>

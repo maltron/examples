@@ -47,11 +47,29 @@ public class MessagingActiveMQ implements Messaging {
             topic = (Topic)context.lookup(TOPIC_ORDER_INFORMATION);
             
         } catch(NamingException ex) {
-            LOG.log(Level.SEVERE, "### topic() NAMING EXCEPTION {0}", 
+            LOG.log(Level.SEVERE, "### topicOrder() NAMING EXCEPTION {0}", 
                                                                 ex.getMessage());
         } 
         
         assert topic != null;
         return topic;
     }
+
+    @Override
+    public Topic topicOrderRefund() {
+        Topic topic = null;
+        try {
+            InitialContext context = new InitialContext();
+            topic = (Topic)context.lookup(TOPIC_REFUND_INFORMATION);
+            
+        } catch(NamingException ex) {
+            LOG.log(Level.SEVERE, "### topicOrderRefund() NAMING EXCEPTION:{0}",
+                                                                ex.getMessage());
+        }
+        
+        return topic;
+    }
+    
+    
+    
 }

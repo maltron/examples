@@ -71,6 +71,14 @@ public class Service extends AbstractService<Event> {
         
         return super.create(event); 
     }
+    
+    /**
+     * Delete an Order beause the attendee decided not to attend */
+    public void delete(Order order) throws IllegalArgumentException, 
+                                                TransactionRequiredException {
+        getEntityManager().remove(getEntityManager()
+                                            .find(Order.class, order.getID()));
+    }
 
     @Override
     public void validation(Event event, boolean isNew) 

@@ -4,6 +4,14 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.Connection;
+import javax.jms.DeliveryMode;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.Topic;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.LockTimeoutException;
@@ -24,6 +32,7 @@ import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
 import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
+import net.nortlam.event.registration.jms.Messaging;
 import net.nortlam.event.registration.util.AbstractService;
 
 /**
@@ -36,6 +45,9 @@ public class Service extends AbstractService<Attendee> {
     
     @PersistenceContext
     private EntityManager em;
+    
+    @Inject
+    private Messaging messaging;
 
     public Service() {
         super(Attendee.class);
@@ -101,23 +113,6 @@ public class Service extends AbstractService<Attendee> {
         } catch(NotFoundException ex) {
             // NOTHING TO DO
         }
-        
-//        // FIRST AND LAST NAME
-//        try {
-//            Attendee found = findByFirstLastName(attendee.getFirstName(), 
-//                                                        attendee.getLastName());
-//            if(isNew) throw new AlreadyExistsException(
-//                String.format("First (%s) and Last(%s) already exists",
-//                        attendee.getFirstName(), attendee.getLastName()));
-//            else if(found.getID() != attendee.getID())
-//                throw new AlreadyExistsException(
-//                String.format("First (%s) and Last(%s) already exists",
-//                        attendee.getFirstName(), attendee.getLastName()));
-//            
-//        } catch(NotFoundException ex) {
-//            // NOTHING TO DO
-//        }
-        
     }
     
     /**
@@ -126,6 +121,15 @@ public class Service extends AbstractService<Attendee> {
                         IllegalArgumentException, TransactionRequiredException {
         getEntityManager().persist(order);
     }
+    
+    /**
+     * Delete an Order beause the attendee decided not to attend */
+    public void delete(Order order) throws IllegalArgumentException, 
+                                                TransactionRequiredException {
+        getEntityManager().remove(getEntityManager()
+                                            .find(Order.class, order.getID()));
+    }
+    
     
     // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     //  FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
@@ -152,11 +156,30 @@ public class Service extends AbstractService<Attendee> {
         return findByProperty(em, Attendee.class, "email", email);
     }
     
-//    public Attendee findByFirstLastName(String firstName, String lastName)
-//                        throws NotFoundException, InternalServerErrorException {
-//        return findByProperty(em, Attendee.class, "firstName", firstName,
-//                                                            "lastName", lastName);
-//    }
+    // MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING 
+    //  MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING 
+
+    public void notifyOrderRefund(Order order) throws JMSException {
+        Connection connection = null; Session session = null;
+        try {
+            connection = messaging.connection();
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            Topic topic = messaging.topicOrderRefund();
+            
+            MessageProducer producer = session.createProducer(topic);
+            producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+            
+            LOG.log(Level.INFO, ">>> [ATTENDEE] notifyOrderRefund JSON:{0}", order.toString());
+            TextMessage textMessage = session.createTextMessage(order.toString());
+            producer.send(textMessage);
+            
+        } finally {
+            if(session != null) try{session.close();}catch(JMSException ex) {}
+            if(connection != null) try{connection.close();}catch(JMSException ex){}
+        }
+        
+    }
+    
     
     // ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER 
     //  ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER ENTITY MANAGER 
