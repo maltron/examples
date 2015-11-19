@@ -19,6 +19,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -380,6 +382,8 @@ public class Order implements Serializable {
             }
             builder.add(COLUMN_ORDER_ITEMS, arrayOrderItems);
         }
+        if(totalItems > 0)
+            builder.add(COLUMN_TOTAL_ITEMS, totalItems);
         
         if(orderPlaced != null) 
             builder.add(COLUMN_ORDER_PLACED, DateUtil.toString(orderPlaced));

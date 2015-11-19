@@ -406,6 +406,8 @@ public class Order implements Serializable {
             }
             builder.add(COLUMN_ORDER_ITEMS, arrayOrderItems);
         }
+        if(totalItems > 0)
+            builder.add(COLUMN_TOTAL_ITEMS, totalItems);
         
         if(orderPlaced != null) 
             builder.add(COLUMN_ORDER_PLACED, DateUtil.toString(orderPlaced));
