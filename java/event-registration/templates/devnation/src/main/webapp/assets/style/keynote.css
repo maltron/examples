@@ -1,0 +1,251 @@
+/*--------------------------------------------------------------------*/
+/* KEYNOTE / GENERAL SESSION LIST
+/*--------------------------------------------------------------------*/
+
+#keynotes article > ul {
+    list-style-type: none;
+    margin-bottom: 50px;
+}
+
+#keynotes .session {
+    text-align: left;
+    margin-bottom: 50px;
+    overflow: hidden;
+    clear: both;
+}
+
+#keynotes .session h4 {
+    margin-bottom: 7px;
+}
+
+#keynotes .session h6 {
+    padding-top: 0;
+}
+
+#keynotes .session .portrait {
+    margin: 0 25px 25px 25px;
+    width: 20%;
+    font-size:.7em;
+}
+#keynotes .session .portrait h6 {
+    font-size:.9em;
+    margin-top:1.4em;
+    padding-bottom:.5em;
+}
+
+#keynotes .session .portrait a {
+    color:#292929;
+}
+
+#keynotes .session:nth-child(even) .portrait {
+    text-align: left;
+}
+
+
+
+#keynotes .session .text {
+    width: 60%;
+}
+
+#keynotes .session .portrait img {
+    width: 280px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+#keynotes .session h3 {
+    margin-top: 0;
+    line-height: 1em;
+}
+
+#keynotes .session:nth-child(even) {
+    text-align: right;
+}
+
+#keynotes .session > div {
+    float: left;
+}
+
+#keynotes .session:nth-child(even) > div {
+    float: right;
+}
+
+/*--------------------------------------------------------------------*/
+/* KEYNOTE / SPECIAL HEADLINE SECTION
+/*--------------------------------------------------------------------*/
+#keynotes .headline-keynotes {
+    padding-bottom:50px;
+    width:90%;
+    margin:0 auto;
+    font-size:.8em;
+}
+
+#keynotes .headline-keynotes .row-fluid {
+    padding-bottom:2em;
+}
+
+p.share-with-friends {
+    color:#292929;
+}
+
+p.share-with-friends a {
+    color:#292929;
+}
+
+p.share-with-friends a:hover {
+    color:#4e808e;
+}
+
+h3.keynotes-headline {
+    line-height: 1;
+    margin:0;
+}
+p.share-with-friends {
+    margin:.5em 0 1.5em 0;
+}
+
+#keynotes .headline-keynotes .portrait,
+#keynotes .headline-keynotes .text {
+    float:left;
+}
+
+#keynotes .headline-keynotes .portrait {
+    width:20%;
+    text-align: left;
+    margin-right:3%;
+}
+
+#keynotes .headline-keynotes .portrait img {
+    width:100%;
+    height:auto;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+#keynotes .headline-keynotes .text {
+    width:75%;
+}
+
+
+#keynotes .headline-keynotes .text h3 {
+    margin:0;
+    font-size:1em;
+    line-height:1;
+    padding:0 0 .1em 0;
+}
+
+#keynotes .headline-keynotes .text h4 {
+    font-size:.8em;
+    line-height:1;
+    font-weight:normal;
+    margin:0;
+    padding:.3em 0;
+}
+
+#keynotes .headline-keynotes .text h6 {
+    color:#292929;
+    font-weight:600;
+    font-size:.8em;
+    margin:0;
+    padding:.3em 0;
+    letter-spacing: 0;
+    line-height: 1.2em;
+}
+
+#keynotes .headline-keynotes .text p {
+    font-size:.8em;
+    margin:0;
+    line-height: 1;
+    padding:.3em 0;
+}
+
+#keynotes .headline-keynotes .text a {
+    color:#292929;
+    font-size:.9em;
+}
+
+#keynotes .headline-keynotes .text a:hover {
+    text-decoration:none;
+    color: #4e808e;
+}
+
+
+
+/* Streaming Icons */
+span.share-stream-link {
+    display:inline-block;
+    font-size:1em;
+    background: url('../images/css/right-arrow-blue-120x80.png') no-repeat;
+    background-size: contain;
+    height:1em;
+    width:1.333em;
+    margin:0 5px -2px 0;
+}
+
+span.save-to-calendar-icon {
+    display:inline-block;
+    font-size:1em;
+    background: url('../images/css/calendar-icon-120x120.png') no-repeat;
+    background-size: contain;
+    width:1em;
+    height:1em;
+    margin:0 .3em -.1em 0;
+}
+
+span.camera-live-stream-icon {
+    display:inline-block;
+    font-size:1em;
+    background: url('../images/css/camera-live-stream-120x80.png') no-repeat;
+    background-size: contain;
+    height:1em;
+    width:1.3333em;
+    margin:0 .3em -.1em 0;
+
+}
+
+
+
+@media (max-width: 480px) {
+    #keynotes .session > div {
+        float: none !important;
+        text-align: center !important;
+        width: 90% !important;
+        margin: 0 auto 25px auto !important;
+    }
+    
+    #keynotes ul {
+        margin: 0 !important;
+    }
+}
+
+@media (max-width: 767px) {
+    #keynotes .headline-keynotes .row-fluid {
+        width:100%;
+        padding:0;
+        margin:0;
+    }
+    #keynotes .headline-keynotes .row-fluid .span6 {
+        width:100%;
+        clear:both;
+        padding:2em 0;
+        margin:0;
+    }
+
+
+    #keynotes .headline-keynotes .portrait {
+        width:10%;
+    }
+
+    #keynotes .headline-keynotes .text {
+        width:85%;
+    }
+
+
+
+    #keynotes .session h3 {
+        font-size: 25px;
+    }
+}
+

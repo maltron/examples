@@ -1,0 +1,18 @@
+/*--------------------------------------------------------------------*/
+/* FEATURED SPEAKERS RESPONSIVENESS
+/*--------------------------------------------------------------------*/
+
+ul.speaker-items > li {
+	float: left; list-style-type: none; 
+	width: 22%; margin: 0 15px 10px;
+}
+
+@media (max-width: 1279px) {
+	ul.speaker-items > li { width: 30%; margin: 0 15px 10px; }
+}
+@media (max-width: 979px) {
+	ul.speaker-items > li { width: 44%; margin: 0 10px 10px; }
+}
+@media (max-width: 480px) {
+	ul.speaker-items > li { width: 90%; margin: 0 10px 10px; }
+}

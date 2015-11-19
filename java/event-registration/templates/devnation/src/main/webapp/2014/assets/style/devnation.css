@@ -1,0 +1,2573 @@
+/* SPECIALIZED CSS UPDATES FOR DEVNATION WEBSITE */
+
+/* ID Tags are presented in the newer format as well as with the previous 'page-' included format, 
+** for reference and in case any CSS rules were missed in translation. */
+
+/*--------------------------------------------------------------------*/
+/* WELCOME SECTION 
+/*--------------------------------------------------------------------*/
+
+#page-welcome, #welcome {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+	text-align: center;
+	background: #292929 url(../images/pages/welcome/cityscape_background.jpg) 50% 0 repeat fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+#page-welcome .logo, #welcome .logo {
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+	height: 140px;
+	position: relative;
+	width: 140px;
+	margin: 0 auto;
+}
+#page-welcome .logo .scrollNormal, #welcome .logo .scrollNormal {
+	opacity: 1;
+	filter: alpha(opacity=100);
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	margin-left: -70px;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+
+
+
+#page-welcome .logo .scrollDown, #welcome .logo .scrollDown {
+	opacity: 0;
+	filter: alpha(opacity=0);
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	margin-left: -70px;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+#page-welcome .logo:hover .scrollNormal, #welcome .logo:hover .scrollNormal {
+	opacity: 0;
+	filter: alpha(opacity=0);
+	-webkit-transform: rotate(360deg);
+	-moz-transform: rotate(360deg);
+	-ms-transform: rotate(360deg);
+	-o-transform: rotate(360deg);
+	transform: rotate(360deg);
+}
+#page-welcome .logo:hover .scrollDown, #welcome .logo:hover .scrollDown {
+	opacity: 1;
+	filter: alpha(opacity=100);
+	-webkit-transform: rotate(-360deg);
+	-moz-transform: rotate(-360deg);
+	-ms-transform: rotate(-360deg);
+	-o-transform: rotate(-360deg);
+	transform: rotate(-360deg);
+}
+#page-welcome #welcome-messages, #welcome #welcome-messages {
+	margin-top: 0px;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+	z-index: 123123;
+}
+#page-welcome #welcome-messages h1, #welcome #welcome-messages h1 {
+	margin: 0px;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+#page-welcome #welcome-messages ul, #welcome #welcome-messages ul, #page-welcome #welcome-messages li, #welcome #welcome-messages li {
+	margin: 0px;
+	padding: 0px;
+}
+#page-welcome #welcome-messages.divider:after, #welcome #welcome-messages.divider:after {
+	margin: auto auto 14px;
+	padding-bottom: 5px;
+}
+#page-welcome #welcome-messages + p, #welcome #welcome-messages + p {
+	margin-top: 0;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-weight: 800;
+	letter-spacing: 2px;
+}
+#page-welcome .social-icons, #welcome .social-icons {
+	margin: 50px auto 0;
+}
+
+.centralized-non-animated {
+	visibility: visible;
+	opacity: 1;
+	filter: alpha(opacity=100);
+}
+
+#page-welcome .centralized,
+#welcome .centralized,
+#welcome .main-welcome-centralized {
+	z-index: 1000;
+	/*position: relative;*/
+}
+
+
+/* Other Header Items */
+.scroll_down {
+	width: 92px;
+	height: 37px;
+	background: url(../images/css/scroll_down_icon.png) no-repeat center;
+	display: block;
+	margin: 0px auto 40px auto;
+}
+div.devnation-logo {
+	margin: 20px auto 0 auto;
+	background: url(../images/pages/welcome/devnation_logo.png) no-repeat center;
+	background-size: cover;
+	height: 75px;
+	width: 440px;
+}
+.line-divider:after {
+	margin-bottom: 14px;
+	background: url(../images/css/basic_rh_flag_divider.png) no-repeat bottom center;
+}
+/* Social Icons on Main Welcome Screen */
+.social-icons-custom.welcome-screen {
+	line-height: inherit;
+}
+.social-icons-custom.welcome-screen a[class^="sicon-"] {
+	width: 41px;
+	height: 41px;
+	text-indent: -9999px;
+	display: inline-block;
+}
+.social-icons-custom.welcome-screen a.sicon-facebook {
+	background: url(../images/css/welcome_social/facebook_basic.png) no-repeat center;
+}
+.social-icons-custom.welcome-screen a.sicon-facebook:hover {
+	background: url(../images/css/welcome_social/facebook_hover.png) no-repeat center;
+}
+.social-icons-custom.welcome-screen a.sicon-twitter {
+	background: url(../images/css/welcome_social/twitter_basic.png) no-repeat center;
+}
+.social-icons-custom.welcome-screen a.sicon-twitter:hover {
+	background: url(../images/css/welcome_social/twitter_hover.png) no-repeat center;
+}
+.social-icons-custom.welcome-screen a.sicon-linkedin {
+	background: url(../images/css/welcome_social/linkedin_basic.png) no-repeat center;
+}
+.social-icons-custom.welcome-screen a.sicon-linkedin:hover {
+	background: url(../images/css/welcome_social/linkedin_hover.png) no-repeat center;
+}
+.social-icons-custom.welcome-screen a.sicon-youtube {
+	background: url(../images/css/welcome_social/youtube_basic.png) no-repeat center;
+}
+.social-icons-custom.welcome-screen a.sicon-youtube:hover {
+	background: url(../images/css/welcome_social/youtube_hover.png) no-repeat center;
+}
+.social-icons-custom.welcome-screen a.sicon-pinterest {
+	background: url(../images/css/welcome_social/pinterest_basic.png) no-repeat center;
+}
+.social-icons-custom.welcome-screen a.sicon-pinterest:hover {
+	background: url(../images/css/welcome_social/pinterest_hover.png) no-repeat center;
+}
+.social-icons-custom.welcome-screen a[class^="sicon-"]:hover {
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+h4.main-welcome {
+	color: #ffffff;
+	margin-top: 35px;
+	width: 100%;
+	background: url(../images/css/main_welcome_separator.png) no-repeat center;
+}
+/* Event logo row */
+div.row.event-logos {
+	margin-top: 30px;
+}
+div.row-fluid.event-logos div {
+	text-align: center;
+}
+/* Welcome message */
+div.row.welcome-section-message {
+	font-size: 16px;
+	line-height: 1.4em;
+	margin:0 auto 20px auto;
+}
+div.row.welcome-section-message p {
+	width: 45%;
+	margin: 40px auto 0 auto;
+}
+
+div.row.welcome-section-message p a {
+	color:rgb(109, 188, 219);
+}
+
+/* Firefox Page Adjustments */
+@-moz-document url-prefix() { 
+  .welcome-span-div  {
+	margin-bottom:50px;	
+  
+  }
+  
+  .welcome-span-div .scroll_down {
+	margin-top:10px;
+  }
+  
+  div.row.welcome-section-message p {
+     margin: 10px auto 0 auto;
+  }
+  
+}
+/*--------------------------------------------------------------------*/
+/* STICKY NAV 
+/*--------------------------------------------------------------------*/
+
+#navigation [class^="sicon-"] i, #navigation [class*=" sicon-"] i {
+	background-image: url("../images/css/sicon-set-grey.png");
+}
+#navigation [class^="sicon-"] i:hover {
+	background-image: url("../images/css/sicon-set-white.png");
+}
+/* Currently Only works on one link */
+.social-icons.hover-big .sicon-facebook:hover {
+	background-color: rgb(109,188,219);
+}
+/* Active/Hover cursor */
+#navigation #main-menu li:hover a:after, #navigation #main-menu li.active a:after {
+	background: url(../images/css/nav_active_cursor.png) no-repeat center;
+	background-size: contain;
+	width: 10px;
+	height: 10px;
+	-webkit-transform: none;
+	bottom: -5px;
+	margin-left: -5px;
+}
+/* Sticky Nav Hover Background Color Changes */
+.social-icons.hover-big .sicon-facebook:hover {
+	/*background-color: #3b5998;*/
+	background-color: rgb(109,188,219);
+}
+.social-icons.hover-big .sicon-twitter:hover {
+	/*background-color: #44CBFF;*/
+	background-color: rgb(109,188,219);
+}
+.social-icons.hover-big .sicon-linkedin:hover {
+	/*background-color: #1E79C0;*/
+	background-color: rgb(109,188,219);
+}
+.social-icons.hover-big .sicon-youtube:hover {
+	/*background-color: #FF0000;*/
+	background-color: rgb(109,188,219);
+}
+.social-icons.hover-big .sicon-pinterest:hover {
+	/* background-color: #D90000;*/
+	background-color: rgb(109,188,219);
+}
+
+/*-------------------------------------------------------------------------------------------*/
+/* GENERAL COLOR/FORMATTING CSS FOR SECTIONS IDENTIFIED BY COLOR (white, orange, blue, etc.)
+/*-------------------------------------------------------------------------------------------*/
+/* White background theme section */
+
+
+div.pages.white-theme-section .line-divider:after {
+	margin-bottom: 14px;
+	background: url(../images/css/basic_rh_flag_divider_grey.png) no-repeat bottom center;
+}
+
+div.pages.white-theme-section p,
+div.pages.white-theme-section div {
+	color:black;
+}
+
+
+
+/*--------------------------------------------------------------------*/
+/* CALL FOR PAPERS (#cfp)
+/*--------------------------------------------------------------------*/
+
+/* Main change is to reverse values */
+div.pages.orange-theme-section {
+/*	background-color:#ffffff; */
+        background-color:rgb(252,92,71);
+	color:#ffffff;
+}
+
+div.pages.orange-theme-section h1,
+div.pages.orange-theme-section h2,
+div.pages.orange-theme-section h3,
+div.pages.orange-theme-section h4,
+div.pages.orange-theme-section h5
+{
+/*        color:rgb(109,188,219); */
+        color:#ffffff;
+}
+
+
+div.pages.orange-theme-section div.tracks-list {
+	font-size:15px;
+	text-align: left;
+}
+
+
+
+div.pages.orange-theme-section.post-event a {
+	color:#842B29;
+}
+
+/* Orange on White version */
+div.pages.orange-on-white-theme-section {
+	color:#666666;
+	background-color:#ffffff;
+}
+
+div.pages.orange-on-white-theme-section h1,
+div.pages.orange-on-white-theme-section h2,
+div.pages.orange-on-white-theme-section h3,
+div.pages.orange-on-white-theme-section h4 {
+	color:rgb(252,92,71);
+}
+
+div.pages.orange-on-white-theme-section h4.line-divider:after {
+	background: url(../images/css/basic_rh_flag_divider_grey.png) no-repeat bottom center;
+}
+
+div.pages.orange-on-white-theme-section a {
+	color:#842B29;
+	font-weight:400;
+}
+
+
+
+a.submit-papers {
+	display:block;
+	width:160px;
+	height:60px;
+	background:url("../images/pages/callforpapers/submit_now.png") no-repeat 0 0;
+	margin:0 auto;
+	border:none;
+}
+
+a.submit-papers:hover {
+	background-position: bottom;
+	
+}
+a.submit-papers:active {
+	background-position: center;
+}
+
+/* Circular version of submit-papers */
+a.submit-papers-circle {
+	display:block;
+	width: 150px;
+	height:186px;
+	background:url("../images/pages/callforpapers/submit_now_circle.png") no-repeat 0 0;
+	margin:0 auto;
+	border:none;
+}
+a.submit-papers-circle:hover {
+	background-position:center;
+}
+a.submit-papers-circle:active {
+	background-position:bottom;
+}
+
+
+
+
+/*--------------------------------------------------------------------*/
+/* COOL TALKS (aka WORK, aka PORTFOLIO) SECTION 
+/*--------------------------------------------------------------------*/
+
+.portfolio-items .portfolio-overlay {
+	background-color: rgb(252,92,71);
+}
+/* SHOW MORE */
+.show-more-standard-devnation {
+	background: url("../images/css/divider_more.png") no-repeat center center;
+	display: block;
+	width: 630px;
+	text-align: center;
+	margin: auto;
+}
+.show-more-standard-devnation a {
+	background: url(../images/css/showmore_dual_state.png) no-repeat 0 0;
+	color: #FFFFFF;
+	display: block;
+	font-size: 11px;
+	font-weight: 600;
+	height: 50px;
+	line-height: 16px;
+	margin: auto;
+	padding: 18px 0 0 0;
+	text-align: center;
+	text-transform: uppercase;
+	width: 68px;
+}
+.show-more-standard-devnation a:hover {
+	background: url(../images/css/showmore_dual_state.png) no-repeat 0 -68px;
+	text-decoration: none;
+}
+/*--------------------------------------------------------------------*/
+/* WHY ATTEND/FOR THE CODERS SECTION (aka FEATURES)
+/*--------------------------------------------------------------------*/
+#page-for-the-coders, #for-the-coders, #forthecoders {
+	position: relative;
+	background: url(../images/pages/forthecoders/for_the_coders_background.jpg) 50% 0 no-repeat fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+#page-for-the-coders .container, 
+#for-the-coders .container,
+#forthecoders .container {
+	position: relative;
+	z-index: 2;
+}
+#page-for-the-coders #quote-slider, 
+#for-the-coders #quote-slider,
+#forthecoders #quote-slider {
+	margin-bottom: 35px;
+	position: relative;
+}
+#page-for-the-coders #quote-slider .carousel-indicators, 
+#for-the-coders #quote-slider .carousel-indicators,
+#forthecoders #quote-slider .carousel-indicators {
+	left: 0;
+	right: 0;
+	top: auto;
+	bottom: -8px;
+	text-align: center;
+}
+#page-for-the-coders #quote-slider .carousel-indicators li, 
+#for-the-coders #quote-slider .carousel-indicators li,
+#forthecoders #quote-slider .carousel-indicators li {
+	width: 8px;
+	height: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	cursor: pointer;
+	float: none;
+	display: inline-block;
+}
+#page-for-the-coders .quote, 
+#for-the-coders .quote,
+#forthecoders .quote {
+	background: url(../images/css/divider_q.png) no-repeat 50% 0;
+	margin-top: 100px;
+	padding-top: 50px;
+}
+h1.for-the-coders {
+	color: #ffffff;
+}
+.testimonial-quotes {
+	margin: 60px auto;
+}
+
+
+/*--------------------------------------------------------------------*/
+/* REGISTRATION PAGE
+/*--------------------------------------------------------------------*/
+.register-left,
+.register-right {
+	font-size:1.2em;
+	padding:.2em 0;
+}
+.register-left {
+	text-align: right;
+	font-weight:bold;
+	color:rgb(252, 92, 71);
+}
+
+.register-right {
+	text-align: left;
+	font-weight:bold;
+}
+
+.register-code-text {
+	font-size:.8em;
+	color:#666666;
+}
+
+
+
+/*--------------------------------------------------------------------*/
+/* MEET THE SPEAKERS (aka ABOUT)
+/*--------------------------------------------------------------------*/
+#speakers ul.thumbnails.speaker-items {
+	text-align: center;
+}
+
+#speakers ul.thumbnails.speaker-items li.page-center {
+	text-align: center;
+	float:none;
+	margin-left: auto;
+	margin-right:auto;
+}
+
+
+#page-speakers .speaker-items .item,
+#speakers .speaker-items .item {
+	position: relative;
+	display: inline-block;
+	color: #fff;
+	overflow: hidden;
+}
+#page-speakers .speaker-items.speakers .speaker-overlay,
+#speakers .speaker-items.speakers .speaker-overlay {
+	top: 0;
+	left: 0;
+	position: absolute;
+	display: block;
+	z-index: 4;
+	background-color: rgb(252,92,71);
+	opacity: 0;
+	filter: alpha(opacity=0);
+	-webkit-transition: opacity 0.2s ease-in;
+	-moz-transition: opacity 0.2s ease-in;
+	-o-transition: opacity 0.2s ease-in;
+	transition: opacity 0.2s ease-in;
+	width: 100%;
+	height: 100%;
+	display: block;
+	z-index: 4;
+}
+#page-speakers .speaker-items.speakers .item:hover .speaker-overlay, #speakers .speaker-items.speakers .item:hover .speaker-overlay {
+	opacity: .8;
+	filter: alpha(opacity=80);
+}
+div.white-link-icon {
+	height: 63px;
+	margin: 75px auto 0 auto;
+	width: 170px;
+	background: url(../images/css/white_link_icon.png) center no-repeat;
+	background-size: contain;
+	display: block;
+}
+#page-speakers .speaker-items.speakers .speaker-overlay .social-icons, #speakers .speaker-items.speakers .speaker-overlay .social-icons {
+	left: 50%;
+	margin-left: -85px;
+	margin-top: 10px;
+	position: absolute;
+	text-align: center;
+	top: 50%;
+	width: 170px;
+	z-index: 6;
+	border-top: 1px solid #ffffff;
+}
+#page-speakers .speaker-items.speakers .speaker-overlay .social-icons a, #speakers .speaker-items.speakers .speaker-overlay .social-icons a {
+	padding: 4px;
+}
+#page-speakers .speaker-items.speakers .speaker-overlay .social-icons i, #speakers .speaker-items.speakers .speaker-overlay .social-icons i {
+	display: inline-block;
+}
+
+
+/* Main change is to reverse values */
+div.pages.blue-theme-section {
+	/*background-color:#ffffff; 
+        background-color:rgb(252,92,71);
+	*/
+	background-color:rgb(109,188,219);
+}
+
+div.pages.blue-theme-section h1,
+div.pages.blue-theme-section h2,
+div.pages.blue-theme-section h3,
+div.pages.blue-theme-section h4,
+div.pages.blue-theme-section h5
+{
+/*        color:rgb(109,188,219); */
+        color:#ffffff;
+}
+
+
+div.pages.blue-theme-section div.tracks-list {
+	font-size:15px;
+	text-align: left;
+}
+/*--------------------------------------------------------------------*/
+/* TWITTER SECTION */
+/*--------------------------------------------------------------------*/
+
+#page-twitter, #twitter {
+	position: relative;
+	background: url(../images/pages/twitter/twitter_devnation_background.jpg) 50% 0 repeat-y fixed;
+	padding-top: 90px;
+	padding-bottom: 130px;
+}
+#page-twitter .container, #twitter .container {
+	z-index: 2;
+	position: relative;
+}
+#page-twitter .twitter-devider, #twitter .twitter-devider {
+	background: url(../images/css/divider_tw.png) no-repeat center bottom;
+	padding-bottom: 60px;
+}
+#page-twitter .twitterfeed, #twitter .twitterfeed {
+	min-height: 55px;
+	padding-top: 20px;
+	position: relative;
+}
+#page-twitter .twitterfeed .tweet_time, #page .twitterfeed .tweet_time {
+	display: none;
+}
+#page-twitter .twitterfeed .tweet_time a, #twitter .twitterfeed .tweet_time a {
+	font-size: 11px;
+	color: #ffffff;
+	display: block;
+}
+#page-twitter .twitterfeed .tweet_text a:hover, #twitter .twitterfeed .tweet_text a:hover {
+	color: #4e808e;
+	text-decoration: underline;
+}
+#page-twitter .twitterfeed .tweet_list, #twitter .twitterfeed .tweet_list {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+#page-twitter .twitterfeed .tweet_list li, #twitter .twitterfeed .tweet_list li {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+#page-twitter .twitterfeed .carousel-indicators, #twitter .twitterfeed .carousel-indicators {
+	bottom: -70px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	top: auto;
+}
+#page-twitter .twitterfeed .carousel-indicators li, #twitter .twitterfeed .carousel-indicators li {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	cursor: pointer;
+	display: inline-block;
+	float: none;
+	height: 8px;
+	width: 8px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+/*--------------------------------------------------------------------*/
+/* BLOG SECTION */
+/*--------------------------------------------------------------------*/
+#page-blog h5, #blog h5 {
+	margin-bottom: 12px;
+}
+#page-blog .read-more, #blog .read-more {
+	text-align: right;
+	margin-bottom: 20px;
+}
+#page-blog .read-more a, #blog .read-more a {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	line-height: 20px;
+	letter-spacing: 1px;
+	color: #ffffff;
+	padding: 3px 8px;
+	margin: 0 3px;
+	position: relative;
+	background-color: #bbbbbb;
+}
+#page-blog .read-more a:hover, #page-blog .read-more a.active, #blog .read-more a:hover, #blog .read-more a.active, {
+ background-color: #4e808e;
+ text-decoration: none;
+ color: #ffffff;
+}
+/*
+*   PAGE | BLOG LIST
+*/
+#page-blog-list, #blog-list {
+	margin-bottom: 70px;
+}
+#page-blog-list h5, #blog-list h5 {
+	margin-bottom: 12px;
+}
+#page-blog-list .read-more, #blog-list .read-more, {
+ text-align: right;
+ margin-bottom: 20px;
+}
+#page-blog-list .read-more a, #blog-list .read-more a, {
+ font-family: 'Open Sans', sans-serif;
+ font-size: 11px;
+ font-weight: bold;
+ text-transform: uppercase;
+ line-height: 20px;
+ letter-spacing: 1px;
+ color: #ffffff;
+ padding: 3px 8px;
+ margin: 0 3px;
+ position: relative;
+ background-color: #bbbbbb;
+}
+#page-blog-list .read-more a:hover, #page-blog-list .read-more a.active, #blog-list .read-more a:hover, #blog-list .read-more a.active {
+	background-color: #4e808e;
+	text-decoration: none;
+	color: #ffffff;
+}
+#page-blog-list article, #blog-list article {
+	margin-bottom: 60px;
+}
+#page-blog-list article p, #blog-list article p {
+	font-size: 0.8em;
+	line-height: 22.5px;
+}
+#page-blog-list .blog-list-right .block, #blog-list .blog-list-right .block {
+	padding-bottom: 30px;
+}
+#page-blog-list .blog-list-right h6, #blog-list .blog-list-right h6 {
+	border-bottom: 1px solid #bbbbbb;
+}
+#page-blog-list .blog-list-right h6:first-child, #blog-list .blog-list-right h6:first-child {
+	padding-top: 0px;
+}
+#page-blog-list .blog-list-right .submenu, #blog-list .blog-list-right .submenu {
+	text-align: left;
+}
+#page-blog-list .blog-list-right .simple-link-list, #blog-list .blog-list-right .simple-link-list {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	padding-top: 15px;
+}
+#page-blog-list .blog-list-right .simple-link-list li, #blog-list .blog-list-right .simple-link-list li {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+#page-blog-list .blog-list-right .simple-link-list li a, #blog-list .blog-list-right .simple-link-list li a {
+	color: #292929;
+	font-size: 0.8em;
+	padding: 5px 0px;
+}
+#page-blog-list .blog-list-right .twitterfeed, #blog-list .blog-list-right .twitterfeed {
+	font-size: 0.8em;
+}
+#page-blog-list .blog-list-right .twitterfeed ul, #blog-list .blog-list-right .twitterfeed ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	padding-top: 15px;
+}
+#page-blog-list .blog-list-right .twitterfeed ul li, #blog-list .blog-list-right .twitterfeed ul li {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	padding-top: 10px;
+}
+#page-blog-list .comments, #blog-list .comments {
+	background-color: #eee;
+	padding: 4px 10px;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+#page-blog-list .comments a, #blog-list .comments a {
+	font-size: 11px;
+	font-weight: bold;
+}
+#page-blog-list .comments-details, #blog-list .comments-details {
+	background-color: #eee;
+	padding: 15px;
+	font-size: 12px;
+	line-height: 18px;
+	margin-bottom: 30px;
+}
+#page-blog-list .comments-details .media, #blog-list .comments-details .media {
+	padding: 15px 0 25px;
+	border-bottom: 1px solid #bbbbbb;
+}
+#page-blog-list .comments-details .media:last-child, #blog-list .comments-details .media:last-child {
+	border-bottom: none;
+}
+#page-blog-list .comments-details .comments-post-info, #blog-list .comments-details .comments-post-info {
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #aaaaaa;
+}
+#page-blog-list .write-comment, #blog-list .write-comment {
+	font-size: 14px;
+	line-height: 19px;
+}
+#page-blog-list .write-comment form input[type='text'], #blog-list .write-comment form input[type='text'] {
+	background-color: #eeeeee;
+	color: #666666;
+	font-size: 14px;
+}
+#page-blog-list .write-comment form input[type='text']:focus, #blog-list .write-comment form input[type='text']:focus {
+	background-color: #fff;
+}
+#page-blog-list .write-comment form textarea, #blog-list .write-comment form textarea {
+	background-color: #eeeeee;
+	color: #666666;
+	font-size: 14px;
+}
+#page-blog-list .write-comment form textarea:focus, #blog-list .write-comment form textarea:focus {
+	background-color: #fff;
+}
+#page-blog-list .write-comment form .btn, #blog-list .write-comment form .btn {
+	font-size: 11px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+#page-blog-list .write-comment form .media, #blog-list .write-comment form .media {
+	padding-top: 24px;
+}
+.fixed-visable + #page-blog-list .fixed-visable + #blog-list {
+	padding-top: 60px;
+}
+
+/*--------------------------------------------------------------------*/
+/* AGENDA SECTION */
+/*--------------------------------------------------------------------*/
+
+/* Agenda section encapsulates the standard span/offset structure in
+ * a special div class .agenda-table to modify the appearance
+ *
+ * */
+.pages#agenda header {
+	padding-bottom:10px;
+}
+
+.agenda-table {
+	margin-bottom:2em;
+}
+
+.day-block {
+	padding:1em 0;	
+}	
+
+.day-block div.row {
+	/*border-bottom:1px solid #aaa;*/
+	margin-left:0;
+	position: relative;
+}
+
+/********* Revisions for post-event agenda resource display *********/
+.resource-review {
+	border:1px solid #f2f2f2;
+	margin:1em auto;
+	background: #f2f2f2;
+}
+
+.resource-review div.panel {
+	
+}
+
+.resource-review .panel-heading {
+	font-weight:bold;
+	background:rgb(252,92,71);
+}
+
+
+
+.resource-review .panel-heading a {
+	color:#ffffff;
+	text-shadow:0 1px rgb(0,0,0);
+	text-shadow:0 1px rgba(0,0,0,.1);
+}
+
+.resource-review .panel-heading a:hover {
+	color:#f2f2f2;
+}
+
+
+.resource-review .panel-heading span.title {
+	
+}
+
+.resource-review .panel-heading .row-fluid div.span1,
+.resource-review .panel-heading .row-fluid div.span2,
+.resource-review .panel-heading .row-fluid div.span3,
+.resource-review .panel-heading .row-fluid div.span4,
+.resource-review .panel-heading .row-fluid div.span5,
+.resource-review .panel-heading .row-fluid div.span6,
+.resource-review .panel-heading .row-fluid div.span7,
+.resource-review .panel-heading .row-fluid div.span8,
+.resource-review .panel-heading .row-fluid div.span9,
+.resource-review .panel-heading .row-fluid div.span10,
+.resource-review .panel-heading .row-fluid div.span12
+{
+	min-height:1em;
+}
+
+.authors-day-time
+/*
+.resource-review .panel-heading .row-fluid .date-time,
+.resource-review .panel-heading .row-fluid .authors */
+{
+	font-weight:normal;
+	font-size:.8em;
+}
+
+.resource-review .panel-heading .row-fluid .date-time {
+	/*color:#999;*/
+	color:#cccccc;
+}
+
+.resource-review .panel-heading .authors-day-time,
+.resource-review .panel-heading .row-fluid .authors {
+	color:#f5f5f5;
+}
+.resource-review .panel-heading a.panel-show-hide-a {
+	background-image:url(../images/css/plus-minus-orange.png);
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
+	display:block;
+	width:40px;
+	height:40px;
+	float:right;
+}
+
+
+.resource-review .panel-heading a.panel-show-hide-a.collapsed {
+	background-position: 100% 0;
+}
+/* White background with blue lettering */
+
+div.pages.white-theme-section.event-sessions .resource-review .panel-heading {
+	background:#6DBCDB;
+}
+
+div.pages.white-theme-section.event-sessions .resource-review .panel-heading .row-fluid .authors-day-time {
+	color:#333333;
+}
+div.pages.white-theme-section.event-sessions .resource-review .panel-heading .row-fluid .authors-day-time .date-time {
+	color:#f2f2f2;
+}
+
+div.pages.white-theme-section.event-sessions .resource-review .panel-heading a.panel-show-hide-a {
+	background-image:url(../images/css/plus-minus-blue.png);
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
+	display:block;
+	width:40px;
+	height:40px;
+	float:right;
+}
+
+div.pages.white-theme-section.event-sessions .resource-review .panel-heading a.panel-show-hide-a.collapsed {
+	background-position: 100% 0;
+}
+
+/* Blue background section */
+
+div.pages.blue-theme-section.event-sessions .panel-group.resource-review {
+	border:none;
+}
+
+div.pages.blue-theme-section.event-sessions .resource-review .panel-heading {
+	background:#ffffff;
+}
+
+div.pages.blue-theme-section.event-sessions  .resource-review .panel-heading a {
+	color:#666666;
+	text-shadow:none;
+}
+
+div.pages.blue-theme-section.event-sessions  .resource-review .panel-heading .row-fluid .authors-day-time,
+div.pages.blue-theme-section.event-sessions  .resource-review  h5
+{
+	color:#666666;
+}
+
+div.pages.blue-theme-section.event-sessions .resource-review .panel-heading a.panel-show-hide-a {
+	background-image:url(../images/css/plus-minus.png);
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
+	display:block;
+	width:40px;
+	height:40px;
+	float:right;
+}
+
+div.pages.blue-theme-section.event-sessions .resource-review .panel-heading a.panel-show-hide-a.collapsed {
+	background-position: 100% 0;
+}
+
+
+
+
+
+
+.resource-review .title-span {
+	text-transform: uppercase;
+	letter-spacing:1px;
+	font-weight:800;
+}
+
+.resource-review .panel-heading span.authors {
+	font-weight:normal;
+	
+}
+
+.resource-review a {
+	text-decoration:none;
+}
+.resource-review .panel-body,
+.resource-review .panel-heading {
+	padding:.5em;
+}
+.resource-review h5 {
+	margin:0 0 .3em 0;
+	
+}
+
+.resource-review .download-links {
+	font-size:.8em;
+	line-height:1.6em;
+}
+
+.resource-review .download-links a,
+.resource-review .download-links a:hover,
+.resource-review .download-links a:active {
+	outline: none;
+}
+
+.resource-review .download-links a {
+
+	clear:both;
+}
+
+.resource-review .download-links a i {
+	margin-right:.4em;
+}
+
+.resource-speakers {
+	font-size:.8em;
+	line-height:1.3;
+}
+
+.resource-speakers h6:first-child {
+	margin:0;
+	padding:.5em 0 0 0;
+}
+.resource-speakers h6.speaker-title {
+	margin:0;
+	padding:0 0 .5em 0;
+	line-height: 1.2;
+	color:#bbbbbb;
+}
+
+.resource-speakers img {
+	width:100px;
+	height:100px;
+	max-width:100px;
+	max-height:100px;
+	margin:0 0 .5em 0;
+}
+
+.resource-speakers .social-icons a {
+	background-color:#ffffff;
+	border:2px solid #cccccc;
+}
+
+.resource-speakers .social-icons a:hover {
+	border-color:black;
+}
+
+.resource-speakers .sicon-googleplus i {
+	background-image:url("../images/css/google-plus-icon.png");
+}
+
+
+/* Buttons */
+
+.download-links .btn {
+	width:100%;
+}
+
+/* Modal For Video */
+
+
+.modal-for-video {
+	/* Adjust margin along with */
+	width:700px;
+	margin-left:-350px;
+	
+}
+
+.modal-for-video.fade {
+	top:-100%;
+}
+
+.modal-for-video .modal-header {
+	border:none;
+}
+.modal-for-video .modal-header h4 {
+	padding:0;
+	margin:0;
+}
+
+.modal-for-video .modal-body {
+	text-align:center;
+	min-height:480px;
+}
+
+.modal-for-video .modal-footer {
+	background:none;
+	border:none;
+}
+
+.modal-for-video a.video-close {
+	color:white;
+	outline;
+	display:block;
+	font-size:.8em;
+	padding:.3em .8em;
+	background:#cccccc;
+	font-weight:bold;
+	text-transform: uppercase;
+	letter-spacing:1px;
+	text-align:center;
+	width:20%;
+	float:right;
+}
+
+.modal-for-video a.video-close:hover,
+.modal-for-video a.video-close:active {
+	outline:none;
+	background:rgb(252,92,71);
+	text-decoration:none;
+}
+
+
+/*********  End Revisions for post-event agenda resource display *********/
+#agenda h2 {
+	text-transform: uppercase;
+	letter-spacing:1px;
+	font-size:1.3em;
+}
+
+/*************************************************************
+* Revised Agenda Table (a la Red Hat summit) *
+**************************************************************/
+/* Main parent tag for schedule panel groups */
+div.panel-group.agenda-display {
+	
+}
+
+div.panel-group.agenda-display table {
+	border:1px solid #f2f2f2;
+	border-collapse: collapse;
+	width:95%;
+	margin:1em auto;
+	font-size:.8em;
+	
+}
+div.panel-group.agenda-display div.panel-heading {
+	font-weight:bold;
+	background:#f2f2f2;
+	position: relative;
+	clear:both;
+	width:100%;
+	padding:.4em 0;
+}
+
+div.panel-group.agenda-display .panel-heading div.day-title {
+	width:50%;
+	padding:.3em;
+}
+
+/* Panel heading intro text for tracks page */
+div.panel-group.agenda-display .panel-heading div.track-intro {
+	font-weight:normal;
+	padding:.3em;
+}
+
+
+/* General */
+
+div.panel-group.agenda-display .panel-heading a {
+	display:block;
+	float:right;
+	position:absolute;
+	top:.3em;
+	right:.2em;
+	width:40px;
+	
+	height:40px;
+	text-align: center;
+	background-image:url(../images/css/plus-minus.png);
+	background-position: bottom left;
+	background-repeat: no-repeat;
+}
+
+div.panel-group.agenda-display .panel-heading a:hover { 		background-position: center bottom; }
+div.panel-group.agenda-display .panel-heading a:active { 		background-position: right bottom;  }
+div.panel-group.agenda-display .panel-heading a.collapsed {		background-position: left top;      }
+div.panel-group.agenda-display .panel-heading a.collapsed:hover { 	background-position: center top;    }
+div.panel-group.agenda-display .panel-heading a.collapsed:active {	background-position: right top;	    }
+
+
+
+
+div.panel-group.agenda-display div.panel-body {
+	border:1px solid #f2f2f2;
+}
+
+div.panel-group.agenda-display table tr {
+	border-bottom:1px solid #ccc;
+}
+
+div.panel-group.agenda-display table tr.heading-row {
+	text-transform: uppercase;
+	font-weight: bold;
+	border-bottom:1px solid black;
+}
+div.panel-group.agenda-display table td {
+	padding:.2em .3em;
+	text-align:left;
+	vertical-align: top;
+	height:inherit;
+}
+
+
+div.panel-group.agenda-display table td:first-child {
+	width:30%;
+}
+
+div.panel-group.agenda-display table td:last-child {
+	width:70%;
+}
+
+
+/* Panel Groups inside of At A Glance Tables */
+div.panel-group.agenda-display table td .panel-group {
+	margin:0;
+	line-height: 1.2em;
+}
+
+div.panel-group.agenda-display table td .panel-group .panel-heading {
+	margin:0;
+	height:1.3em;
+	padding:.2em 0;
+	background:none;
+	
+	
+}
+
+
+div.panel-group.agenda-display table td a[data-toggle="collapse"] {
+	width:100%;
+	background:none;
+	padding:.3em 0;
+	margin:0;
+	text-align:left;
+	line-height: 1.2em;
+	text-decoration: none;
+	right:0;
+	left:0em;
+	top:0;
+	background:#f2f2f2;
+	height:auto; 
+}
+
+div.panel-group.agenda-display table td a[data-toggle="collapse"].collapsed {
+	background:none;
+}
+
+
+div.panel-group.agenda-display table td  .panel-body {
+	padding:.2em;
+}
+
+
+/**** Tracks ****/
+div.panel-group.agenda-display.tracks .track-intro {
+    font-size:.9em;
+}
+
+div.panel-group.agenda-display.tracks h4 {
+	padding:.3em;
+}
+
+div.panel-group.agenda-display.tracks table {
+	width:99%;
+}
+
+
+
+/*************************************************************
+* End Revised Agenda Table (a la Red Hat summit) *
+**************************************************************/
+
+
+/**** AGENDA: DAY-BY-DAY CAROUSEL ****/
+div.carousel.slide.day-by-day {
+	/*border:1px solid red;*/
+	position: relative;
+}
+
+
+div.carousel-inner.day-by-day {
+	/*border:1px solid gold;*/
+}
+
+div.carousel-inner.day-by-day table tr td:first-child {
+	width:30%;
+}
+
+div.carousel-inner.day-by-day table tr td:last-child {
+	width:70%;
+}
+
+
+div.carousel-inner.day-by-day div.item {
+	width:96%;
+	margin:0 auto;
+}
+
+div.carousel-inner.day-by-day div.item p {
+	padding:0;
+	margin:0;
+	font-size:.8em;
+	font-weight:bold;
+}
+
+ol.carousel-indicators.day-by-day {
+	clear:both;
+	margin:2em auto;
+	right:50%;
+}
+
+ol.carousel-indicators.day-by-day li {
+	background-color:#ccc;
+}
+ol.carousel-indicators.day-by-day li.active {
+	background-color:black;
+}
+
+div.day-by-day div.container h3,
+div.day-by-day div.container h4 {
+	padding-top:0;
+	padding-bottom:0;
+	margin-top:0;
+	margin-bottom:0;
+	line-height: 1em;
+	text-transform: uppercase;
+}
+
+/* Carousel Table */
+
+div.day-by-day .carousel-control {
+	top:100px;
+}
+
+div.day-by-day .carousel-control span {
+	font-size:40px;
+	font-weight:bold;
+	padding:0;
+	margin-top:-1px;
+	line-height:1;
+	display:block;
+}
+
+div.day-by-day table  {
+	background-color: #f2f2f2;
+	width:100%;
+	border-collapse:collapse;
+	font-size:.8em;
+	margin:1em auto;
+}
+
+div.day-by-day table tr:first-child {
+	font-weight:bold;
+}
+
+
+div.day-by-day table td  {
+	padding:.2em;
+}
+
+/* /End Carousel Table */
+
+/**** /END AGENDA: DAY-BY-DAY ****/
+
+
+/* Track listings and main day heading */
+.day-block div.row.track-listings,
+.day-block div.row.event-day {
+	border:none;
+}
+
+/* Set general font-size but exclude the event day, track listings, etc. */
+.day-block div.row:not(.track-listings):not(.event-day) {
+	font-size:.8em;
+	line-height: 1em;
+	text-align: center;
+}
+
+.day-block div.row:not(.track-listings):not(.event-day) {
+	padding:.3em 0;
+	font-size:.7em;
+}
+
+.event-day {
+	text-align: center;
+	font-weight:bold;
+	padding:1em 0;
+	font-size:1.5em;
+}
+
+.event-day:first-child {
+	padding-top:0;
+}
+
+/* General event rows */
+.day-block div.row div[class^='span'] {
+	margin-left:10px;
+	padding:.3em 5px;
+}
+
+div.day-block div.row .info-heading {
+	background:#f5f5f5;
+}
+
+/* Collapsible Panels */
+div.day-block div.row div.panel-group div.span2 {
+	/*margin-bottom:.5em;*/
+}
+
+div.day-block div.row div.panel-group {
+	position:relative;
+}
+
+/* The border-top color here needs to be changed to whatever the theme color is */
+div.day-block .panel-collapse {
+	clear:both;
+	padding:0;
+	background:#f5f5f5;
+	margin:0 0 0 160px;
+	width:790px;
+	border-top:10px solid white;
+	
+	
+}
+div.day-block div.row div.panel-group  div.panel-collapse:first-child {
+	border-top:2px solid white;
+}
+
+div.day-block  .panel-collapse .panel-body {
+	text-align:left;
+	padding:.5em;
+	width:90%;
+	float:left;
+}
+
+
+/* Main Event/Specialty Event row formatting */
+div.day-block div.row .info-heading.orange-bg {
+	background:rgb(252,92,71);
+	color:white;
+}
+
+div.day-block div.row .info-heading.blue-bg {
+	background:rgb(109, 188, 219);
+	color:white;
+}
+
+.day-block div.row div[class^='span']:not(.info-heading) {
+	margin-left:10px;
+}
+
+.day-block div.row div.span2:not(.event-time):not(.time-slot-tracks) {
+	background:#f5f5f5;
+	width:188px;
+	font-weight:bold;
+}
+
+/* Remove bg color from track listing row */
+div.day-block div.row.track-listings div.span2 {
+	background:none;
+}
+
+/* Any div.span* with a span.track-left needs to have the span hidden unless screen is smaller width */
+div[class^='span'] span.track-left {
+	display:none;
+}
+
+.day-block div.row div.span10 {
+	text-align:center;
+	font-weight:bold;
+}
+
+.day-block div.row div.event-time {
+	text-align:left;
+	font-weight:normal;
+	background:none;
+	padding-left:0;
+	padding-right:0;
+}
+
+.track-listings {
+	border:none;
+	line-height:1.2em;
+	text-transform:uppercase;
+	font-size:.5em;
+	font-weight: bold;
+	padding:1em 0;
+	/*background-color:#aaa;
+	color:white;*/
+}
+
+div.pages.white-theme-section .track-listings div:not(.time-slot-tracks),
+.track-listings div[class^='span']:not(.time-slot-tracks) {
+	/*color:white;*/
+	text-align: center;
+}
+
+
+
+/* Time Slot & Tracks lable styling */
+.time-slot-tracks {
+	font-weight:normal;
+}
+
+span.time-slot {
+	
+}
+span.tracks {
+	float:right;
+	text-align:right;
+}
+
+/*--------------------------------------------------------------------*/
+/* HACKNIGHT (#hacknight)
+/*--------------------------------------------------------------------*/
+.hacknight-header {
+	position:relative;
+	
+	font-family:"Open Sans",sans-serif;
+	font-size:81px;
+	letter-spacing: -8px;
+	text-shadow:-5px 0px 5px rgb(252,92,71);
+	white-space: nowrap;
+	display: inline;
+	color:white;
+	font-weight:bold;
+	-webkit-font-smoothing:subpixel-antialiased;
+	line-height: 1;
+}
+.hacknight-header img {
+	display:inline;
+	margin-top:-10px;
+}
+
+/* In smaller screen widths, this puts the two items on separate lines */
+div.hacknight-header .space {
+	display:none;
+}
+
+.hacknight-header span.black {color:black;padding-left:5px;}
+
+.dark-blue-theme-section {
+	background-color:#2b2b4b;
+	padding:3em 0;
+	color:white;
+}
+
+#hacknight article  p,
+#hacknight article div {
+	font-size:16px;
+}
+
+#hacknight article h4 {
+	margin-top:2.3em;
+}
+
+.dark-blue-theme-section h1,
+.dark-blue-theme-section h2,
+.dark-blue-theme-section h3,
+.dark-blue-theme-section h4,
+.dark-blue-theme-section h5 {
+	color:white;
+}
+
+.hacknight-schedule {
+	font-weight: bold;
+}
+
+.hacknight-schedule div.row-fluid div:first-child {
+	color:rgb(109, 188, 219);
+	text-align:left;
+}
+
+a.hacknight-register {
+	display:block;
+	margin:1em auto;
+	text-transform: uppercase;
+	padding:1em;
+	text-align:center;
+	/*background-color:rgb(109, 188, 219);*/
+	color:white;
+	font-weight:bold;
+	line-height: 1;
+	width:90%;
+	/*border:2px solid white;*/
+}
+a.hacknight-register:hover {
+	/*text-decoration:none;*/
+	color:rgb(252,92,71);
+	
+	
+}
+
+a.hacknight-register:active {
+	border-color:rgb(109,188,219);
+}
+
+
+
+/*--------------------------------------------------------------------*/
+/* CONTACT SECTION */
+/*--------------------------------------------------------------------*/
+
+#page-contact, #contact {
+	position: relative;
+	padding-bottom: 50px;
+}
+#page-contact .container, #contact .container {
+	position: relative;
+	z-index: 2;
+}
+#page-contact #map-image, #contact #map-image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 1;
+	opacity: 0.1;
+	filter:alpha(opacity=10);
+	overflow: hidden;
+}
+#page-contact #map-image img, #contact #map-image img {
+	height: 100%;
+	width: 100%;
+}
+#page-contact form input[type='email'], #page-contact form input[type='text'], #contact form input[type='email'], #contact form input[type='text'] {
+	background-color: #CCCCCC;
+	color: #666666;
+	font-size: 0.8em;
+}
+#page-contact form input[type='email']:focus, #page-contact form input[type='text']:focus, #contact form input[type='email']:focus, #contact form input[type='text']:focus {
+	background-color: #fff;
+}
+#page-contact form textarea, #contact form textarea {
+	background-color: #CCCCCC;
+	color: #666666;
+	font-size: 0.8em;
+}
+#page-contact form textarea:focus, #contact form textarea:focus {
+	background-color: #fff;
+}
+#page-contact form .btn, #contact form .btn {
+	font-size: 11px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+#page-contact form .media, #contact form .media {
+	padding-top: 24px;
+}
+#page-contact #contact-image, #contact #contact-image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 1;
+	overflow: hidden;
+}
+h1.contact-heading {
+	color: #ffffff;
+}
+.contact-email a {
+	color: rgb(109,188,219);
+}
+/* Change all 'read more' buttons hover color to red/salmon */
+div#page-blog div.read-more a:hover, div#blog div.read-more a:hover, div#page-blog div.read-more a:active, div#blog div.read-more a:active, #page-contact form .btn, #contact form .btn {
+	background-color: rgb(252,92,71);
+}
+#page-contact form .btn, #contact form .btn {
+	background-image: none;
+}
+
+.contact-media-container {
+	min-height:20px;
+	padding-bottom:30px;
+}
+
+.contact-media-container,
+.contact-media-container .media{
+	margin-top:0;
+	padding-top:0;
+}
+
+.light-blue-a {
+	font-weight:bold;
+	font-size:19px;
+}
+
+/*--------------------------------------------------------------------*/
+/* CLIENT PAGE (not currently on front page but could be added)
+/*--------------------------------------------------------------------*/
+#page-clients .row-fluid, #clients .row-fluid {
+	padding-bottom: 40px;
+	padding-top: 15px;
+}
+
+
+/*--------------------------------------------------------------------*/
+/* BRANDING
+/*--------------------------------------------------------------------*/
+
+.branding-divs {
+	font-size:.6em;
+}
+
+.second-row,
+.lower-brand-row {
+	margin:3em auto;
+	
+	padding-bottom:1em;
+}
+
+.lower-brand-row {
+	border-bottom:1px solid #aaa;
+}
+
+
+
+/*--------------------------------------------------------------------*/
+/* GENERAL/MISCELLANEOUS TAGS 
+/*--------------------------------------------------------------------*/
+
+h1 {
+	color: rgb(109,188,219);
+}
+.overlay:after {
+	/* Background Overlay Layer */
+	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1QzlDNjFBMTU1OEQxMUUzODUyNUE0NzFGMTI0MTE2MyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1QzlDNjFBMjU1OEQxMUUzODUyNUE0NzFGMTI0MTE2MyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjVDOUM2MTlGNTU4RDExRTM4NTI1QTQ3MUYxMjQxMTYzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjVDOUM2MUEwNTU4RDExRTM4NTI1QTQ3MUYxMjQxMTYzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+vwWMuwAAABpJREFUeNpi+v//PwMQ/GdiZGQEsv8zAgQYAEgWCAEi334cAAAAAElFTkSuQmCC") repeat top left;
+	z-index:1;
+}
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+	color: #ffffff;
+}
+.submenu a:hover, .submenu a.active {
+	background-color: rgb(252,92,71);
+}
+.line-divider:after {
+	margin-bottom: 14px;
+	background: url(../images/css/basic_rh_flag_divider.png) no-repeat bottom center;
+}
+
+.btn-primary  {
+	background:rgb(252,92,71);
+}
+
+
+
+/*--------------------------------------------------------------------*/
+/* SPEAKERS SUB-PAGE (/pages/speakers/.. directory pages)
+/*--------------------------------------------------------------------*/
+
+/* Speaker Bio Page Content Div Content */
+.speaker-bio-section .row-fluid.speaker {
+	padding-bottom:5em;
+}
+
+
+.speaker-bio-section  h3 {
+	text-transform: uppercase;
+	letter-spacing:1px;
+	font-weight:800;
+	line-height: 1;
+	padding-top:0;
+	margin-top:0;
+}
+
+.speaker-bio-section  h5 {
+	margin:.4em 0 1.5em 0;
+	line-height: 1;
+}
+
+.speaker-bio-section p {
+	font-size:16px;
+	line-height: 1.3;
+}
+	
+.speaker-bio-section .social-icons {
+	margin-top:1.5em;
+}
+
+.speaker-bio-section .sicon-googleplus i {
+	
+	background: url(../images/css/google-plus-icon.png) no-repeat;
+}
+
+.speaker-bio-section .social-icons.sicon-black.speaker-bios a {
+	background-color: #f2f2f2;
+	border-color:#cccccc;
+	border-style: solid;
+	border-top-width:  2px;
+	border-bottom-width:2px;
+	border-left-width: 1px;
+	border-right-width:1px;
+}
+
+.speaker-bio-section .social-icons.sicon-black.speaker-bios a:first-child {
+	border-left-width:2px;	
+}
+.speaker-bio-section .social-icons.sicon-black.speaker-bios a:last-child {
+	border-right-width:2px;	
+}
+
+.speaker-bio-section .social-icons.sicon-black.speaker-bios a:hover {
+	background-color:#cccccc;
+	border-color:#666666;
+}
+.speaker-bio-section .social-icons.sicon-black.speaker-bios a:active {
+	background-color:black;
+	color:white;
+}
+
+h5.session-info-heading,
+h6.session-info-heading {
+	margin:1.5em 0 .5em 0;
+	color:#bbbbbb;
+}
+
+ul.speaker-sessions {
+	list-style:none;
+	margin:0;
+	padding:0;
+	font-size:16px;
+}
+ul.speaker-sessions li {
+	padding:.2em 0;
+}
+
+
+
+
+	
+ul#speakerBioPageUl li.center p,
+ul#speakerBioPageUl li.center strong,
+ul#speakerBioPageUl li.center ul li {
+text-align:left;
+}
+
+small.black-text {
+color:black;
+}
+
+ul.speaker-social,
+ul.speaker-social li {
+	padding:.3em 0;
+	margin:0;
+	position:relative;
+	list-style:none;
+	line-height:1em;
+	list-style-position: inside;
+	
+}
+ul.speaker-social li a {
+	line-height:1.4em;
+	padding:0;
+	color:#bbbbbb;
+	text-transform: uppercase;
+	font-weight:bold;
+	font-size:.7em;
+	
+}
+
+
+ul.speaker-social li a:hover {
+	text-decoration: none;
+	color:#999999;
+}
+
+.black-text {
+		color:black;
+}
+
+.grey-text {
+		color:#bbbbbb;
+}
+
+
+/*--------------------------------------------------------------------*/
+/* SPONSOR SUB-PAGE (/pages/sponsors/.. directory pages)
+/*--------------------------------------------------------------------*/
+
+
+.grey-sponsor-info-box {
+	border:1px solid #cccccc;
+	background:#f2f2f2;
+	color:black;
+	-webkit-border-radius: 5px;
+	-moz-border-radius:    5px;
+	border-radius: 	       5px;
+	padding:.5em;
+	line-height: 1.5;
+	font-size:.8em;
+	margin:1em 0;
+	
+}
+.grey-sponsor-info-box p {
+	padding:.5em 0;
+	margin:0;
+	font-family:Courier New,monospace;
+	
+}
+
+/*****************************************************************************************************************/
+/***************************************** WIDTH ADJUSTMENT TAGS *************************************************/
+
+@media (min-width: 1280px) {
+	
+	nav.fixed-top.devnation-nav .container {
+		width:1180px;	
+	}
+	#welcome {
+		height:980px;
+		padding-bottom:50px;
+	}
+	
+}
+
+@media (min-width:1100px) and (max-width:1279px) {
+	#welcome {
+		height:970px;
+		padding-bottom:50px;
+	}
+	
+	nav.fixed-top.devnation-nav .container {
+		width:1050px;	
+	}
+	#navigation a.brand.devnation-brand {
+		padding-right:20px;	
+	}
+	
+	/*--------------------------------------------------------------------*/
+	/* AGENDA
+	/*--------------------------------------------------------------------*/
+	div.day-block div.row div.span2,
+	.day-block div.row div.span2:not(.event-time):not(.time-slot-tracks),
+	.track-listings div.span2 {
+		width:140px;
+	}
+	
+	div.day-block div.row div.span10 {
+		width:780px;
+	}
+	
+	div.day-block div.row:not(.event-day) {
+		font-size:10px;
+	}
+	
+	
+}
+
+
+@media (min-width:980px) and (max-width:1099px) {
+	
+	
+	nav.fixed-top.devnation-nav .container {
+		width:950px;	
+	}
+	#navigation a.brand.devnation-brand {
+		padding-right:20px;	
+	}
+	
+	#navigation #main-menu a {
+		padding:12px 10px;	
+	}
+	
+	#welcome {
+		height:920px;
+		padding-bottom:30px;
+	}
+	
+	/*--------------------------------------------------------------------*/
+	/* AGENDA
+	/*--------------------------------------------------------------------*/
+	
+	div.day-block div.row div.span2,
+	.day-block div.row div.span2:not(.event-time):not(.time-slot-tracks),
+	.track-listings div.span2 {
+		width:120px;
+	}
+	
+	div.day-block div.row div.span10 {
+		width:680px;
+	}
+	
+	div.day-block div.row:not(.event-day) {
+		font-size:9px;
+	}
+	
+	div.day-block div.row div.event-time {
+		font-size:10px;
+	}
+	
+	/*--------------------------------------------------------------------*/
+	/* BRANDING
+	/*--------------------------------------------------------------------*/
+	
+	.lower-brand-row .span2 {
+	font-size:.7em;
+}
+
+	
+	
+}
+
+
+@media (max-width:950px) {
+	.hacknight-header img,
+	span.hacknight-text {
+		
+	}
+	.hacknight-header div.space {
+		display:block;
+		
+	}
+	
+	
+}
+
+ 
+@media (min-width: 768px) and (max-width: 979px) {
+	
+	
+	 #navigation #main-menu {
+		float:left;
+	 }
+	#navigation .social-icons {
+		display: block;
+		float:left;
+  	   }
+	   
+	
+	div#welcome.pages.white.paralax {
+		padding-bottom:50px;
+		height:860px;
+	}
+	   
+	   
+	/*--------------------------------------------------------------------*/
+	/* AGENDA
+	/*--------------------------------------------------------------------*/
+	div.day-block div.row div.span2,
+	.day-block div.row div.span2:not(.event-time):not(.time-slot-tracks),
+	.track-listings div.span2 {
+		width:110px;
+		padding-left:3px;
+		padding-right:3px;
+	}
+	
+	div.day-block div.row div.span10 {
+		width:610px;
+	}
+	
+	div.day-block div.row:not(.event-day) {
+		font-size:9px;
+	}
+	
+	div.day-block div.row div.span2.event-time {
+		font-size:10px;
+	}
+	
+	
+	div.day-block div.row.track-listings,
+	div.day-block div.row.track-listings div.span2.time-slot-tracks {
+		font-size:7px;
+	}
+	
+	/*--------------------------------------------------------------------*/
+	/* BRANDING
+	/*--------------------------------------------------------------------*/
+	
+	.lower-brand-row .span2 {
+		font-size:.5em;
+	}		 
+}
+ @media (max-width: 767px) {
+	
+	/*--------------------------------------------------------------------*/
+	/* WELCOME
+	/*--------------------------------------------------------------------*/
+	
+	#page-welcome .logo,
+	#welcome .logo {
+    	-webkit-transition: none;
+    	-moz-transition: none;
+    	-o-transition: none;
+    	transition: none;
+  	}
+	
+	h4.main-welcome,
+	#welcome #welcome-messages {
+		width:440px;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:20px;
+		
+	}
+	
+	div.devnation-logo {
+		width: 295px;
+		height: 50px;
+	}
+	
+	div.row.event-logos {
+		margin-top:0px;
+		margin-bottom:0px;		
+	}
+	
+	div.row.event-logos div {
+		margin-top:20px;
+		margin-bottom:20px;
+	}	
+	
+	div.row.event-logos div:last {
+		margin-bottom:0px;	
+	}
+	
+	
+	div.row.welcome-section-message {
+		margin:10px auto;
+		width:80%;
+	}
+	
+	div.row.welcome-section-message p {
+		width:60%;
+		margin-left:auto;
+		margin-right:auto;
+	
+	}
+	
+	/*--------------------------------------------------------------------*/
+	/* REGISTRATION PAGE
+	/*--------------------------------------------------------------------*/
+	#registration header,
+	#registration footer {
+		padding-bottom:10px;
+	}
+	
+	.register-left,
+	.register-right {
+		font-size:1.1em;
+		padding:.1em 0;
+		float:left;
+		
+	}                      
+	.register-left {
+		text-align: right;
+		font-weight:bold;
+		width:15%;
+		color:rgb(252, 92, 71);
+		
+	}
+	
+	.register-right {
+		text-align: left;
+		font-weight:bold;
+		width:75%;
+		padding-left:2%;
+	}
+
+    .btn-register {
+        color: white;
+        background-color: rgb(252, 92, 71);
+    }
+	
+		
+	/*--------------------------------------------------------------------*/
+	/* SPEAKERS (aka ABOUT)
+	/*--------------------------------------------------------------------*/
+	#page-speakers .speaker-items .item,  
+	#speakers .speaker-items .item {
+		display: block;
+	}
+	.speaker-items > li a,  .portfolio-items > li a {
+		display: inline-block;
+	}
+	.speaker-items > li img,  .portfolio-items > li img {
+		width: 100%;
+	}
+	#page-speakers.speaker-items .item,  
+	#speakers.speaker-items .item {
+		display: inline-block;
+	}
+	#page-speakers .speaker-items .item .speaker-overlay,  
+	#speakers .speaker-items .item .speaker-overlay {
+		-webkit-transition: none;
+		-moz-transition: none;
+		-o-transition: none;
+		transition: none;
+	}
+	
+	div.white-link-icon {
+		margin-top:40%;
+		height:10%;
+	}
+	
+	
+	.speaker-bio-section div.speaker-pic  {
+	
+		text-align:center;
+	}
+	
+	.speaker-bio-section h3 {
+		padding-top:1em;
+		text-align:center;
+		
+	}
+	
+	.speaker-bio-section h5,
+	.speaker-bio-section ul li {
+		text-align:center;
+	}
+	
+	.speaker-bio-section .social-icons {
+		margin-left:auto;
+		margin-right:auto;
+		text-align: center;
+	}
+	
+	/*--------------------------------------------------------------------*/
+	/* WHY ATTEND/FOR THE CODERS (aka FEATURES)
+	/*--------------------------------------------------------------------*/
+	#page-features,
+	#features,
+	
+	#page-for-the-coders,
+	#for-the-coders,
+	#forthecoders,
+
+	#for-the-coders,
+	#forthecoders {
+    	background-repeat: repeat;
+  	}
+  	#page-features article .span4 img,
+	#features article .span4 img,
+	#page-for-the-coders article .span4 img,
+	#for-the-coders article .span4 img,
+	#forthecoders article .span4 img {
+    	margin-top: 20px;
+  	}
+	
+	
+	/*--------------------------------------------------------------------*/
+	/* TWITTER
+	/*--------------------------------------------------------------------*/
+	#page-twitter .twitterfeed,
+	#twitter .twitterfeed {
+    	min-height: 75px;
+  	}
+	
+	
+	/*--------------------------------------------------------------------*/
+	/* AGENDA
+	/*--------------------------------------------------------------------*/
+	
+	div.panel-group.agenda-display div.panel.panel-default div.panel-heading a {
+		width:30px;
+		height:30px;
+		background-image:url(../images/css/plus-minus_30x30.png);
+	}
+	
+	div.panel-group.agenda-display table tr,
+	div.panel-group.agenda-display table tr td {
+		vertical-align: top;
+	}
+	
+	
+	/* End updated Panels */
+	
+	div.day-block {
+		margin-bottom:.3em;
+		line-height:1.3em;
+	}
+	
+	.day-block div.row,
+	.day-block div.row div {
+		margin:.5em 0;
+		clear:both;
+	}
+	
+	.day-block div.row div[class^='span']  {
+		margin-left:0;
+	}
+	
+	div.day-block div.row div.span2,
+	.day-block div.row div.span2:not(.event-time):not(.time-slot-tracks),
+	.track-listings div.span2 {
+		width:100%;
+		margin-left:0;
+		height: auto !important;
+		min-height:20px;
+		line-height: 1.4em;
+		background:none;
+	}
+	div.day-block div.row {
+		clear:both;
+		height:auto;
+		margin:.4em 0;
+	}
+	
+	div.day-block div.row div:not(.event-time) {
+		background: #f5f5f5;
+	}
+	
+	
+	div.day-block div.row.event-day{
+		clear:both;
+		padding:0;
+		height:15px;
+		margin:0 auto;
+		line-height:1em;
+		font-size:15px;
+	}
+	div.day-block div.row.event-day div {
+		background:none;
+		font-size:15px;
+	}
+	
+	.day-block div.row div[class^='span']:not(.info-heading) {
+		margin-left:0;
+		padding:.2em 0;
+	}
+	div.day-block div.row div.span10 {
+		width:100%;
+	}
+	
+	div.day-block div.row:not(.event-day) {
+		font-size:10px;
+	}
+	
+	.info-heading {
+		padding:5px 0;
+	}
+	
+	div.day-block div.row div.event-time {
+		font-size:12px;
+		font-weight:bold;
+		width:100%;
+		height:12px;
+		line-height: 10px;
+		text-align:center;
+		margin:.5em 0;
+		background: none;
+	}
+	
+	
+	div.day-block div.row.track-listings,
+	div.day-block div.row.track-listings div.span2.time-slot-tracks {
+		display:none;
+	}
+	
+	div.time-slot-tracks {
+		display:none;
+	}
+	
+	/* Since the width is smaller, JS is used to put the track names within each "cell" (not really cells but divs)
+	 * And now the track names should show up */
+	div[class^='span'] span.track-left {
+		display:block;
+		width:48%;
+		text-align: right;
+		float:left;
+	}
+	/* Actual Value needs to be positioned to the right */
+	div[class^='span'] span.track-right {
+		display:block;
+		width:48%;
+		float:right;
+		text-align: left;
+	}
+	
+	
+	
+}
+
+
+/* Add padding to Hacknight divs */
+@media (max-width: 768px) {
+	#hacknight article {padding:1em;}
+}
+
+
+
+
+@media (min-width:551px ) and (max-width: 766px) {
+	div#welcome.pages.white.paralax {
+		padding-bottom:50px;
+		height:810px;
+	}
+ }
+
+
+
+
+ @media (max-width: 550px) {
+	div#welcome.pages.white.paralax {
+		padding-bottom:50px;
+		height:860px;
+	}
+	
+	/*--------------------------------------------------------------------*/
+	/* AGENDA
+	/*--------------------------------------------------------------------*/
+	
+	
+	div.panel-group.agenda-display table tr,
+	div.panel-group.agenda-display table tr td {
+		vertical-align: top;
+		line-height: 1.3em;
+	}
+	
+ }
+
+
+ @media (max-width: 480px) {
+	
+	/*--------------------------------------------------------------------*/
+	/* WELCOME
+	/*--------------------------------------------------------------------*/
+	
+	
+	.pages#welcome {
+		
+		background-color:black;
+	}
+	
+	div.devnation-logo {
+		width: 240px;
+		height: 41px;
+	}
+	
+	h4.main-welcome {
+		margin-top: 40px;
+		font-size: 15px;
+		line-height: 21.6px;
+	
+	}
+	h4.main-welcome,
+	#welcome #welcome-messages {
+		width:250px;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:10px;
+	}
+	
+	
+	
+	div.row.welcome-section-message {
+		padding:0;
+		margin:5px auto;
+		width:95%;
+	}
+	div.row.welcome-section-message p{
+		padding:0;
+		margin:0 auto;
+		font-size:.9em;
+		line-height: 1.2em;
+		width:90%;
+	}
+	
+	
+	/*--------------------------------------------------------------------*/
+	/* SPEAKERS (aka ABOUT)
+	/*--------------------------------------------------------------------*/
+	
+	div.white-link-icon {
+		margin-top:30%;
+		height:20%;
+	}
+	
+	/*--------------------------------------------------------------------*/
+	/* AGENDA
+	/*--------------------------------------------------------------------*/
+	div.day-block {
+		margin-bottom:5px;
+		padding:.3em 0;
+		line-height:1.3em;
+	}
+	
+	div.day-block div.row.event-day  {
+		margin:0;
+		padding:0;
+	}
+	div.row div.info-heading,	
+	div.row .event-time,
+	div.day-block div.row.event-day div.span12,
+	div.day-block div.row div.span2.event-time  {
+		margin:.2em 0;
+		padding:.2em 0; 
+	}
+	
+	/* Since the width is smaller, JS is used to put the track names within each "cell" (not really cells but divs)
+	 * And now the track names should show up */
+	div[class^='span'] span.track-left {
+		display:block;
+		width:48%;
+		text-align: right;
+		float:left;
+	}
+	/* Actual Value needs to be positioned to the right */
+	div[class^='span'] span.track-right {
+		display:block;
+		width:48%;
+		float:right;
+		text-align: left;
+	}
+	
+}
+
+ @media (max-width: 390px) {
+	/*--------------------------------------------------------------------*/
+	/* AGENDA
+	/*--------------------------------------------------------------------*/
+	
+	/* Balance of column width is tipped slightly more toward the left (time label) side */
+	div[class^='span'] span.track-left {
+		display:block;
+		width:53%;
+		text-align: right;
+		float:left;
+	}
+	
+	div[class^='span'] span.track-right {
+		display:block;
+		width:43%;
+		float:right;
+		text-align: left;
+	}
+	
+	
+ }
+ 
+ 

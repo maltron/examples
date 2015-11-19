@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head itemscope itemtype="http://schema.org/Event">
+
+    <!-- META DATA -->
+    <meta charset="utf-8">
+    <meta http-equiv="expires" content="3600"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="DevNation is a full stack development conference featuring the best in Open Source.">
+    <meta name="google-site-verification" content="7sdSWCnZ-Cys0t2nErzInprYniEEgUgA9cgTw0wWbP4" />
+    <title>DevNation</title>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="assets/images/ico/favicon.png">
+    <!-- SEO Metadata -->
+    <meta name="Keywords" content="DevNation, DevNation 2014, Red Hat Summit">
+    <meta name="robots" content="INDEX, FOLLOW">
+    <meta name="country" content="">
+    <meta name="Language" content="en">
+
+    <!-- Facebook Metadata -->
+    <meta property="og:image" content="http://www.devnation.org/assets/images/devnation_facebook.jpg" />
+    <meta property="og:title" content="DevNation" />
+    <meta property="og:site_name" content="DevNation" />
+    <meta property="og:url" content="http://www.devnation.org" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="DevNation is a full stack development conference featuring the best in open source!  Hack with some of the most innovative new projects and see what's coming out of open source for DevOps, mobile and application development." />
+
+    <!-- Twitter Metadata -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content="http://www.devnation.org" />
+    <meta name="twitter:title" content="DevNation 2015 | June 21 - 25 | Boston, MA" />
+    <meta name="twitter:description" content="DevNation, an open source, full-stack development conference for application developers and maintainers.">
+    <meta name="twitter:image" content="http://www.devnation.org/assets/images/css/devnation_stickynav_logo.jpg" />
+
+    <!-- Google + Metadata -->
+    <meta itemprop="name" content="DevNation 2015 | June 21 - 25 | Boston, MA">
+    <meta itemprop="description" content="DevNation, an open source, full-stack development conference for application developers and maintainers.">
+    <meta itemprop="image" content="http://www.devnation.org/assets/images/devnation_facebook.jpg">
+
+
+    <!-- TREBLE STYLESHEETS -->
+    <!-- <link rel="stylesheet/less" href="assets/style/bootstrap.less" media="all" /> -->
+    <link rel="stylesheet" href="assets/style/bootstrap-uncompressed.css" type="text/css" />
+    <link rel="stylesheet" href="assets/style/devnation.css" type="text/css" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <!-- GOOGLE WEB FONTS -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,700,600,300,800' rel='stylesheet' type='text/css'>
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+
+
+  function getQueryVariable(variable)
+  {
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i=0;i<vars.length;i++) {
+          var pair = vars[i].split("=");
+          if(pair[0] == variable){return pair[1];}
+      }
+      return(false);
+  }
+
+
+  var sc_cid = getQueryVariable('sc_cid');
+  var incmp = getQueryVariable('incmp');
+
+  ga('create', 'UA-46600700-1', 'devnation.org');
+  ga('require', 'linkid', 'linkid.js');
+  ga('set', 'metric1', sc_cid);
+  ga('set', 'metric2', incmp);
+  ga('send', 'pageview', {
+              'metric1': sc_cid,
+              'metric2': incmp
+          }
+  );
+
+</script>
+</head>
+<body>
+
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- NAVIGATION -->
+<nav class="fixed-top devnation-nav" id="navigation">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12 center">
+                <!-- LOGO -->
+                <a class="brand devnation-brand pull-left" href="index.html"> <img src="assets/images/css/devnation_stickynav_logo.jpg" alt="DevNation"> </a>
+                <!-- END LOGO -->
+
+                <!-- MOBILE MENU BUTTON -->
+                <div class="mobile-menu" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </div>
+                <!-- END MOBILE MENU BUTTON -->
+
+                <!-- MAIN MENU -->
+                <ul id="main-menu" class="nav-collapse collapse">
+                    <li><a href="index.html#welcome" data-scroll data-toggle="collapse" data-target=".nav-collapse">Home</a></li>
+                    <li><a href="index.html#keynotes" data-scroll data-toggle="collapse" data-target=".nav-collapse">Keynotes</a></li>
+                    <li><a href="index.html#speakers" data-scroll data-toggle="collapse" data-target=".nav-collapse">Featured</a></li>
+                    <li><a href="index.html#agenda" data-scroll data-toggle="collapse" data-target=".nav-collapse">Agenda</a></li>
+                    <li><a href="index.html#2014wrapup" data-scroll data-toggle="collapse" data-target=".nav-collapse">2014</a></li>
+                    <!--<li><a href="#forthecoders" data-scroll data-toggle="collapse" data-target=".nav-collapse">Why Attend</a></li>
+                    <li><a href="#speakers" data-scroll data-toggle="collapse" data-target=".nav-collapse">Speakers</a></li> -->
+                    <!--<li><a href="#" data-scroll data-toggle="collapse" data-target=".nav-collapse">Blogs</a></li>
+                    <li><a href="#" data-scroll data-toggle="collapse" data-target=".nav-collapse">Venue</a></li>-->
+                    <li><a href="index.html#sponsorship" data-scroll data-toggle="collapse" data-target=".nav-collapse">Sponsorship</a></li>
+                    <li><a href="index.html#contact" data-scroll data-toggle="collapse" data-target=".nav-collapse">Contact</a></li>
+                    <li><a href="http://blog.devnation.org" target="devnation_blog">Blog</a></li>
+                </ul>
+                <!-- END MAIN MENU -->
+
+                <!-- SOCIAL ICONS -->
+                <div class="social-icons hover-big pull-right">
+                    <!--<a href="#" class="sicon-facebook"><i>Facebook</i></a> -->
+                    <a href="http://twitter.com/DevNationConf" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+                    <!--<a href="#" class="sicon-linkedin"><i>LinkedIn</i></a>
+                    <a href="#" class="sicon-youtube"><i>Youtube</i></a>
+                    <a href="#" class="sicon-pinterest"><i>Pinterest</i></a> </div> -->
+                <!-- END SOCIAL ICONS -->
+            </div>
+        </div>
+    </div>
+    </div>
+</nav>
+<!-- END NAVIGATION -->
+
+<!-- PAGE | WELCOME -->
+<!--<div class="pages white paralax" id="page-welcome">-->
+<div class="pages white paralax" id="welcome">
+    <div class="overlay"></div>
+    <!-- Centralized content -->
+
+    <!--<div class="centralized main-welcome-centralized">-->
+    <div class="main-welcome-centralized centralized">
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span12 center welcome-span-div">
+                    <!-- Animated logo -->
+                    <!--
+                                  <div class="logo">
+                                      <div class="scrollNormal">
+                                          <a href="#page-work">
+                                              <img src="assets/images/pages/welcome/logo_welcome.png" width="140" height="140" alt="Treble">
+                                          </a>
+                                      </div>
+                                      <div class="scrollDown">
+                                          <a href="#page-work">
+                                              <img src="assets/images/pages/welcome/logo2_welcome.png" width="140" height="140" alt="Treble">
+                                          </a>
+                                      </div>
+                                  </div>
+                                  -->
+                    <br /><br />
+                    <div class="devnation-logo"></div>
+                    <div class="line-divider" id="welcome-messages">
+                        <!--
+                                        <ul class="slides">
+                                            <li>
+                                                <h1>Hello Treble</h1>
+                                            </li>
+                                            <li>
+                                                <h1>Fresh & Clean</h1>
+                                            </li>
+                                            <li>
+                                                <h1>Creative & Fun</h1>
+                                            </li>
+                                        </ul>
+                                        -->
+                    </div>
+                    <p>An open source conference,<br/>by and for developers across the globe</p>
+                    <p><b>June 21 - 25, 2015 | Hynes Convention Center | Boston, MA | USA</b>
+                    <!--
+                                  <div class="social-icons sicon-white bordered welcome-screen">
+                                      <a href="#" class="sicon-facebook"><i>Facebook</i></a>
+                                      <a href="#" class="sicon-twitter"><i>Twitter</i></a>
+                                      <a href="#" class="sicon-linkedin"><i>LinkedIn</i></a>
+                                      <a href="#" class="sicon-youtube"><i>Youtube</i></a>
+                                      <a href="#" class="sicon-pinterest"><i>Pinterest</i></a>
+                                  </div>-->
+
+                    <div class="row welcome-section-message">
+                        <p>
+                            And that's a wrap on 2015, folks!  We've loved having you in Boston and
+                            will soon be posting session videos here; stay tuned to <a
+                                href="http://twitter.com/DevNationConf" target="devnation_twitter">@DevNationConf</a>
+                            for updates!
+                            <br /><br />
+                        </p>
+                        <p>
+                            Come to hack, come to learn.  Join the Nation.
+                        </p>
+                    </div>
+                    <div class="social-icons-custom  welcome-screen">
+                        <!-- <a href="#" class="sicon-facebook">Facebook</a> -->
+                        <a href="http://twitter.com/DevNationConf" target="devnation_twitter" class="sicon-twitter">Twitter</a>
+                        <!-- <a href="#" class="sicon-linkedin">LinkedIn</a>
+                        <a href="#" class="sicon-youtube">Youtube</a>
+                        <a href="#" class="sicon-pinterest">Pinterest</a>  -->
+                    </div><!--
+          <h4 class="main-welcome">Events Now Part Of DevNation</h4>
+
+          <div class="row event-logos">
+            <div class="span4"> <img src="assets/images/affil_events/Events_CamelOne.png"
+                                		border="0" alt="CamelOne" /> </div>
+            <div class="span4"> <img src="assets/images/affil_events/Events_JUDCon.png"
+                                		border="0" alt="JUDCon" /> </div>
+            <div class="span4"> <img src="assets/images/affil_events/Events_RedHatConnect_DevExchange.png"
+                                		border="0" alt="Red Hat Connect Developer Exchange" /> </div>
+          </div> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE | Welcome -->
+
+<!-- PAGE | Keynote -->
+<div class="pages orange-theme-section" id="keynotes">
+    <div id="keynote"></div>
+    <div class="container">
+        <header>
+            <h4 class="line-divider">Keynote Addresses</h4>
+            <h1 class="contact-heading">General Sessions</h1>
+            <p>This year's event will have four general sessions to capture our imaginations, inspire
+                our work, and spark the conversations that move us forward.</p>
+        </header>
+        <article>
+            <h3 class="keynotes-headline">Our keynotes will be live-streamed, so join in!</h3>
+            <p class="share-with-friends"><span class="share-stream-link"></span><a href="http://twitter.com/home/?status=Watching%20the%20LIVE%20keynotes%20at%20@DevNationConf%3b%20join%20me%21%20http://bit.ly/DevNationKeynotes">Share with friends who can't make the conference.</a></p>
+            <div class="headline-keynotes">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="portrait">
+                            <img src="assets/images/speaker_pics/venkatsubramaniam.jpg" />
+                        </div>
+                        <div class="text">
+                            <h3>Venkat Subramaniam</h3>
+                            <h4>Agile Developer, Inc.</h4>
+                            <h6>The joy of functional programming</h6>
+                            <p>Monday, June 22 10:00AM - 11:15AM EDT</p>
+                            <p><span class="camera-live-stream-icon"></span><a class="vid-modal" data-video-title="Venkat Subramaniam - The joy of functional programming" data-video-url="http://www.youtube.com/embed/L2GUFoIjBpg" href="index.html#">Watch the live stream</a></p>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="portrait">
+                            <img src="assets/images/speaker_pics/MattHicks.jpg" />
+                        </div>
+                        <div class="text">
+                            <h3>Matt Hicks</h3>
+                            <h4>Vice president of engineering, Red Hat</h4>
+                            <h6>The future of development with Kubernetes and Docker</h6>
+                            <p>Monday, June 22 1:30PM - 2:30PM EDT</p>
+                            <p><span class="camera-live-stream-icon"></span><a class="vid-modal" data-video-title="Matt Hicks - The future of development with Kubernetes and Docker" data-video-url="http://www.youtube.com/embed/Bi2sAvhaGno" href="index.html#">Watch the live stream</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span6 ">
+                        <div class="portrait">
+                            <img src="assets/images/speaker_pics/FelixEhm.png" />
+                        </div>
+                        <div class="text">
+                            <h3>Felix Ehm</h3>
+                            <h4>Technical Engineer, CERN</h4>
+                            <h6>Running CERN's accelerator control system using open source software</h6>
+                            <p>Tuesday, June 23 9:00AM - 10:15AM EDT</p>
+                            <p><span class="camera-live-stream-icon"></span><a class="vid-modal" data-video-title="Felix Ehm - Running CERN's accelerator control system using open source software" data-video-url="http://www.youtube.com/embed/Yq_YuxfXalc" href="index.html#">Watch the live stream</a></p>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="portrait">
+                            <img src="assets/images/speaker_pics/brianna_wu.jpg" />
+                        </div>
+                        <div class="text">
+                            <h3>Brianna Wu</h3>
+                            <h4>Founder/CEO of Giant Spacekat</h4>
+                            <h6>9 ways to stop hurting and start helping women in tech</h6>
+                            <p>Tuesday, June 22 1:30PM - 2:30PM EST</p>
+                            <p><span class="camera-live-stream-icon"></span><a class="vid-modal" data-video-title="Brianna Wu - 9 ways to stop hurting and start helping women in tech" data-video-url="http://www.youtube.com/embed/24DbODbYQ70" href="index.html#">Watch the live stream</a></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </article>
+        <article>
+            <ul>
+                <li class="session">
+                    <div class="portrait">
+                        <img src="assets/images/speaker_pics/venkatsubramaniam.jpg" />
+                        <h6>Watch the live stream</h6>
+                        <a class="vid-modal" data-video-title="Venkat Subramaniam - The joy of functional programming" data-video-url="http://www.youtube.com/embed/L2GUFoIjBpg" href="index.html#"><span class="camera-live-stream-icon"></span>Launch Player</a>
+                    </div>
+                    <div class="text">
+                        <h3>Venkat Subramaniam</h3>
+                        <h4>Agile Developer, Inc.</h4>
+                        <h6>The Joy of Functional Programming</h6>
+                        <p>
+                            Dr. Venkat Subramaniam is an award-winning author, founder of Agile Developer, Inc.,
+                            and an instructional professor at the University of Houston.
+                            <br /><br />
+                            He has trained and mentored thousands of software developers in the US, Canada,
+                            Europe, and Asia, and is a regularly-invited speaker at several international conferences.
+                            Venkat helps his clients effectively apply and succeed with agile practices on their
+                            software projects.
+
+                            Venkat is a (co)author of multiple books, including the 2007 Jolt Productivity
+                            award winning book <i>Practices of an Agile Developer</i>. His latest book is <i>Functional Programming in Java:
+                            Harnessing the Power of Java 8 Lambda Expressions</i>. You can reach him by email at
+                            <a href="mailto:venkats@agiledeveloper.com">venkats@agiledeveloper.com</a> or on Twitter at
+                            <a href="http://twitter.com/venkat_s" target="twitter_venkat">@venkat_s</a>.
+                        </p>
+                    </div>
+                </li>
+                <li class="session">
+                    <div class="portrait">
+                        <img src="assets/images/speaker_pics/MattHicks.jpg" />
+                        <h6>Watch the live stream</h6>
+                        <a class="vid-modal" data-video-title="Matt Hicks - The future of development with Kubernetes and Docker" data-video-url="http://www.youtube.com/embed/Bi2sAvhaGno" href="index.html#"><span class="camera-live-stream-icon"></span>Launch player</a>
+                    </div>
+                    <div class="text">
+                        <h3>Matt Hicks</h3>
+                        <h4>Vice president of engineering, Red Hat</h4>
+                        <h6>The future of development with Kubernetes and Docker</h6>
+                        <p>
+                            Matt Hicks is a founding member of the OpenShift by Red Hat team.
+                            He has spent more than a decade in software engineering, with a variety
+                            of roles in development, operations, architecture, and management.
+                            His real expertise is in bridging the gap between developing code and
+                            actually running it in production. An expert in IT and cloud-based
+                            architectures, he spends his time these days evolving OpenShift to use
+                            the power of cloud and make developers more productive.
+
+                        </p>
+                    </div>
+                </li>
+                <li class="session">
+                    <div class="portrait">
+                        <img src="assets/images/speaker_pics/FelixEhm.png" />
+                        <h6>Watch the live stream</h6>
+                        <a class="vid-modal" data-video-title="Felix Ehm - Running CERN's accelerator control system using open source software" data-video-url="http://www.youtube.com/embed/Yq_YuxfXalc" href="index.html#"><span class="camera-live-stream-icon"></span>Launch player</a>
+                    </div>
+                    <div class="text">
+                        <h3>Felix Ehm</h3>
+                        <h4>Technical Engineer, CERN</h4>
+                        <h6>Running CERN's Accelerator Control System using Open Source Software</h6>
+                        <p>
+                            Felix has been a staff member of CERN's Accelerator Controls team for 8
+                            years and the principal engineer for the JMS infrastructure which is used to
+                            distribute data to mission critical applications 24x7. His main focus is on highly
+                            available distributed systems and in his role as developer/architect/service
+                            manager he runs other core services like the Controls monitoring and alarm
+                            system.
+
+                            <br /><br />
+                            Before, Felix has worked in the field of mass storage systems and within the
+                            CERN´s grid technology group on information- and monitoring systems.
+                            He is author of several scientific papers and a featured speaker at
+                            conferences.
+
+                        </p>
+                    </div>
+                </li>
+                <li class="session">
+                    <div class="portrait">
+                        <img src="assets/images/speaker_pics/brianna_wu.jpg" />
+                        <h6>Watch the live stream</h6>
+                        <a class="vid-modal" data-video-title="Brianna Wu - 9 ways to stop hurting and start helping women in tech" data-video-url="http://www.youtube.com/embed/24DbODbYQ70" href="index.html#"><span class="camera-live-stream-icon"></span>Launch player</a>
+                    </div>
+                    <div class="text">
+                        <h3>Brianna Wu</h3>
+                        <h4>Founder/CEO of Giant Spacekat</h4>
+                        <h6>9 Ways to Stop Hurting and Start Helping Women in Tech</h6>
+                        <p>
+                            Brianna Wu is head of development at Giant Spacekat, a prominent game development teams in the industry with female leadership. She is also a well-known public speaker on issues affecting women in tech. She rose to be one of the most prominent women in game development in 2014 after being subjected to threats on her life from GamerGate.
+
+                            <br /><br />
+                            She is available on Twitter at <a href="http://twitter.com/Spacekatgal" target="twitter_brianna">@Spacekat_gal</a>.
+
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </article>
+    </div>
+</div>
+<!-- END PAGE | Keynote -->
+
+<!-- PAGE | Featured Speakers -->
+<!-- Spacing added to prevent section jump on #forthecoders deep link visit -->
+<!--<div class="pages" id="page-speakers">-->
+<div class="pages blue-theme-section" id="speakers">
+  <div style="width:100%;display:block;height:60px;margin:0 auto;"></div>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h4 class="line-divider">Featured speakers</h4>
+      <h1>Pardon the introduction</h1>
+      <div class="row">
+        <div class="span8 offset2">
+          <p>
+            Meet a handful of DevNation coders and thought leaders
+            bound to Bring It with killer technical sessions.
+          <!--
+            <span style="color:red;"><br /><br />Edits: Please put in 2x2 grid, change BG to Blue, current blue text to White</span>
+          -->
+          </p>
+        </div>
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- Article -->
+    <article>
+
+	<ul class="speaker-items speakers">
+		<li class="center">
+			<div class="item"><img class="img-circle" src="assets/images/speaker_pics/SarahNovotny.jpeg" alt="Sarah Novotny" />
+				<div class="speaker-overlay img-circle">
+					<div class="white-link-icon"></div>
+					<div class="social-icons sicon-white">
+						<!--<a href="#" class="sicon-mail"><i>Email</i></a>
+						<a href="#" class="sicon-facebook"><i>Facebook</i></a> -->
+						<a href="https://twitter.com/sarahnovotny" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+						<!-- <a href="#" class="sicon-linkedin"><i>LinkedIn</i></a>  -->
+					</div>
+				</div>
+			</div>
+			<div class="text">
+				<h5>Sarah Novotny<br/>
+					<small>Evangelist, NGINX</small>
+				</h5>
+			</div>
+		</li>
+
+		<li class="center">
+			<div class="item"><img class="img-circle" src="assets/images/speaker_pics/DaveLester.jpg" alt="Dave Lester">
+				<div class="speaker-overlay img-circle">
+					<div class="white-link-icon"></div>
+					<div class="social-icons sicon-white">
+						<!--<a href="#" class="sicon-mail"><i>Email</i></a>
+						<a href="#" class="sicon-facebook"><i>Facebook</i></a> -->
+						<a href="https://twitter.com/davelester" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+						<!-- <a href="#" class="sicon-linkedin"><i>LinkedIn</i></a>  -->
+					</div>
+				</div>
+			</div>
+			<div class="text">
+				<h5>Dave Lester<br/>
+					<small>Open source advocate and engineer, Twitter</small>
+				</h5>
+			</div>
+		</li>
+
+        <li class="center">
+            <div class="item">
+                <img class="img-circle" src="assets/images/speaker_pics/AdamKoblentz.jpg" alt="Adam Koblentz">
+                <div class="speaker-overlay img-circle">
+                    <div class="white-link-icon"></div>
+                    <div class="social-icons sicon-white">
+                        <a href="https://twitter.com/akoblentz" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text">
+                <h5>Adam Koblentz<br/>
+                    <small>JRebel Product Marketing Manager, ZeroTurnaround</small>
+                </h5>
+            </div>
+        </li>
+
+		<li class="center">
+			<div class="item">
+				<img class="img-circle" src="assets/images/speaker_pics/TylerJewell.jpeg" alt="Tyler Jewell">
+				<div class="speaker-overlay img-circle">
+					<div class="white-link-icon"></div>
+					<div class="social-icons sicon-white">
+						<a href="https://twitter.com/tylerjewell" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+					</div>
+				</div>
+			</div>
+			<div class="text">
+				<h5>Tyler Jewell<br/>
+					<small>CEO, Codenvy</small>
+				</h5>
+			</div>
+		</li>
+
+		<li class="center">
+			<div class="item">
+				<img class="img-circle" src="assets/images/speaker_pics/JeromePetazzoni.jpg" alt="Jérôme Petazzoni"/>
+				<div class="speaker-overlay img-circle">
+					<div class="white-link-icon"></div>
+					<div class="social-icons sicon-white">
+						<a href="https://twitter.com/jpetazzo" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+					</div>
+				</div>
+			</div>
+			<div class="text">
+				<h5>Jérôme Petazzoni<br/>
+					<small>Tinkerer extraordinaire, Docker, Inc.</small>
+				</h5>
+			</div>
+		</li>
+
+		<li class="center">
+			<div class="item">
+				<img class="img-circle" src="assets/images/speaker_pics/CraigMcLuckie.jpeg" alt="Craig McLuckie">
+				<div class="speaker-overlay img-circle">
+					<div class="white-link-icon"></div>
+					<div class="social-icons sicon-white">
+                        <a href="https://twitter.com/cmcluck" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+					</div>
+				</div>
+			</div>
+			<div class="text">
+				<h5>Craig McLuckie<br/>
+					<small>Senior product manager, Google Cloud Platform</small>
+				</h5>
+			</div>
+		</li>
+
+        <li class="center">
+            <div class="item">
+                <img class="img-circle" src="assets/images/speaker_pics/RobynBergeron.jpg" alt="Robyn Bergeron">
+                <div class="speaker-overlay img-circle">
+                    <div class="white-link-icon"></div>
+                    <div class="social-icons sicon-white">
+                        <a href="https://twitter.com/robynbergeron" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text">
+                <h5>Robyn Bergeron<br/>
+                    <small>Operations advocate, Elastic (formerly Elasticsearch)</small>
+                </h5>
+            </div>
+        </li>
+
+        <li class="center">
+            <div class="item">
+                <img class="img-circle" src="assets/images/speaker_pics/KrisBorchers.jpg" alt="Kris Borchers">
+                <div class="speaker-overlay img-circle">
+                    <div class="white-link-icon"></div>
+                    <div class="social-icons sicon-white">
+                        <a href="https://twitter.com/kborchers" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text">
+                <h5>Kris Borchers<br/>
+                    <small>Executive director, jQuery Foundation</small>
+                </h5>
+            </div>
+        </li>
+
+        <li class="center">
+            <div class="item">
+                <img class="img-circle" src="assets/images/speaker_pics/LincolnBaxterIII.jpg" alt="Lincoln Baxter">
+                <div class="speaker-overlay img-circle">
+                    <div class="white-link-icon"></div>
+                    <div class="social-icons sicon-white">
+                        <a href="https://twitter.com/lincolnthree" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text">
+                <h5>Lincoln Baxter, III<br/>
+                    <small>JBoss Forge project lead, Red Hat, Inc.</small>
+                </h5>
+            </div>
+        </li>
+
+        <li class="center">
+            <div class="item">
+                <img class="img-circle" src="assets/images/speaker_pics/AslakKnutsen.jpg" alt="Aslak Knutsen">
+                <div class="speaker-overlay img-circle">
+                    <div class="white-link-icon"></div>
+                    <div class="social-icons sicon-white">
+                        <a href="https://twitter.com/aslakknutsen" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text">
+                <h5>Aslak Knutsen<br/>
+                    <small>Arquillian project lead, Red Hat, Inc.</small>
+                </h5>
+            </div>
+        </li>
+
+        <li class="center">
+            <div class="item">
+                <img class="img-circle" src="assets/images/speaker_pics/ArunGupta.png" alt="Arun Gupta">
+                <div class="speaker-overlay img-circle">
+                    <div class="white-link-icon"></div>
+                    <div class="social-icons sicon-white">
+                        <a href="https://twitter.com/arungupta" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text">
+                <h5>Arun Gupta<br/>
+                    <small>Director of JBoss Developer Advocacy, Red Hat, Inc.</small>
+                </h5>
+            </div>
+        </li>
+
+        <li class="center">
+            <div class="item">
+                <img class="img-circle" src="assets/images/speaker_pics/EmmanuelBernard.jpg" alt="Emmanuel Bernard">
+                <div class="speaker-overlay img-circle">
+                    <div class="white-link-icon"></div>
+                    <div class="social-icons sicon-white">
+                        <a href="https://twitter.com/emmanuelbernard" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text">
+                <h5>Emmanuel Bernard<br/>
+                    <small>JBoss data platform architect, Red Hat, Inc.</small>
+                </h5>
+            </div>
+        </li>
+
+<!--
+		<li class="center">
+			<div class="item"> <img class="img-circle" src="assets/images/speaker_pics/JasonGreene.jpg" alt="Jason Greene">
+				<div class="speaker-overlay img-circle">
+					<div class="white-link-icon"></div>
+					<div class="social-icons sicon-white">
+						<a href="#" class="sicon-mail"><i>Email</i></a>
+						<a href="https://plus.google.com/+GavinKing" target="devnation_googleplus" class="sicon-googleplus"><i>Google+</i></a>
+						<a href="#" class="sicon-facebook"><i>Facebook</i></a>
+						<a href="https://twitter.com/jtgreene" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a>
+						<a href="#" class="sicon-linkedin"><i>LinkedIn</i></a>
+					</div>
+				</div>
+			</div>
+			<div class="text">
+				<h5>Jason Greene<br/>
+					<small>WildFly Project Lead</small>
+				</h5>
+			</div>
+		</li> -->
+
+
+		<li class="span3">
+			<div class="item">
+			</div>
+		</li>
+	</ul>
+	<div style="clear: both;"></div>
+
+      <!--<h2 class="center"><a href="pages/speakers/speaker_bios.html" class="btn btn-register">All speakers</a></h2> -->
+    </article>
+    <!-- End Article -->
+  </div>
+</div>
+<!-- END PAGE | Featured Speakers -->
+
+<!-- PAGE | AGENDA -->
+<div class="pages white white-theme-section event-sessions" id="agenda">
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 class="line-divider">Agenda</h1>
+        </header>
+        <!-- End Header -->
+        <p>
+            We're proud to announce the DevNation session agenda, presented by thought leaders in web, mobile,
+            cloud, data, IoT, and DevOps.
+        </p>
+        <!-- Start Article -->
+        <article>
+            <div class="panel-group resource-review" id="pulse-outer">
+                <div class="panel collapsed" data-toggle="collapse" data-parent="#pulse-outer" href="#pulse">
+                    <div class="panel-heading">
+                        <div class="row-fluid main-header-container">
+                            <div class="span11">
+                                <div class="row-fluid">
+                                    <div class="span12 title-span">
+                                        <a href="index.html#pulse">
+                                            <img src="assets/images/ico/pulse_light_blue.svg" alt="Pulse" height="30px" width="30px" /> Introducing Pulse Sessions - The Heartbeat of DevNation
+                                        </a>
+                                    </div>
+                                </div><!-- / .row-fluid -->
+                                <div class="row-fluid">
+                                    <div class="span12 title-span">
+                                    </div>
+                                </div><!-- / .row-fluid -->
+                            </div><!-- /.span11-->
+                            <div class="span1" >
+
+                            </div>
+
+                        </div> <!-- / .row-fluid.main-header-container -->
+                    </div><!-- / .panel-heading -->
+                </div> <!-- / .panel -->
+                <div id="pulse" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row-fluid">
+                            <div class="span9">
+                                <p align="center">
+                                    <img src="assets/images/ico/pulse_grey.svg" alt="Pulse" height="200px" width="200px" />
+                                </p>
+                                <p>
+                                    This year at DevNation we're introducing a new concept - Pulse sessions.  Because in development we embrace
+                                    change and cannot anticipate every success, we're leaving an open slot on Tuesday, Wednesday, and Thursday to
+                                    build upon the hottest topics of the previous day.  These will be assigned just-in-time and announced the evening
+                                    before the session, so be sure to let us know during the conference if you've got ideas to share!
+                                </p>
+                            </div><!-- / .span4 -->
+                        </div><!-- / .span4 -->
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group resource-review" id="labs-outer">
+                <div class="panel collapsed" data-toggle="collapse" data-parent="#labs-outer" href="#labs">
+                    <div class="panel-heading">
+                        <div class="row-fluid main-header-container">
+                            <div class="span11">
+                                <div class="row-fluid">
+                                    <div class="span12 title-span">
+                                        <a href="index.html#labs">
+                                            <img src="assets/images/ico/beaker.svg" alt="Hands-On Labs" height="30px" width="30px" /> Hands-On Lab Sessions - Get Coding!
+                                        </a>
+                                    </div>
+                                </div><!-- / .row-fluid -->
+                                <div class="row-fluid">
+                                    <div class="span12 title-span">
+                                    </div>
+                                </div><!-- / .row-fluid -->
+                            </div><!-- /.span11-->
+                            <div class="span1" >
+
+                            </div>
+
+                        </div> <!-- / .row-fluid.main-header-container -->
+                    </div><!-- / .panel-heading -->
+                </div> <!-- / .panel -->
+                <div id="labs" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row-fluid">
+                            <div class="span9">
+                                <p align="center">
+                                    <img src="assets/images/ico/beaker.svg" alt="Hands-On Labs" height="200px" width="200px" />
+                                </p>
+                                <p>
+                                    We've added 8 Hands-On Labs to this year's schedule!  Bring your own laptop and get coding with these
+                                    two-hour double block sessions on Wednesday and Thursday.  Our presenters will have instructions to get you bootstrapped
+                                    and on your way.
+                                </p>
+                            </div><!-- / .span4 -->
+                        </div><!-- / .span4 -->
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group resource-review" id="committee-outer">
+                <div class="panel collapsed" data-toggle="collapse" data-parent="#committee-outer" href="#committee">
+                    <div class="panel-heading">
+                        <div class="row-fluid main-header-container">
+                            <div class="span11">
+                                <div class="row-fluid">
+                                    <div class="span12 title-span">
+                                       <a href="index.html#committee">
+                                            Meet the External Selection Committee
+                                        </a> 
+                                    </div>
+                                </div><!-- / .row-fluid -->
+                                <div class="row-fluid">
+                                    <div class="span12 title-span">
+
+                                    </div>
+                                </div><!-- / .row-fluid -->
+                            </div><!-- /.span11-->
+                            <div class="span1" >
+                                
+                            </div>
+                               
+                        </div> <!-- / .row-fluid.main-header-container -->
+                    </div><!-- / .panel-heading -->
+                </div> <!-- / .panel -->
+                <div id="committee" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        <p>Open Source is about more than code; it's about collaboration and working together.  In addition to the Red Hat
+                            associates working on DevNation, we've enlisted some community heros to help with the session selection
+                            process in evaluating the call for papers to assemble our varied and technical agenda.  Many thanks for their efforts!</p>
+
+                        <div class="row-fluid resource-speakers">
+                            <div class="span4">
+                                <h6>Simon Maple</h6>
+                                <img class="img-circle" src="assets/images/speaker_pics/SimonMapple.jpeg" alt="Simon Maple">
+                                <h6 class="speaker-title">
+                                    Developer advocate at ZeroTurnaround
+                                </h6>
+                                <p>
+                                    Simon is a Developer Advocate at ZeroTurnaround and founder of the vJUG (virtualJUG), in addition to being an active member of the London Java Community (LJC) organising group and LJC JCP EC committee member. Simon used to be a tester, developer and technical evangelist for IBM on the WebSphere Application Server for 12 years prior to joining ZeroTurnaround. He's married with a son and dog who he tries to spend as much quality time with as he can.
+                                </p>
+                              <div class="social-icons sicon-black">
+                              <a class="sicon-twitter" href="https://twitter.com/sjmaple" target="devnation_detail">
+                            <i>Twitter</i>
+                                </a>
+                              </div> <!-- /.social-icons-->
+                              
+                            </div><!-- / .span4 -->
+                            <div class="span4">
+                                <h6>Joel Tosi</h6>
+                                <img class="img-circle" src="assets/images/speaker_pics/JoelTosi.jpg" alt="Joel Tosi">
+                                <h6 class="speaker-title">
+                                    Independent consultant
+                                </h6>
+                                <p>
+                                    “Less talk, more rock” are words Joel Tosi likes to live by. Instead of telling teams what to do, he prefers to pair with organizations and teams to create meaningful products. Whether working with product owners on product learning, testing teams trying to balance automation, or developers and operations teams interested in continuous delivery, Joel enjoys rolling up his sleeves to work with the teams. Sharing his experiences as a coach, architect, developer, and manager, he is a hands-on collaborator and community builder. Joel brings this perspective and an understanding of the social aspects of software to help facilitate team and product growth. 
+                                </p>
+                              <div class="social-icons sicon-black">
+                              <a class="sicon-twitter" href="https://twitter.com/joeltosi" target="devnation_detail">
+                            <i>Twitter</i>
+                                </a>
+                              </div> <!-- /.social-icons-->
+                              
+                            </div><!-- / .span4 -->
+                            <div class="span4">
+                                <h6>Christian Kaltepoth</h6>
+                                <img class="img-circle" src="assets/images/speaker_pics/ChristianKaltepoth.jpg" alt="Christian Kaltepoth">
+                                <h6 class="speaker-title">
+                                    Senior developer at ingenit
+                                </h6>
+                                <p>
+                                    Christian Kaltepoth is Senior Developer at ingenit in Dortmund, Germany. His passion is around developing business applications based on Java EE technologies. He is a regular open source contributor and involved in projects like Apache DeltaSpike, Rewrite, PrettyFaces, Togglz and others. Christian is member of the JSR 371 expert group and a frequent speaker at major conferences.
+                                </p>
+                              <div class="social-icons sicon-black">
+                              <a class="sicon-twitter" href="https://twitter.com/chkal" target="devnation_detail">
+                            <i>Twitter</i>
+                                </a>
+                              </div> <!-- /.social-icons-->
+                          </div>
+                        </div><!-- / .span4 -->
+                        <div class="row-fluid resource-speakers">    
+                            <div class="span4">
+                                <h6>Rabea Gransberger</h6>
+                                <img class="img-circle" src="assets/images/speaker_pics/RabeaGransberger.jpg" alt="Rabea Gransberger">
+                                <h6 class="speaker-title">
+                                    Software department lead at MEKO-S
+                                </h6>
+                                <p>
+                                    Rabea studied computer science at the University of Bremen and graduated in 2008 with a diploma. Since then she works as a software developer, software department lead and is leading various projects at MEKO-S. Her main focus is on developing clean code and training the developers of her team to improve their quality of code. In 2012 Rabea has started a new Java User Group in Bremen and is leading it since then. She has been speaking at various conferences around the world and helped shaping the program for the JavaLand conference in 2015. Besides software development Rabea loves to watch football and is going to the local Weserstadium for every game of her favorite team.
+                                </p>
+                              <div class="social-icons sicon-black">
+                              <a class="sicon-twitter" href="https://twitter.com/rgransberger" target="devnation_detail">
+                            <i>Twitter</i>
+                                </a>
+                              </div> <!-- /.social-icons-->
+                              
+                            </div><!-- / .span4 -->
+                            <div class="span4">
+                                <h6>Tonya Rae Moore</h6>
+                                <img class="img-circle" src="assets/images/speaker_pics/TonyaRaeMoore.jpeg" alt="Tonya Rae Moore">
+                                <h6 class="speaker-title">
+                                    Community builder
+                                </h6>
+                                <p>
+                                    Long years working for Oracle as the caretaker for Java.net she went over to help kick-start ZEEF. Working with communities and individuals has always been her passion. Strong believer in equality in tech and fighting everything that doesn't respect minorities. Marketer at heart, knows everything about beer and is a loving mother married to a sport talk-show host. Member of the CJUG, helping promote Java developers and technologies in Chicago.
+                                </p>
+                              <div class="social-icons sicon-black">
+                              <a class="sicon-twitter" href="https://twitter.com/TonyaRaeMoore" target="devnation_detail">
+                            <i>Twitter</i>
+                                </a>
+                              </div> <!-- /.social-icons-->
+                              
+                            </div><!-- / .span4 -->
+                            <div class="span4">
+                                <h6>Markus Eisele</h6>
+                                <img class="img-circle" src="assets/images/speaker_pics/MarkusEisele2015.jpg" alt="Markus Eisele">
+                                <h6 class="speaker-title">
+                                    External selection committee lead, Red Hat
+                                </h6>
+                                <p>
+                                    Markus is a developer advocate at Red Hat and focuses on JBoss Middleware. He is working with Java EE servers from different vendors since more than 14 years and talks about his favorite topics around Java EE on conferences all over the world.
+                                </p>
+                              <div class="social-icons sicon-black">
+                              <a class="sicon-twitter" href="https://twitter.com/myfear" target="devnation_detail">
+                            <i>Twitter</i>
+                                </a>
+                              </div> <!-- /.social-icons-->
+                              
+                            </div><!-- / .span4 -->
+                            <div class="span4">
+                                <h6>Andrew Lee Rubinger</h6>
+                                <img class="img-circle" src="assets/images/speaker_pics/AndrewLeeRubinger.jpg" alt="AndrewLeeRubinger">
+                                <h6 class="speaker-title">
+                                    DevNation program manager, Red Hat
+                                </h6>
+                                <p>
+                                    Andrew is an open-source engineer; developer advocate and DevNation program manager at Red Hat, author of "Continuous Enterprise Development in Java" from O'Reilly Media and founder of the ShrinkWrap project.
+                                </p>
+                                <div class="social-icons sicon-black">
+                                    <a class="sicon-twitter" href="https://twitter.com/ALRubinger" target="devnation_detail">
+                                        <i>Twitter</i>
+                                    </a>
+                                </div> <!-- /.social-icons-->
+
+                        </div><!-- / .span4 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="session-list">
+            </div>
+            <script id="sessionTemplate" type="text/x-jsrender">
+                
+                <div class="panel-group resource-review" id="{{:id}}-outer">
+                    <div class="panel collapsed" data-toggle="collapse" data-parent="#{{:id}}-outer" href="#{{:id}}">
+                        <div class="panel-heading">
+                            <div class="row-fluid main-header-container">
+                                <div class="span11">
+                                    <div class="row-fluid">
+                                        <div class="span12 title-span">
+                                           <a href="index.html#{{:id}}">
+                                                {{if isPulse && isPulse=="true"}}
+                                                    <img src="assets/images/ico/pulse_light_blue.svg" alt="Pulse" height="30px" width="30px" />
+                                                {{/if}}
+                                                {{if isLab}}
+                                                    <img src="assets/images/ico/beaker.svg" alt="Hands-On Lab" height="30px" width="30px" />
+                                                {{/if}}
+                                                {{:name}}
+                                            </a> 
+                                        </div>
+                                    </div><!-- / .row-fluid -->
+                                    <div class="row-fluid">
+                                       <div class="span12 authors-day-time">
+                                            {{:speakers}}
+                                            <span class="date-time">{{:friendly_event_start}} - {{:friendly_event_end}} ({{:venue}})</span>
+                                        </div> 
+                                    </div>  <!-- / .row-fluid -->
+                                </div><!-- /.span11-->
+                            <div class="span1" >
+                                <!--
+                                <a class="collapsed panel-show-hide-a" data-parent="#{{:id}}-outer" href="#{{:id}}">
+                        
+                                </a>
+                                -->
+                            </div>
+                               
+                            </div> <!-- / .row-fluid.main-header-container -->
+                        </div><!-- / .panel-heading -->
+                    </div> <!-- / .panel -->
+                    <!-- main panel -->
+                    <div id="{{:id}}" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            
+                            
+                            <div class="row-fluid">
+                                <div class="span9">
+                                    {{:description}}
+                                </div>
+                                <div class="span3 download-links" style="margin-bottom: 20px">
+                                    <!--<h5>Session Links</h5>-->
+                                    {{if youtubeId || presentationSlidesLink}}
+                                        <h5>Session Links</h5>
+                                        
+                                        {{if youtubeId}}
+                                        <div>
+                                            <a class="vid-modal" data-video-title="{{if speakers}}{{:speakers}} - {{/if}}{{:name}}" data-video-url="http://www.youtube.com/embed/{{:youtubeId}}" href="index.html#">
+                                                <i class="icon-facetime-video"></i>
+                                                Session Video
+                                            </a>
+                                        </div>
+                                        {{/if}}
+                                        {{if presentationSlidesLink}}
+                                        <div>
+                                            <a href="http://www.devnation.org/{{:presentationSlidesLink}}">
+                                                <i class="icon-facetime-video"></i>
+                                                Presentation Slides
+                                            </a>
+                                        </div>
+                                        {{/if}}
+                                    {{/if}}
+                                </div><!-- /.span3 download-links -->
+                                
+                            </div><!-- /.row-fluid -->
+                                <!-- Speakers Bios -->
+                            {{if speakers}}
+                              <h5>Speaker(s):</h5>
+                                   
+                                   <div class="row-fluid resource-speakers">
+                                        {{props speaker}}
+                                        {{for prop}}
+                                        <div class="span4">
+                                            <h6>{{:name}}</h6>
+                                            {{if avatar}}<img class="img-circle" src="http://www.devnation.org/{{:avatar}}" alt="{{:name}}">{{/if}}
+                                            <h6 class="speaker-title">
+                                                {{:position}}, {{:company}}
+                                            </h6>
+                                            <p>
+                                                {{:about}}
+                                            </p>
+                                          <div class="social-icons sicon-black">
+                                          {{if url}}
+                                          <a class="sicon-twitter" href="http://www.devnation.org/{{:url}}" target="devnation_detail">
+                                        <i>Twitter</i>
+                                            </a>
+                                          {{/if}}
+                                          </div> <!-- /.social-icons-->
+                                          
+                                        </div><!-- / .span4 -->
+                                        {{/for}}
+                                        {{/props}}
+                                        
+                                   </div><!-- / row-fluid.resource-speakers -->
+                            {{/if}}
+                                <!-- / END SPEAKERS BIOS -->
+                                
+                        </div> <!-- /.panel-body -->
+                    </div> <!-- / main panel -->
+
+                   
+                </div> <!-- / .panel-group --> 
+            </script>
+        </article>
+        <!-- End Article -->
+
+    </div>
+
+    <!-- Background map image -->
+
+    <!--<div id="contact-image">
+        <img src="assets/images/pages/contact/contact_back.jpg" alt="Contact">
+    </div>-->
+</div>
+<!-- END PAGE | AGENDA -->
+
+
+
+<div class="pages orange-theme-section post-event" id="2014wrapup">
+    <div style="width:100%;display:block;height:60px;margin:0 auto;"></div>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 class="line-divider">Highlights from 2014</h1>
+            <h4>This year we build on the best parts of our inaugural party!</h4>
+            <div class="row">
+                <div class="span8 offset2">
+                    <p>
+                        The entire archive is available on the <a href="2014/index.html" target="devnation2014" style="color:white">2014 Site</a>.
+                    </p>
+                    <p>
+
+                        Selected highlights from the week:
+                    <ul style="text-align:left;">
+                        <li>Neal Ford's <a href="index.html#welcome-opening-general-session">opening keynote about agile architecture and design</a></li>
+                        <li>Gene Kim's <a href="index.html#devops-gen-session">talk about the importance of DevOps</a> (even the creative writers and PMs in the audience could agree).</li>
+                        <li>The dance floor at <a href="http://www.templesf.com/" target="devnation_temple">Temple</a> on Tuesday night, where we witnessed some break-dancing and a pretty intense dance-off.
+                            Thanks again to our friends at <a href="http://www.getchef.com/" target="devnation_chef">Chef</a> for sponsoring the party. </li>
+                        <li>Hacknight drew a great crowd. In the end, the Phase2 team won first place with their demo of Drupal on
+                            <a href="http://www.openshift.com" target="devnation_openshift">OpenShift</a>. Congrats, guys! </li>
+                        <li>Our most popular breakout sessions included those from Netflix's <a href="https://twitter.com/jedberg"
+                                                                                                target="devnation_twitter">Jeremy Edberg</a>, <a href="https://twitter.com/jamespearce"
+                                                                                                                                                 target="devnatiom_twitter">Facebook's James Pearce</a>, and a dude named <a href="https://twitter.com/joeltosi" target="devnation_twitter">Joel Tosi.</a></li>
+                    </ul>
+                    <br /><br />
+
+                    As always, send any feedback about sessions, tracks, venue, or staff, or grievances and praise in general to info@devnation.org.
+                    </p>
+                </div>
+            </div>
+        </header>
+        <!-- End Header -->
+
+        <!-- Article -->
+        <article>
+        </article>
+        <!-- End Article -->
+    </div>
+    <div style="width:100%;display:block;height:60px;margin:0 auto;"></div>
+</div>
+<!-- END PAGE | ABOUT -->
+
+
+
+
+
+<!-- Next section, ready to go (ALR) -->
+<!--
+<div class="pages black-bg white" id="forthecoders">
+    <div class="overlay"></div>
+    <div class="container">
+        <header>
+            <h4 class="line-divider">Why Attend</h4>
+            <h1 class="contact-heading">For The Coders</h1>
+            <div class="row">
+                <div class="span10 offset1">
+                    <p >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et sodales nisi.
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <article>
+            <div class="row-fluid">
+                <div class="span4 center">
+                    <img src="assets/images/pages/features/about01.png" alt="Treble">
+                    <h5>Responsive</h5>
+                    <p class="smallFontBy08 cutBy10">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <div class="span4 center">
+                    <img src="assets/images/pages/features/about02.png" alt="Treble">
+                    <h5>Bootstrap based</h5>
+                    <p class="smallFontBy08 cutBy10">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <div class="span4 center">
+                    <img src="assets/images/pages/features/about03.png" alt="Treble">
+                    <h5>Easy to customize</h5>
+                    <p class="smallFontBy08 cutBy10">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span8 offset2">
+                    <div class="quote center">
+                        <div id="quote-slider" class="slide">
+                            <div class="carousel-inner">
+                                <div class="active item">
+                                    This is a pull quote about the event, talking about how cool and unique the opportunity is for folks to attend a conference that covers sucha  broad open source cross-section of tech.
+                                    <h5>Gavin King</h5>
+                                </div>
+                                <div class="item">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    <h5>Happy client two</h5>
+                                </div>
+                                <div class="item">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    <h5>Happy client three</h5>
+                                </div>
+                            </div>
+
+                            <ol class="carousel-indicators">
+                                <li data-target="#quote-slider" data-slide-to="0" class="active"></li>
+                                <li data-target="#quote-slider" data-slide-to="1"></li>
+                                <li data-target="#quote-slider" data-slide-to="2"></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+</div>
+ -->
+
+<!-- Next Section, ready to go (ALR) -->
+<!--
+<div class="pages  blue-theme-section" id="speakers">
+
+    <div class="container">
+        <header>
+            <h4 class="line-divider">Speakers</h4>
+            <h1 class="contact-heading">Event Speakers</h1>
+            <div class="row">
+                <div class="span10 offset1">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et sodales nisi.
+                    </p>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <p>
+                    Donec gravida et augue sed bibendum. Fusce eu facilisis lectus. Morbi nulla neque, placerat ac dictum vitae, pellentesque eget sem. Duis vitae lacus turpis. Suspendisse pellentesque placerat posuere. Proin eu nulla metus. Quisque eu diam sodales, lacinia sem id, malesuada arcu. Praesent congue lobortis lacus, vitae maximus nisi hendrerit at. In et mi mi. Fusce fringilla libero nisi, ac rutrum est ultricies et. Cras id eros bibendum, faucibus ligula in, fringilla erat. Donec at hendrerit lectus. Quisque auctor orci ac malesuada commodo. Donec non lorem ut libero venenatis lacinia in vitae lectus. Curabitur eros arcu, posuere volutpat hendrerit sit amet, mattis a neque. Mauris consectetur massa ac elit sollicitudin, vitae congue tellus malesuada.
+
+                </p>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+<!-- Next section, ready to go (ALR) -->
+<!--
+<div class="pages orange-theme-section" id="venue">
+
+    <div class="container">
+        <header>
+            <h4 class="line-divider">The Venue</h4>
+            <h1 class="contact-heading">Venue</h1>
+            <div class="row">
+                <div class="span10 offset1">
+                    <p >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et sodales nisi.
+                    </p>
+                </div>
+            </div>
+        </header>
+        <div class="row">
+
+            <div class="span10 offset1">
+                <p align="center">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et sodales nisi. Ut commodo eleifend quam, a mattis massa facilisis et. Phasellus id mollis nulla. Nulla commodo eros est, eget vestibulum sapien cursus quis. Aliquam lobortis blandit leo sed pretium. Sed sit amet pulvinar lectus, vel lobortis tortor. Integer feugiat est vel nisi auctor, sit amet varius lorem accumsan. Pellentesque fermentum nulla a nibh rutrum auctor.
+
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+-->
+
+
+
+
+
+<!-- Next section, ready to go (ALR) -->
+<!--
+<div class="pages orange-on-white-theme-section" id="blog">
+
+    <div class="container">
+        <header>
+            <h4 class="line-divider">Blog</h4>
+            <h1 class="contact-heading">Blog</h1>
+            <div class="row">
+                <div class="span10 offset1">
+                    <p >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et sodales nisi.
+                    </p>
+                </div>
+            </div>
+        </header>
+        <div class="row">
+
+            <div class="span10 offset1">
+                <p align="center">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et sodales nisi. Ut commodo eleifend quam, a mattis massa facilisis et. Phasellus id mollis nulla. Nulla commodo eros est, eget vestibulum sapien cursus quis. Aliquam lobortis blandit leo sed pretium. Sed sit amet pulvinar lectus, vel lobortis tortor. Integer feugiat est vel nisi auctor, sit amet varius lorem accumsan. Pellentesque fermentum nulla a nibh rutrum auctor.
+
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+-->
+
+
+
+<!-- PAGE | SPONSORS -->
+<div class="pages dark-blue-theme-section black" id="sponsorship">
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h4 class="line-divider">Sponsorship</h4>
+            <h1 class="contact-heading">Thanks from a nation who gets. It. Done.</h1>
+            <div class="row">
+                <div class="span10 offset1">
+                    <p>
+                      We'd like to shout out to some friends making it possible for us to bring a great show to Boston this year!
+                    </p>
+                </div>
+            </div>
+            <div class="row" style="background-color:white;">
+                <img src="assets/images/logos/dzone_logo.png" alt="DZone">&nbsp;<img src="assets/images/logos/ansible_logo.png" alt="DZone">
+            </div>
+        </header>
+        <!-- End Header -->
+
+        <!-- Start Article -->
+        <article>
+        </article>
+        <!-- End Article -->
+
+    </div>
+
+    <!-- Background map image -->
+
+    <!--<div id="contact-image">
+        <img src="assets/images/pages/contact/contact_back.jpg" alt="Contact">
+    </div>-->
+</div>
+<!-- END PAGE | SPONSORS -->
+
+<!-- PAGE | CONTACT -->
+<!--<div class="pages black-bg white" id="page-contact">-->
+<div class="pages black-bg white" id="contact">
+    <div class="overlay"></div>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h4 class="line-divider">Contact</h4>
+            <h1 class="contact-heading">Have a question?</h1>
+            <div class="row">
+                <div class="span10 offset1">
+
+
+                    <p>
+                        We like to create things with fun, open-minded people. Feel free to say hello!<br />We'll respond as soon as possible.
+                    </p>
+                </div>
+            </div>
+        </header>
+        <!-- End Header -->
+
+        <!-- Start Article -->
+        <article>
+            <div class="row-fluid">
+                <!-- Contact form -->
+                <!-- <div class="span6">
+                  <h5>Drop Us A Line</h5>
+                  <form>
+                    <input type="text" class="span12" placeholder="Title" required>
+                    <input type="email" class="span12" placeholder="Email" required>
+                    <textarea rows="10" class="span12" required></textarea>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+                </div> -->
+                <!-- End Contact form -->
+                <!-- Contact information -->
+                <div class="span10 offset1 contact-media-container">
+                    <!-- <h5>Reach Out</h5>
+                    <div class="media">
+                      <div class="social-icons sicon-white pull-left"> <a href="#" class="sicon-phone"><i>Phone</i></a> </div>
+                      <div class="media-body smallFontBy08"> (+1) 502 964-0393 | (+1) 502 964-0393 (FAX) </div>
+                    </div> -->
+
+                    <div class="span6 offset1">
+                        <div class="media">
+                            <div class="social-icons sicon-white pull-left"> <a href="http://twitter.com/DevNationConf" target="devnation_twitter" class="sicon-twitter"><i>Twitter</i></a> </div>
+                            <div class="media-body smallFontBy08 contact-email light-blue-a"><a
+                                    href="http://twitter.com/DevNationConf"
+                                    target="devnation_twitter">@DevNationConf</a> /
+                                <a href="https://twitter.com/search?q=%23devnation"
+                                   target="devnation_twitter">#DevNation</a></div>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div class="media">
+                            <div class="social-icons sicon-white pull-left"> <a href="mailto:info@devnation.org" class="sicon-mail"><i>email</i></a> </div>
+                            <div class="media-body smallFontBy08 contact-email light-blue-a"> <a href="mailto:info@devnation.org">info@devnation.org</a> </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" style="padding:30px 0;">
+                        <div class="span10 offset1">
+                            <!-- Additional text may go here-->
+                        </div>
+
+                    </div>
+                    <!-- <div class="media">
+                      <div class="social-icons sicon-white pull-left"> <a href="#" class="sicon-clock"><i>Time zone</i></a> </div>
+                      <div class="media-body smallFontBy08"> UTC / GMT -5 </div>
+                    </div> -->
+
+                    <!--<h5>Get social</h5>
+                    <div class="social-icons sicon-white bordered">
+                      <a href="#" class="sicon-facebook"><i>Facebook</i></a>
+                      <a href="#" class="sicon-twitter"><i>Twitter</i></a>
+                      <a href="#" class="sicon-linkedin"><i>LinkedIn</i></a>
+                      <a href="#" class="sicon-youtube"><i>Youtube</i></a>
+                      <a href="#" class="sicon-pinterest"><i>Pinterest</i></a>
+                    </div> -->
+                </div>
+                <!-- End Contact information -->
+            </div>
+        </article>
+        <!-- End Article -->
+
+    </div>
+
+    <!-- Background map image -->
+
+    <!--<div id="contact-image">
+        <img src="assets/images/pages/contact/contact_back.jpg" alt="Contact">
+    </div>-->
+</div>
+<!-- END PAGE | CONTACT -->
+
+
+<!-- MODAL BOX -->
+<div class="modal fade modal-for-video" id="vidModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close video-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+
+                <a class="video-close " href="index.html#">Close</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- CLOSE MODAL BOX -->
+
+<!-- LOAD JS FILES -->
+
+<!-- Jquery -->
+<script src="assets/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="assets/js/plugins/jsrender.min.js" type="text/javascript"></script>
+<script src="assets/js/agenda-engine.js" type="text/javascript"></script>
+<script>
+    $('.btn').on('click', function(){
+        ga('send', 'event', 'button', 'click', 'registration');
+    });
+
+    $('a').on('click', function(){
+                var id= this.id;
+                if (id != null && id != "")
+                    ga('send', 'event', 'session', 'view', id);
+            }
+    );
+</script>
+
+<!-- Less and Twitter Bootstrap -->
+<!-- <script src="assets/js/less-1.3.3.min.js" type="text/javascript"></script> -->
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!-- Plugins -->
+<script src="assets/js/plugins/jquery.equalheight.js" type="text/javascript"></script>
+<script src="assets/js/plugins/jquery.mixitup.min.js" type="text/javascript"></script>
+<script src="assets/js/plugins/jquery.parallax-1.1.3.js" type="text/javascript"></script>
+<!--<script src="assets/js/plugins/jquery.tweet.min.js" type="text/javascript"></script> -->
+<script src="assets/js/plugins/jquery.bxslider.min.js" type="text/javascript"></script>
+<script src="assets/js/plugins/jquery.responsivevideos.js" type="text/javascript"></script>
+<!--
+<script src="assets/js/plugins/jquery.centralized.js" type="text/javascript"></script>
+-->
+<script src="assets/js/plugins/jquery.hashloader.js" type="text/javascript"></script>
+<script src="assets/js/plugins/jquery.fixedonlater.js" type="text/javascript"></script>
+<script src="assets/js/plugins/jquery.nav.js" type="text/javascript"></script>
+<script src="assets/js/plugins/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="assets/js/plugins/waypoints.min.js" type="text/javascript"></script>
+
+<!-- Treble scripts and plugin initialisation -->
+<script src="assets/js/application.js" type="text/javascript"></script>
+<script src="assets/js/application-devnation.js" type="text/javascript"></script>
+<script src="assets/js/application-panelcontrol.js" type="text/javascript"></script>
+
+<script type="text/javascript" language="javascript">
+  $('#navigation').css({'opacity':'1.0','display':'block'});
+
+</script>
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="assets/js/html5shiv.js"></script>
+<![endif]-->
+
+<script type='text/javascript' language='JavaScript' src='http://www.redhat.com/j/elqNow/elqCfg.js'></script>
+<script type='text/javascript' language='JavaScript' src='http://www.redhat.com/j/elqNow/elqImg.js'></script>
+<div id="oTags">
+  <script type="text/javascript" src="http://www.redhat.com/j/s_code.js"></script>
+  <script type="text/javascript"><!--
+      var coreUrl = encodeURI(document.URL.split("?")[0]).replace(/-/g," ");
+      var urlSplit = coreUrl.toLowerCase().split(/\//);
+      var urlLast = urlSplit[urlSplit.length-1];
+      var pageNameString = "";
+      var siteName = "";
+      var minorSectionIndex = 3
+      if (urlLast == "") {
+          urlSplit.splice(-1,1);
+      }
+      if (urlLast.search(/\./) >= 0) {
+          if (urlLast == "index.html") {
+              urlSplit.splice(-1,1);
+          }
+          else {
+              urlSplit[urlSplit.length-1] = urlLast.split(".").splice(0,1);
+          }
+      }
+      siteName = urlSplit[2].split(".")[1];
+      s.prop14 = s.eVar27 = siteName || "";
+      s.prop15 = s.eVar28 = urlSplit[minorSectionIndex] || "";
+      s.prop16 = s.eVar29 = urlSplit[minorSectionIndex+1] || "";
+      pageNameString = urlSplit.splice(3).join(" | ");
+      s.pageName = "devnation " + siteName + " | " + pageNameString;
+      s.server = "devnation";
+      s.channel = "devnation";
+      s.prop4 = s.eVar23 = encodeURI(document.URL);
+      s.prop21 = s.eVar18 = coreUrl;
+      s.prop2 = s.eVar22 = "en";
+      s.prop3 = s.eVar19 = "us";
+      //-->
+  </script>
+  <script type="text/javascript" src="http://www.redhat.com/j/rh_omni_footer.js"></script>
+  <script language="JavaScript" type="text/javascript">
+  <!--
+      if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+  //-->
+  </script>
+  <noscript><a href="http://www.omniture.com" title="Web Analytics"><img src="https://smtrcs.redhat.com/b/ss/redhatcom,redhatglobal/1/H.25.4--NS/0?[AQB]&cdp=3&[AQE]" height="1" width="1" border="0" alt=""/></a></noscript>
+  <script type="text/javascript">
+    function getUrlVars(){
+      var vars = [], hash;
+      var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+      for(var i = 0; i < hashes.length; i++)
+      {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+      }
+      return vars;
+    }
+
+
+    var intcmp = getUrlVars()["rh_omni_itc"];
+    if (intcmp == null || intcmp == "")
+      intcmp = $.cookie("rh_omni_itc");
+
+    var sc_cid = getUrlVars()["rh_omni_tc"];
+    if (sc_cid == null || sc_cid == "")
+      sc_cid = $.cookie("rh_omni_tc");
+
+    var pid = getUrlVars()["rh_pid"];
+    if (pid == null || pid == "")
+      pid = $.cookie("rh_pid");
+
+    $("#cover-reg-button").each(function() {
+      var _href = $(this).attr("href");
+      $(this).attr("href", _href + "?intcmp=" + intcmp + "&sc_cid=" + sc_cid + "&pid=" + pid);
+    });
+
+  </script>
+</div>
+</body>
+</html>
