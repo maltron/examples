@@ -1,0 +1,8 @@
+/subsystem=resource-adapters/resource-adapter=activemq:add(module="org.apache.activemq", transaction-support="XATransaction") 
+/subsystem=resource-adapters/resource-adapter=activemq/config-properties=ServerUrl:add(value="tcp://localhost:61616?jms.rmIdFromConnectionId=true")
+/subsystem=resource-adapters/resource-adapter=activemq/connection-definitions=ConnectionFactory:add(class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory", jndi-name="java:/AMQConnectionFactory", enabled=true, use-java-context=true)
+/subsystem=resource-adapters/resource-adapter=activemq/admin-objects=topic_evereg_order:add(class-name="org.apache.activemq.command.ActiveMQTopic", jndi-name="java:/topic/notification/order", use-java-context=true)
+/subsystem=resource-adapters/resource-adapter=activemq/admin-objects=topic_evereg_order/config-properties=PhysicalName:add(value="activemq/topic/notification/order")
+/subsystem=resource-adapters/resource-adapter=activemq/admin-objects=topic_evereg_order_refund:add(class-name="org.apache.activemq.command.ActiveMQTopic", jndi-name="java:/topic/notification/order/refund", use-java-context=true)
+/subsystem=resource-adapters/resource-adapter=activemq/admin-objects=topic_evereg_order_refund/config-properties=PhysicalName:add(value="activemq/topic/notification/order/refund")
+:reload
