@@ -86,6 +86,16 @@ public abstract class AbstractService<T> {
             BiggerException, MissingInformationException, AlreadyExistsException, 
                                                     InternalServerErrorException;
     
+    public int count() {
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Long> query = builder.createQuery(Long.class);
+        Root<T> root = query.from(className);
+        
+        query.select(builder.count(root));
+        
+        return getEntityManager().createQuery(query).getSingleResult().intValue();
+    }
+    
     public abstract EntityManager getEntityManager();
     
     private static final Logger LOG = Logger.getLogger(AbstractService.class.getName());
