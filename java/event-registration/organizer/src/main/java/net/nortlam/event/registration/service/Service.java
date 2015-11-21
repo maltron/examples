@@ -5,6 +5,14 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.Connection;
+import javax.jms.DeliveryMode;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.Topic;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.LockTimeoutException;
@@ -30,6 +38,7 @@ import net.nortlam.event.registration.exception.BiggerException;
 import net.nortlam.event.registration.exception.InternalServerErrorException;
 import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
+import net.nortlam.event.registration.jms.Messaging;
 import net.nortlam.event.registration.util.AbstractService;
 
 @Stateless
@@ -39,6 +48,9 @@ public class Service extends AbstractService<Organizer> {
     
     @PersistenceContext
     private EntityManager em;
+    
+    @Inject
+    private Messaging messaging;
 
     public Service() {
         super(Organizer.class);
@@ -123,6 +135,29 @@ public class Service extends AbstractService<Organizer> {
                                             .find(Order.class, order.getID()));
     }
 
+    // MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING 
+    //  MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING MESSAGING 
+    public void notifyOrderRefund(Order order) throws JMSException {
+        Connection connection = null; Session session = null;
+        try {
+            connection = messaging.connection();
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            Topic topic = messaging.topicOrderRefund();
+            
+            MessageProducer producer = session.createProducer(topic);
+            producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+            
+            LOG.log(Level.INFO, ">>> [ORGANIZER] notifyOrderRefund JSON:{0}", order.toString());
+            TextMessage textMessage = session.createTextMessage(order.toString());
+            producer.send(textMessage);
+            
+        } finally {
+            if(session != null) try{session.close();}catch(JMSException ex) {}
+            if(connection != null) try{connection.close();}catch(JMSException ex){}
+        }
+        
+    }
+
     @Override
     public EntityManager getEntityManager() {
         return em;
@@ -147,7 +182,8 @@ public class Service extends AbstractService<Organizer> {
                                            "lastName", organizer.getLastName());
     }
     
-    public Collection<Order> listOrdersForEvent(long eventID) throws IllegalStateException,
+    public Collection<Order> listOrdersForEvent(Organizer loggedOrganizer, 
+                        long eventID) throws IllegalStateException,
                     QueryTimeoutException, TransactionRequiredException, 
                                 PessimisticLockException, LockTimeoutException, 
                                                             PersistenceException {
@@ -156,9 +192,14 @@ public class Service extends AbstractService<Organizer> {
         CriteriaQuery<Order> query = builder.createQuery(Order.class);
         Root<Order> root = query.from(Order.class);
         
-        query.select(root).where(builder.equal(
-                root.get(Order.COLUMN_EVENT), eventID))
-                .orderBy(builder.asc(root.get(Order.COLUMN_FIRST_NAME)));
+        query.select(root).where(builder.and(
+                builder.equal(
+                root.get(Order.COLUMN_EVENT), eventID),
+                builder.equal(
+                   root.get(Order.COLUMN_ORGANIZER), loggedOrganizer.getID())
+                ))
+                .orderBy(builder.asc(root.get(Order.COLUMN_FIRST_NAME)),
+                        builder.asc(root.get(Order.COLUMN_LAST_NAME)));
         
         return getEntityManager().createQuery(query).getResultList();        
     }

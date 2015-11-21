@@ -12,10 +12,10 @@
     <h:body>
         <h:form id="formlistevents">
             <table style="width: 100%"><tr>
-            <td align="left"><p:commandButton id="buttonCreateEvent" value="Create Event"
-                                              actionListener="#{nav.goNewEvent()}"/></td>
-            <td align="right"><p:commandButton id="buttonManageEvent" value="Manage Event"
-                                               actionListener="#{nav.goOrganizer()}"/></td>
+            <td align="left"><p:commandButton id="buttonCreateEvent" value="Organizer"
+                                              actionListener="#{nav.goOrganizer()}"/></td>
+            <td align="right"><p:commandButton id="buttonManageEvent" value="Attendee"
+                                               actionListener="#{nav.goAttendee()}"/></td>
             </tr></table>
             
             <p:separator/>

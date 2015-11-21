@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.jms.JMSException;
 import javax.persistence.PersistenceException;
 import javax.persistence.PessimisticLockException;
 import javax.persistence.QueryTimeoutException;
@@ -23,6 +24,7 @@ import net.nortlam.event.registration.exception.MissingInformationException;
 import net.nortlam.event.registration.exception.NotFoundException;
 import net.nortlam.event.registration.service.Service;
 import net.nortlam.event.registration.util.EventRegistrationCommonController;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 @ManagedBean(name="event")
@@ -31,6 +33,8 @@ public class EventController extends EventRegistrationCommonController
                                                      implements Serializable {
     
     private static final Logger LOG = Logger.getLogger(EventController.class.getName());
+    
+    public static enum ACTION {CANCEL}
     
     @EJB
     private Service service;
@@ -47,6 +51,9 @@ public class EventController extends EventRegistrationCommonController
     // For Listing Events
     private Collection<Event> events;
     private Event eventSelected;
+    
+    // For Listing Attendees
+    private Order orderSelected;
 
     public EventController() {
     }
@@ -155,6 +162,54 @@ public class EventController extends EventRegistrationCommonController
         }
     }
     
+    // ACTIONS ACTIONS ACTIONS ACTIONS ACTIONS ACTIONS ACTIONS ACTIONS ACTIONS 
+    //  ACTIONS ACTIONS ACTIONS ACTIONS ACTIONS ACTIONS ACTIONS ACTIONS ACTIONS 
+    
+    public void setOrderSelected(Order orderSelected) {
+        this.orderSelected = orderSelected;
+    }
+    
+    public Order getOrderSelected() {
+        return orderSelected;
+    }
+    
+    public void onOrderSelected(SelectEvent event) {
+        LOG.log(Level.INFO, ">>> onOrderSelected()");
+    }
+    
+    public ACTION[] getActions() {
+        return ACTION.values();
+    }
+    
+    public ACTION getActionSelected() {
+        return null; // NOT USED
+    }
+    
+    public void setActionSelected(ACTION action) {
+        LOG.log(Level.INFO, ">>> setActionSelected({0}):", action);
+        switch(action) {
+            case CANCEL: 
+                RequestContext.getCurrentInstance().execute(
+                                        "PF('dialogCancelConfirm').show();");
+                break;
+        }
+    }
+    
+    public void performActionCancel() {
+        if(getOrderSelected() == null) {
+            LOG.log(Level.SEVERE, "### performActionCancel() NO ORDER SELECTED");
+            return;
+        }
+        
+        try {
+            service.notifyOrderRefund(getOrderSelected());
+            redirect(String.format("event/%d/attendees", event.getID()));
+        } catch(JMSException ex) {
+            LOG.log(Level.SEVERE, "### JMS EXCEPTION:{0}", ex.getMessage());
+            redirectInternalServerError();
+        }
+    }
+    
     // LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS 
     //  LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS LIST EVENTS 
     
@@ -178,9 +233,10 @@ public class EventController extends EventRegistrationCommonController
     // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     //   FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     
-    public Collection<Order> listOrdersForEvent() throws InternalServerErrorException {
+    public Collection<Order> listOrdersForEvent() 
+                                        throws InternalServerErrorException {
         try {
-            return service.listOrdersForEvent(getEvent().getID());
+            return service.listOrdersForEvent(getLoggedOrganizer(), getEvent().getID());
         } catch(IllegalStateException | QueryTimeoutException | 
                 TransactionRequiredException | PessimisticLockException ex) {
             LOG.log(Level.SEVERE, "### ILLEGAL | QUERY TIMEOUT | "+

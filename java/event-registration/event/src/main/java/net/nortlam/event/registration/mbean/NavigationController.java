@@ -23,6 +23,10 @@ public class NavigationController extends EventRegistrationCommonController
         redirect(hostOrganizerService(), "event/all");
     }
     
+    public void goAttendee() {
+        redirect(hostAttendeeService(), "event/all");
+    }
+    
     public void goRegister() {
         redirect(hostEventService(), String.format("register/%d"));
     }

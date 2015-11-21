@@ -113,6 +113,11 @@ public class Order implements Serializable {
     @XmlElement(name=COLUMN_STARTS, type=Date.class, required=false)
     private Date starts; // When the Event Starts
 
+    public static final String COLUMN_ORGANIZER = "organizer";
+    @Column(name="ORGANIZER", nullable = false)
+    @XmlElement(name=COLUMN_ORGANIZER, type=long.class, required=true)
+    private long organizer;
+
     public Order() {
     }
     
@@ -193,6 +198,12 @@ public class Order implements Serializable {
                 LOG.log(Level.WARNING, "### PARSE EXCEPTION: Unable to Parse Date:{0}",
                         ex.getMessage());
                 this.starts = null;
+            }
+            
+            try {
+                this.organizer = object.getInt(COLUMN_ORGANIZER);
+            } catch(NullPointerException ex) {
+                this.organizer = 0;
             }
             
         } catch(ClassCastException ex) {
@@ -288,20 +299,29 @@ public class Order implements Serializable {
         this.starts = starts;
     }
 
+    public long getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(long organizer) {
+        this.organizer = organizer;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + (int) (this.ID ^ (this.ID >>> 32));
-        hash = 67 * hash + (int) (this.eventID ^ (this.eventID >>> 32));
-        hash = 67 * hash + (int) (this.attendeeID ^ (this.attendeeID >>> 32));
-        hash = 67 * hash + Objects.hashCode(this.firstName);
-        hash = 67 * hash + Objects.hashCode(this.lastName);
-        hash = 67 * hash + Objects.hashCode(this.email);
-        hash = 67 * hash + Objects.hashCode(this.items);
-        hash = 67 * hash + this.totalItems;
-        hash = 67 * hash + Objects.hashCode(this.orderPlaced);
-        hash = 67 * hash + Objects.hashCode(this.title);
-        hash = 67 * hash + Objects.hashCode(this.starts);
+        int hash = 3;
+        hash = 47 * hash + (int) (this.ID ^ (this.ID >>> 32));
+        hash = 47 * hash + (int) (this.eventID ^ (this.eventID >>> 32));
+        hash = 47 * hash + (int) (this.attendeeID ^ (this.attendeeID >>> 32));
+        hash = 47 * hash + Objects.hashCode(this.firstName);
+        hash = 47 * hash + Objects.hashCode(this.lastName);
+        hash = 47 * hash + Objects.hashCode(this.email);
+        hash = 47 * hash + Objects.hashCode(this.items);
+        hash = 47 * hash + this.totalItems;
+        hash = 47 * hash + Objects.hashCode(this.orderPlaced);
+        hash = 47 * hash + Objects.hashCode(this.title);
+        hash = 47 * hash + Objects.hashCode(this.starts);
+        hash = 47 * hash + (int) (this.organizer ^ (this.organizer >>> 32));
         return hash;
     }
 
@@ -327,6 +347,9 @@ public class Order implements Serializable {
             return false;
         }
         if (this.totalItems != other.totalItems) {
+            return false;
+        }
+        if (this.organizer != other.organizer) {
             return false;
         }
         if (!Objects.equals(this.firstName, other.firstName)) {
@@ -389,6 +412,8 @@ public class Order implements Serializable {
             builder.add(COLUMN_TITLE, title);
         if(starts != null)
             builder.add(COLUMN_STARTS, DateUtil.toString(starts));
+        if(organizer > 0)
+            builder.add(COLUMN_ORGANIZER, organizer);
         
         return builder.build().toString();
     }

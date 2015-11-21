@@ -12,21 +12,56 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <h:form id="formListForOrganizer">
+        <h:form id="formlistattendees">
             <table style="width: 100%">
                 <tr><td align="left">
                         <p:commandButton id="buttonBack" value="Back" onclick="history.go(-1);"/>
                     </td>
+                    <td align="right">
+                        <p:selectOneMenu id="buttonActions" value="#{event.actionSelected}"
+                                                            disabled="#{empty event.orderSelected}" >
+                            <p:ajax/>
+                            <f:selectItem itemLabel="Actions..." itemValue="" noSelectionOption="true"/>
+                            <f:selectItems value="#{event.getActions()}"/>
+                        </p:selectOneMenu>
+                    </td>
                 </tr>
             </table>
             <p:separator/>
+            <p:dialog id="dialogCancelConfirm" widgetVar="dialogCancelConfirm" modal="true" resizable="false"
+                      header="Cancel Attendance">
+                <p:panelGrid id="panelGrid">
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:outputLabel id="labelCancelMessage"
+                                           value="Proceed cancellation for this Attendee ?"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:commandButton id="buttonYes" value="Yes" style="float:center"
+                                             action="#{event.performActionCancel()}"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton id="buttonNo" value="No"  style="float:center"
+                                             oncomplete="PF('dialogCancelConfirm').hide();"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+
+            </p:dialog>
             <p:focus id="focus" context="panel"/>
             <p:growl id="messages" showSummary="true"/> 
             <p:panel id="panel" header="Attendees for Events:#{event.event.title}">
                 <h:panelGrid columns="1" cellpadding="5">
-                    <p:dataTable id="tableListEvents"  
+                    <p:dataTable id="tablelistattendees"  
                                  value="#{event.listOrdersForEvent()}" style="border: none"
+                                 selectionMode="single" selection="#{event.orderSelected}"
                                  var="order" rowKey="#{order.ID}" emptyMessage="No Attendees for this Event">
+                        <p:ajax id="ajaxSelect" event="rowSelect" listener="#{event.onOrderSelected}"
+                                update=":formlistattendees:buttonActions"/>
+                        <p:ajax id="ajaxUnselect" event="rowUnselect"
+                                update=":formlistattendees:buttonActions"/>
 
                         <p:column id="columnFirstName" width="40">
                             <f:facet name="header">
@@ -34,14 +69,14 @@
                             </f:facet>
                             <p:outputLabel value="#{order.firstName}" style="float:left"/>
                         </p:column>
-                        
+
                         <p:column id="columnLastName" width="40">
                             <f:facet name="header">
                                 <p:outputLabel value="Last Name" style="float:left"/>
                             </f:facet>
                             <p:outputLabel value="#{order.lastName}" style="float:left"/>
                         </p:column>
-                        
+
                         <p:column id="columnTotalItems" width="10">
                             <f:facet name="header">
                                 <p:outputLabel value="# items" style="float:center"/>

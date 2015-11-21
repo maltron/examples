@@ -1,6 +1,12 @@
 package net.nortlam.event.registration.rest;
 
+import java.io.StringReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.json.Json;
+import javax.json.JsonException;
+import javax.json.JsonReader;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,6 +17,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import net.nortlam.event.registration.entity.Order;
 import net.nortlam.event.registration.entity.Organizer;
 import net.nortlam.event.registration.exception.AlreadyExistsException;
 import net.nortlam.event.registration.exception.BiggerException;
@@ -22,6 +29,8 @@ import net.nortlam.event.registration.service.Service;
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class Resource {
+
+    private static final Logger LOG = Logger.getLogger(Resource.class.getName());
     
     @EJB
     private Service service;
@@ -32,6 +41,22 @@ public class Resource {
         Organizer found = service.read(ID);
         
         return Response.ok(found).build();
+    }
+    
+    @Path("/order")
+    @POST @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(String content) throws InternalServerErrorException {
+        try {
+            JsonReader reader = Json.createReader(new StringReader(content));
+            Order order = new Order(reader.readObject());
+            service.save(order);
+            
+        } catch(JsonException ex) {
+            LOG.log(Level.SEVERE, "### JSON EXCEPTION:{0}", ex.getMessage());
+            throw new InternalServerErrorException(ex.getMessage());
+        }
+        
+        return Response.ok().build();
     }
     
     @POST @Consumes(MediaType.APPLICATION_JSON)
