@@ -14,7 +14,7 @@ wget http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.37.
 tar zxvf mysql-connector-java-5.1.37.tar.gz
 mv mysql-connector-java-5.1.37/mysql-connector-java-5.1.37-bin.jar mysql.jar
 rm -rf mysql-connector-java-5.1.37
-rm mysql-connector-java-5.1.37
+rm mysql-connector-java-5.1.37.tar.gz
 export JBOSS_HOME=${1}
 ${1}/bin/standalone.sh
 
