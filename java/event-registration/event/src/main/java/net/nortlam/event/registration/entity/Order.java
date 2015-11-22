@@ -81,7 +81,7 @@ public class Order implements Serializable {
 
     public static final String COLUMN_EMAIL = "email";
     public static final int LENGTH_EMAIL = 120;
-    @Column(name="EMAIL", length = LENGTH_EMAIL, nullable = false, unique = true)
+    @Column(name="EMAIL", length = LENGTH_EMAIL, nullable = false)
     @XmlElement(name=COLUMN_EMAIL, type=String.class, required=true)
     private String email;
     
