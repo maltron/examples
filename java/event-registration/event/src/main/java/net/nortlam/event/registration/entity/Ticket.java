@@ -52,33 +52,31 @@ public class Ticket implements Serializable {
         this.quantityAvailable = quantityAvailable;
     }
     
-    public Ticket(String json) throws JsonException, JsonParsingException,
+    public Ticket(JsonObject object) throws JsonException, JsonParsingException,
                                                         IllegalStateException {
-        JsonReader reader = Json.createReader(new StringReader(json));
-        JsonObject object = reader.readObject();
         try {
             try {
-                setID(object.getInt(COLUMN_ID));
+                this.ID = object.getInt(COLUMN_ID);
             } catch(NullPointerException ex) {
-                setID(0);
+                this.ID = 0;
             }
             
             try {
-                setName(object.getString(COLUMN_NAME));
+                this.name = object.getString(COLUMN_NAME);
             } catch(NullPointerException ex) {
-                setName(null);
+                this.name = null;
             }
             
             try {
-                setQuantityAvailable(object.getInt(COLUMN_QUANTITY_AVAILABLE));
+                this.quantityAvailable = object.getInt(COLUMN_QUANTITY_AVAILABLE);
             } catch(NullPointerException ex) {
-                setQuantityAvailable(0);
+                this.quantityAvailable = 0;
             }
             
             try {
-                setQuantitySelected(object.getInt(COLUMN_QUANTITY_SELECTED));
+                this.quantitySelected = object.getInt(COLUMN_QUANTITY_SELECTED);
             } catch(NullPointerException ex) {
-                setQuantitySelected(0);
+                this.quantitySelected = 0;
             }
             
         } catch(ClassCastException ex) {

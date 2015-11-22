@@ -59,6 +59,9 @@ public class NotificationOrderRefundMDB implements MessageListener {
                             ticket.setQuantityAvailable(refund);
                         }
                     }
+                
+                // Update Number of attendees for this event
+                event.setRegisteredAttendees(service.countOrdersFor(event));
 
                 // Update the current number of available tickets
                 long totalRemaining = 0;

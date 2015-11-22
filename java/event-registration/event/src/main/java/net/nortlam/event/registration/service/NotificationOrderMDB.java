@@ -63,6 +63,9 @@ public class NotificationOrderMDB implements MessageListener {
                             }
                         }
                     
+                    // Update Number of attendees for this event
+                    event.setRegisteredAttendees(service.countOrdersFor(event));
+                    
                     long totalRemaining = 0;
                     for(Ticket ticket: event.getTickets())
                         totalRemaining += ticket.getQuantityAvailable();

@@ -81,6 +81,14 @@
                             <p:outputLabel value="#{e.remainingTickets > 0 ? e.remainingTickets : 'SOLD OUT'}"/>
                         </p:column>
                         
+                        <!-- Attendees -->
+                        <p:column id="columnAttendees" width="10">
+                            <f:facet name="header">
+                                <p:outputLabel value="Attendees" style="float:center"/>
+                            </f:facet>
+                            <p:outputLabel value="#{e.registeredAttendees > 0 ? e.registeredAttendees : 'NO ONE'}"/>
+                        </p:column>
+                        
                     </p:dataTable>
                 </h:panelGrid>
             </p:panel>

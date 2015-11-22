@@ -156,8 +156,8 @@ public abstract class AbstractService<T> {
                 throw new NotFoundException();
             } else {
                 Response.StatusType info = response.getStatusInfo();
-                LOG.log(Level.SEVERE, "### request() PROBLEM:{0} {1}",
-                        new Object[] {response.getStatus(),
+                LOG.log(Level.SEVERE, "### request() [ABSTRACT SERVICE] {0} PROBLEM:{1} {2}",
+                        new Object[] {uri, response.getStatus(),
                             info != null ? info.getReasonPhrase() : "<NO REASON GIVEN>"});
             }
             

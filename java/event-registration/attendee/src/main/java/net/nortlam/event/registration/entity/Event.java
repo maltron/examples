@@ -1,7 +1,7 @@
 package net.nortlam.event.registration.entity;
 
 import java.io.Serializable;
-import java.io.StringReader;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,28 +14,14 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonException;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
 import javax.json.stream.JsonParsingException;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
+import net.nortlam.event.registration.util.DateUtil;
 
 //@Entity(name="Event")
 //@Table(name="EVENT", uniqueConstraints = 
@@ -144,142 +130,128 @@ public class Event implements Serializable {
     @XmlElement(name=COLUMN_REMAINING_TICKETS, type=long.class, required=true)
     private long remainingTickets;
     
+    public static final String COLUMN_REGISTERED_ATTENDEES = "registeredAttendees";
+//    @Column(name="REGISTERED_ATTENDEES", nullable = true)
+    @XmlElement(name=COLUMN_REGISTERED_ATTENDEES, type=long.class, required=true)
+    private long registeredAttendees;
+    
     public Event() {
     }
     
-    public Event(String json) throws JsonException, JsonParsingException, 
+    public Event(JsonObject object) throws JsonException, JsonParsingException, 
                                                         IllegalStateException {
-        JsonReader reader = Json.createReader(new StringReader(json));
-        JsonObject object = reader.readObject();
         try {
             try {
-                setID(object.getInt(COLUMN_ID));
+                this.ID = object.getInt(COLUMN_ID);
             } catch(NullPointerException ex) {
-                setID(0);
+                this.ID = 0;
             }
             
             try {
-                setEdition(object.getInt(COLUMN_EDITION));
+                this.edition = object.getInt(COLUMN_EDITION);
             } catch(NullPointerException ex) {
-                setEdition(0);
+                this.edition = 0;
             }
                 
             try {
-                setDesignation(object.getString(COLUMN_DESIGNATION));
+                this.designation = object.getString(COLUMN_DESIGNATION);
             } catch(NullPointerException ex) {
-                setDesignation(null);
+                this.designation = null;
             }
 
             try {
-                setTitle(object.getString(COLUMN_TITLE));
+                this.title = object.getString(COLUMN_TITLE);
             } catch(NullPointerException ex) {
-                setTitle(null);
+                this.title = null;
             }
             
             try {
-                setLocation(object.getString(COLUMN_LOCATION));
+                this.location = object.getString(COLUMN_LOCATION);
             } catch(NullPointerException ex) {
-                setLocation(null);
+                this.location = null;
             }
             
             try {
-                setAddress(object.getString(COLUMN_ADDRESS));
+                this.address = object.getString(COLUMN_ADDRESS);
             } catch(NullPointerException ex) {
-                setAddress(null);
+                this.address = null;
             }
             
             try {
-                setCity(object.getString(COLUMN_CITY));
+                this.city = object.getString(COLUMN_CITY);
             } catch(NullPointerException ex) {
-                setCity(null);
+                this.city = null;
             }
             
             try {
-                setRegion(object.getString(COLUMN_REGION));
+                this.region = object.getString(COLUMN_REGION);
             } catch(NullPointerException ex) {
-                setRegion(null);
+                this.region = null;
             }
             
             try {
-                setZipCode(object.getString(COLUMN_ZIP_CODE));
+                this.zipCode = object.getString(COLUMN_ZIP_CODE);
             } catch(NullPointerException ex) {
-                setZipCode(null);
+                this.zipCode = null;
             }
             
             try {
-                setCountry(object.getString(COLUMN_COUNTRY));
+                this.country = object.getString(COLUMN_COUNTRY);
             } catch(NullPointerException ex) {
-                setCountry(null);
+                this.country = null;
             }
             
             try {
-                setStarts(new Date(object.getInt(COLUMN_EVENT_STARTS)));
+                this.starts = DateUtil.toDate(object.getString(COLUMN_EVENT_STARTS));
             } catch(NullPointerException ex) {
-                setStarts(null);
+                this.starts = null;
+            } catch(ParseException ex) {
+                this.starts = null;
             }
             
             try {
-                setEnds(new Date(object.getInt(COLUMN_EVENT_ENDS)));
+                this.ends = DateUtil.toDate(object.getString(COLUMN_EVENT_ENDS));
             } catch(NullPointerException ex) {
-                setEnds(null);
+                this.ends = null;
+            } catch(ParseException ex) {
+                this.ends = null;
             }
             
             try {
-                setDescription(object.getString(COLUMN_DESCRIPTION));
+                this.description = object.getString(COLUMN_DESCRIPTION);
             } catch(NullPointerException ex) {
-                setDescription(null);
+                this.description = null;
             }
             
             try {
-                setOrganizer(object.getInt(COLUMN_ORGANIZER));
+                this.organizer = object.getInt(COLUMN_ORGANIZER);
             } catch(NullPointerException ex) {
-                setOrganizer(0);
+                this.organizer = 0;
             }
             
             // Tickets
             try {
                 JsonArray arrayTickets = object.getJsonArray(COLUMN_TICKETS);
-                if(arrayTickets != null) {
-                    Set<Ticket> tickets = new HashSet<Ticket>();
-                    for(int i=0; i < arrayTickets.size(); i++) {
-                        JsonObject objectTicket = arrayTickets.getJsonObject(i);
-                        Ticket ticket = new Ticket();
-                        try {
-                            ticket.setID(objectTicket.getInt(Ticket.COLUMN_ID));
-                        } catch(NullPointerException ex) {
-                            ticket.setID(0);
-                        }
-
-                        try {
-                            ticket.setName(objectTicket.getString(Ticket.COLUMN_NAME));
-                        } catch(NullPointerException ex) {
-                            ticket.setName(null);
-                        }
-
-                        try {
-                            ticket.setQuantityAvailable(objectTicket.getInt(
-                                                Ticket.COLUMN_QUANTITY_AVAILABLE));
-                        } catch(NullPointerException ex) {
-                            ticket.setQuantityAvailable(0);
-                        }
-
-                        try {
-                            ticket.setQuantitySelected(
-                                        objectTicket.getInt(
-                                              Ticket.COLUMN_QUANTITY_SELECTED));
-                        } catch(NullPointerException ex) {
-                            ticket.setQuantitySelected(0);
-                        }
-                        
-                        tickets.add(ticket);
-                    }
-                    setTickets(tickets);
+                if(arrayTickets != null && !arrayTickets.isEmpty()) {
+                    this.tickets = new HashSet<>();
+                    for(int i=0; i < arrayTickets.size(); i++)
+                        this.tickets.add(new Ticket(arrayTickets.getJsonObject(i)));
                 }
             } catch(NullPointerException ex) {
-                setTickets(null);
+                this.tickets = null;
+            }
+
+            try {
+                this.remainingTickets = object.getInt(COLUMN_REMAINING_TICKETS);
+            } catch(NullPointerException ex) {
+                this.remainingTickets = 0;
             }
             
-            setRemainingTickets(object.getInt(COLUMN_REMAINING_TICKETS));
+            try {
+                this.registeredAttendees = object.getInt(COLUMN_REGISTERED_ATTENDEES);
+            } catch(NullPointerException ex) {
+                this.registeredAttendees = 0;
+            }
             
         } catch(ClassCastException ex) {
             LOG.log(Level.SEVERE, "### CLASS CAST EXCEPTION:{0}", ex.getMessage());
@@ -414,25 +386,34 @@ public class Event implements Serializable {
         this.remainingTickets = remainingTickets;
     }
 
+    public long getRegisteredAttendees() {
+        return registeredAttendees;
+    }
+
+    public void setRegisteredAttendees(long registeredAttendees) {
+        this.registeredAttendees = registeredAttendees;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + (int) (this.ID ^ (this.ID >>> 32));
-        hash = 59 * hash + this.edition;
-        hash = 59 * hash + Objects.hashCode(this.designation);
-        hash = 59 * hash + Objects.hashCode(this.title);
-        hash = 59 * hash + Objects.hashCode(this.location);
-        hash = 59 * hash + Objects.hashCode(this.address);
-        hash = 59 * hash + Objects.hashCode(this.city);
-        hash = 59 * hash + Objects.hashCode(this.region);
-        hash = 59 * hash + Objects.hashCode(this.zipCode);
-        hash = 59 * hash + Objects.hashCode(this.country);
-        hash = 59 * hash + Objects.hashCode(this.starts);
-        hash = 59 * hash + Objects.hashCode(this.ends);
-        hash = 59 * hash + Objects.hashCode(this.description);
-        hash = 59 * hash + (int) (this.organizer ^ (this.organizer >>> 32));
-        hash = 59 * hash + Objects.hashCode(this.tickets);
-        hash = 59 * hash + (int) (this.remainingTickets ^ (this.remainingTickets >>> 32));
+        hash = 37 * hash + (int) (this.ID ^ (this.ID >>> 32));
+        hash = 37 * hash + this.edition;
+        hash = 37 * hash + Objects.hashCode(this.designation);
+        hash = 37 * hash + Objects.hashCode(this.title);
+        hash = 37 * hash + Objects.hashCode(this.location);
+        hash = 37 * hash + Objects.hashCode(this.address);
+        hash = 37 * hash + Objects.hashCode(this.city);
+        hash = 37 * hash + Objects.hashCode(this.region);
+        hash = 37 * hash + Objects.hashCode(this.zipCode);
+        hash = 37 * hash + Objects.hashCode(this.country);
+        hash = 37 * hash + Objects.hashCode(this.starts);
+        hash = 37 * hash + Objects.hashCode(this.ends);
+        hash = 37 * hash + Objects.hashCode(this.description);
+        hash = 37 * hash + (int) (this.organizer ^ (this.organizer >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.tickets);
+        hash = 37 * hash + (int) (this.remainingTickets ^ (this.remainingTickets >>> 32));
+        hash = 37 * hash + (int) (this.registeredAttendees ^ (this.registeredAttendees >>> 32));
         return hash;
     }
 
@@ -458,6 +439,9 @@ public class Event implements Serializable {
             return false;
         }
         if (this.remainingTickets != other.remainingTickets) {
+            return false;
+        }
+        if (this.registeredAttendees != other.registeredAttendees) {
             return false;
         }
         if (!Objects.equals(this.designation, other.designation)) {
@@ -534,8 +518,8 @@ public class Event implements Serializable {
         if(region != null) builder.add(COLUMN_REGION, region); // required=false
         if(zipCode != null) builder.add(COLUMN_ZIP_CODE, zipCode); // required=false
         if(country != null) builder.add(COLUMN_COUNTRY, country); // required=false
-        builder.add(COLUMN_EVENT_STARTS, starts.getTime());
-        builder.add(COLUMN_EVENT_ENDS, ends.getTime());
+        builder.add(COLUMN_EVENT_STARTS, DateUtil.toString(starts));
+        builder.add(COLUMN_EVENT_ENDS, DateUtil.toString(ends));
         if(description != null) builder.add(COLUMN_DESCRIPTION, description); // required=false
         builder.add(COLUMN_ORGANIZER, organizer);
         if(tickets != null) {
@@ -553,7 +537,10 @@ public class Event implements Serializable {
             builder.add(COLUMN_TICKETS, arrayBuilder);
         }
         
-        builder.add(COLUMN_REMAINING_TICKETS, remainingTickets);
+        if(remainingTickets > 0)
+            builder.add(COLUMN_REMAINING_TICKETS, remainingTickets);
+        if(registeredAttendees > 0)
+            builder.add(COLUMN_REGISTERED_ATTENDEES, registeredAttendees);
         
         return builder.build().toString();
     }

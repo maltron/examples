@@ -226,10 +226,14 @@ public class Service extends AbstractService<Organizer> {
                     .accept(MediaType.APPLICATION_JSON).get();
             if(response.getStatus() == Response.Status.OK.getStatusCode()) {
                 events = response.readEntity(responseType);
+            } else if(response.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
+                LOG.log(Level.WARNING, ">>> requestEventsForOrganizer() "+
+                        "NO EVENTS FOR ORGANIZER ID:{0}", organizerID);
             } else {
                 Response.StatusType info = response.getStatusInfo();
-                LOG.log(Level.SEVERE, "### request() PROBLEM:{0} {1}",
-                        new Object[] {response.getStatus(),
+                LOG.log(Level.SEVERE, "### requestEventsForOrganizer() "+
+                        "[ORGANIZER] {0} PROBLEM:{1} {2}",
+                        new Object[] {uri, response.getStatus(),
                             info != null ? info.getReasonPhrase() : "<NO REASON GIVEN>"});
             }
             

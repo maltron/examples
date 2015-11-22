@@ -314,6 +314,17 @@ public class Service extends AbstractService<Event> {
         return found;
     }
     
+    public long countOrdersFor(Event event) {
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery query = builder.createQuery();
+        Root<Order> root = query.from(Order.class);
+        
+        query.select(builder.count(root)).where(builder.equal(
+                                    root.get(Order.COLUMN_EVENT), event.getID()));
+        
+        return ((Long)getEntityManager().createQuery(query).getSingleResult()).intValue();
+    }
+    
     // FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     //  FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER FINDER 
     
